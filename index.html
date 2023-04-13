@@ -1,0 +1,131 @@
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+  <link rel="canonical" href="https://www.mattwhipple.com" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="description" content="Share knowledge and thoughts about software and...whatever."/>
+  <meta name="keywords" content="software" />
+  <meta name="resource-type" content="document" />
+  <meta name="distribution" content="global" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <title>Home | Matt Whipple</title>
+</head>
+
+<body lang="en">
+
+<div class="overview">
+
+  <h1>Home</h1>
+
+  <p>Welcome to the latest iteration of my Web site.</p>
+
+  <p>I'll be copying information from previous incarnations.</p>
+
+</div>
+
+<div class="section">
+
+  <h2>Information Collection</h2>
+
+  <p>
+    To gamify information consumption in the interest of this site a bit for myself
+    I'm going to look to use only information which is navigable from source that I've read
+    (rather than from issuing a search).
+  </p>
+
+  <p>
+    One of the initial roots for the search will be Martin Kleppmann's excellent
+    <a href="#src-ddai">Designing Data-Intensive Applications</a> which is not only a great resource
+    by itself but also a treasure trove of useful references. In addition to this
+    I'll be using books that I have or discover at libraries and information read
+    from assorted memberships to O'Reilly, ACM, IEEE and the New York Times.
+  </p>
+
+</div>
+
+<div class="section">
+
+  <h2>Software Selectiom</h2>
+
+  <p>
+    The software used will also be driven by what can be discovered through navigation,
+    with a useful initial directory being provided by the <a href="#src-gnumanuals">GNU Manuals</a>.
+    (and a more comprehensive selection in the linked Free Software Directory which will be
+    explored to fill possible gaps).
+  </p>
+
+</div>
+
+<div class="section">
+
+  <h2>Markup</h2>
+
+  <p>
+    The initial markup will start by stealing basic practices from sources used, so far:
+    <ul>
+      <li><a href="#src-gnucoreutils_manual">GNU Coreutils Manual</a></li>
+      <li><a href="$src-github_blog">GitHub Blog</a></li>
+    </ul>
+  </p>
+
+</div>
+
+<div class="section">
+
+  <h2>GitHub</h2>
+
+  <p>
+    Initially the source for this site will be hosted on GitHub. I personally have more interest in some other alternatives
+    which I'll look to explore for any projects that I publish, but GitHub is what I'm currently using for work and also
+    is the most readily navigable service from my Information Collection approach, starting with some GitHub blog posts.
+  </p>
+
+</div>
+
+<div class="section">
+
+  <h2>GitHub Pages</h2>
+
+  <p>
+    This site will first be hosted on <a href="#github_blog_pages">GitHub Pages</a>. This is a solid option overall and
+    one I've used in the past. I will likely be looking to move away from it for reasons that will be elucidated if and
+    when that happens (nothing overly important).
+  </p>
+
+</div>
+
+<div class="section">
+
+  <h2>Artanis</h2>
+
+  <p>
+    This site will be looking to be running on top of <a href="#src-gnuartanis">GNU Artanis</a>. This is largely a consequence
+    of the approach to Information Collection, although the project may potentially align with some longer term goals.
+    I'm more likely to ultimately land on a solution that is more closely aligned with a static Web site/JAM stack,
+    but I think I also want the site to have some basic support for concepts such as content negotiation which many static
+    solutions don't lend themselves naturally to and therefore I'll probably ultimately move to something like nginx
+    (which is also recommended in front of Artanis but I haven't navigated my way over there yet).
+  </p>
+
+  <p>
+    Artanis itself is built on top of <a href="#src-gnuguile">GNU Guile</a> which was installed but not detected on my system
+    (it is potentially outdated), so I may also dig into that project though I'll likely start with seeing about containerized
+    Artanis.
+  </p>
+
+</div>
+
+<ol class="sources">
+  <li><a id="src-ddai">Designing Data-Intensive Applications</a></li>
+  <li><a id="src-gnucoreutils_manual" data-in="src-ddai" href="https://www.gnu.org/software/coreutils/manual/html_node/index.html">GNU Coreutils Manual</a></li>
+  <li><a id="src-gnumanuals" data-in="src-gnucoreutils_manual" href="https://www.gnu.org/manual">GNU Manuals Online</a></li>
+  <li><a id="src-github_blog" data-in="src-ddai" href="https://github.blog">GitHub Blog</a></li>
+  <li><a id="src-gnuartanis" data-in="src-gnumanuals" href="https://www.gnu.org/software/artanis">GNU Artanis</a></li>
+  <li><a id="src-gnuguile" data-in="src-gnumanuals" href="https://www.gnu.org/software/guile">GNU Guile</a></li>
+  <li><a id="src-github_blog_pages" data-in="src-github_blog" href="https://github.blog/2008-12-18-github-pages">GitHub Pages | The GitHub Blog</a></li>
+</ol>
+
+</body>
+
+</html>
