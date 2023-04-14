@@ -3,4 +3,4 @@ DOCKER    := docker
 ART_IMAGE := registry.gitlab.com/hardenedlinux/artanis
 
 local:
-	${DOCKER} run -it --rm -v /var/www/:$(call abspath,.) -p 3000 ${ART_IMAGE}
+	${DOCKER} run -it --rm -v $(call abspath,.):/var/www -p 3000 ${ART_IMAGE}
