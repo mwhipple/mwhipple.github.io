@@ -118,6 +118,12 @@
     other than cultural resistance (which isn't a concern for my personal projects) many of the other concerns are initially aspirational.
   </p>
 
+  <p>
+    For this particular project I'll be looking to make use of the <a href="#src-gae-flexible">flexible environment</a> as I'm very
+    comfortable with dealing with containers and I'll be starting to use a non-supported runtime and likely evolving into making use
+    of a relatively standard container which is also not directly supported.
+  </p>
+
 </div>
 
 <div class="section">
@@ -130,7 +136,9 @@
     I'm more likely to ultimately land on a solution that is more closely aligned with a static Web site/JAM stack,
     but I think I also want the site to have some basic support for concepts such as content negotiation which many static
     solutions don't lend themselves naturally to and therefore I'll probably ultimately move to something like nginx
-    (which is also recommended in front of Artanis but I haven't navigated my way over there yet).
+    (which is also recommended in front of Artanis but I haven't navigated my way over there yet). I enjoy Scheme but
+    am likely to gravitate more towards Python, I'll elaborate upon some of my larger thoughts around languages in an
+    upcoming update.
   </p>
 
   <p>
@@ -176,8 +184,7 @@
     Another fairly general note is that the guidance on the post suggests using <a href="#src-docker-get"><code>docker</code></a>
     but I'd probably gravitate towards an alternative like <code>nerdctl</code>. This is relatively insignificant as it can be abstracted
     by the Makefile but seems worth mentioning given the strong sentiment in the Artanis documentation and the GNU
-    community as a whole towards free software against which the licensing for Docker Desktop <em>may</em> run afoul
-    (though my personal system is Linux which is currently running Docker).
+    community as a whole towards free software against which the licensing for Docker Desktop <em>may</em> run afoul.
   </p>
 
   <h4>Details</h4>
@@ -197,32 +204,191 @@
 
 </div>
 
-<ol class="sources">
-  <li><a id="src-ddai">Designing Data-Intensive Applications</a></li>
-  <li><a id="src-gnucoreutils_manual" data-in="src-ddai" href="https://www.gnu.org/software/coreutils/manual/html_node/index.html">GNU Coreutils Manual</a></li>
-  <li><a id="src-gnumanuals" data-in="src-gnucoreutils_manual" href="https://www.gnu.org/manual">GNU Manuals Online</a></li>
-  <li><a id="src-github_blog" data-in="src-ddai" href="https://github.blog">GitHub Blog</a></li>
-  <li><a id="src-gnuartanis" data-in="src-gnumanuals" href="https://www.gnu.org/software/artanis">GNU Artanis</a></li>
-  <li><a id="src-gnuguile" data-in="src-gnumanuals" href="https://www.gnu.org/software/guile">GNU Guile</a></li>
-  <li><a id="src-github_blog_pages" data-in="src-github_blog" href="https://github.blog/2008-12-18-github-pages">GitHub Pages | The GitHub Blog</a></li>
-  <li><a id="src-artanis_gitlab" data-in="src-gnuartanis" href="https://gitlab.com/hardenedlinux/artanis">HardenedLinux / artanis</a></li>
-  <li><a id="src-github_blog_rebase_9" data-in="src-github_blog" href="https://github.blog/2008-12-22-github-rebase-9">GitHub Rebase #9 | The GitHub Blog</a></li>
-  <li><a id="src-gae" data-in="src-github_blog_rebase_9" href="https://cloud.google.com/appengine/">App Engine Application Platform | Google Cloud</a></li>
-  <li><a id="src-nalaginrut" data-in="src-artanis_gitlab" href="https://nalaginrut.com">Samson's Machete</a></li>
-  <li><a id="src-nalaginrut-artanis_docker" data-in="src-artanis_gitlab" href="https://nalaginrut.com/archives/2019/09/18/install%20gnu%20artanis%20with%20docker">
-    Samson's Machete (Install GNU Artanis with Docker)
-  </a></li>
-  <li><a id="src-docker-get" data-in="src-nalaginrut-artanis_docker" href="https://docs.docker.com/get-docker/">Get Docker | Docker Documentation</a></li>
-  <li><a id="src-docker-reference" data-in="src-docker-get" href="https://docs.docker.com/reference">Reference documentation | Docker Documentation</a></li>
-  <li><a id="src-docker-cli" data-in="src-docker-reference" href="https://docs.docker.com/engine/reference/commandline/cli">Use the Docker command line | Docker Documentation</a></li>
-  <li><a id="src-docker-run" data-in="src-docker-run" href="https://docs.docker.com/engine/reference/commandline/run">docker run | Docker Documentation</a></li>
-  <li><a id="src-github_blog_git_site" data-in="src-github_blog" href="https://github.blog/2008-07-26-new-git-site/">
-    New Git Site | The GitHub Blog
-  </a></li>
-  <li><a id="src-nalaginrut-artanis_0.5_docker" href="https://nalaginrut.com/archives/2021/02/16/gnu%20artanis-0.5%20is%20ready%20for%20docker">
-    Samsons's Machete (GNU Artanis-0.5 is ready for docker)
-  </a></li>
-</ol>
+<div class="section">
+
+  <h2>Programming Languages are Harmful</h2>
+
+  <h3>Backstory</h3>
+
+  <p>
+    Over my career I've programmed in a range of different languages and I'm currently nursing an idea that languages offer tenuous
+    return on investment to the software industry. Don't get me wrong, I certainly think many languages have contributed many great
+    ideas and I'm also vehemently opposed to panaceas and golden hammers and therefore recognize that some problems are best explored
+    using appropriate means of expression.
+  </p><p>
+    The back-breaking straw of this idea was likely spending a chunk of one of my days spelunking through Python's SSL implementation and 
+    corresponding C code to work through a bug
+    whose behavior I could readily reproduce and resolve using the <code>openssl</code> command. While I used this as a chance to
+    brush up on some TLS details the main lingering impression was the large tracts of code that existed not to do anything new, but
+    simply to reexpress an established solution (the particular issue was resolved by swapping out LibreSSL for OpenSSL).
+  </p><p>
+    Some other recent background context was likely being engaged in several conversations around language adoption, and somewhat
+    relatively recently within an engineering culture that had a <q>one language to rule them all</q> mindset even when the output
+    of that mindset was often bizarre paths of using that language to invoke shell commands to launch other languages or containers
+    (which I looked to simplify as things broke...which they often did).
+  </p>
+
+  <h3>Software Tools and Monoliths</h3>
+
+  <p>
+    A well-known exchange in the annals of computing history is Doug McIlroy's criticism of a program Don Knuth wrote to demonstrate
+    literate programming for Jon Bentey's <q>Programming Pearls</q> CACM column (with the underlying premise that if software is treated
+    as literature it should be subjected to criticism). While there is a fair amount to glean from all of the material, one of the main
+    takeaways is that McIlroy was able to counter Knuth's multi-page application with a short and fairly basic Unix pipeline.
+    The prospect of software tools composed with uniform pipes offered an approach which could be more quickly produced, more readily
+    evolved, and was more able to tap portable background knowledge.
+  </p><p>
+    As alluded to the discussion is a bit more nuanced and as one of my former coworkers posited that argument is on much shakier ground
+    when considering a system such as TeX (and I personally am a proponent of literate programming), but it is worth recognizing that all
+    too often programming languages seem to drift towards such monolithic recreations of functionality which could otherwise be more readily
+    composed. From a more modern perspective many of the software tools ideas carry forward to pursuits such as microserves...or less
+    ambitiously any use of well designed utility containers.
+  </p>
+
+  <h3>The What and the How</h3>
+
+  <p>
+    At its core, programming is largely about algorithms and algorithms are the imperative complement to declarative knowledge.
+    A clear and often used example (I think it appears in sources such as The Art of Computer Programming and The Go Programming Language)
+    is <em>how</em> Euclid's Algorithm can be coded to determine <em>what</em> is the greatest common divisor (GCD) of two numbers.
+    The GCD is an important declared concept and the automation of how to derive the appropriate value is enormously valuable.
+  </p><p>
+    While automating such processes is the core value of computers, one of the most valuable tools in engineering is that of
+    abstraction. Abstraction is essential for making systems comprehensible and while it is crucial in all fields of engineering,
+    it is integral to software engineering - not only is the base level of software engineering built atop many layers of electrical
+    engineering abstractions, but the creation of abstractions is one of the core tools of software engineers.
+    Abstraction effectively buries the previously mentioned core value of computing; drawing on the earlier example while the value of
+    <em>computers</em> is the automation of the <em>how</em> of Euclid's Algorithm, the value delivered by the software is that
+    of producing the <em>what</em> of the GCD. Therefore the produced machine is most simply represented as a <em>what</em> producing
+    blackbox so the GCD and any other relevant pieces of data can be used without getting swamped in details.
+  </p><p>
+    Unfortunately languages are often too focused on aspects of <em>how</em> - all too often there are established and abstracted solutions
+    for particular problems but all too often significant additional effort is required to reimplement or adapt such solutions so that
+    they conform with <em>how</em> a particular language seeks to express ideas within the solution space. This perspective in isolation is
+    a bit simplistic but will be elaborated upon further.
+  </p>
+
+  <h3>Systems vs. Application Programming</h3>
+
+  <p>
+    A key distinction when discussing programming is that between systems programming and application programming. The official definitions
+    should be incorporated here, but for in the short term I'll consider systems programming as that which is focused on enabling use of what
+    is immediately available. At the lowest level this involves things like hardware and instruction sets but more typically this is
+    likely to make use of the facilities provided by the operating system or higher level of abstraction such as virtual machines. The output
+    of systems programming is likely to be a generalized machine.
+  </p><p>
+    Applications programming is developing software to solve specific business cases...which is the vast majority of modern software being
+    created. Drawing on Fred Brooks's <q>No Silver Bullet</q>, the vast majority of concerns introduced by software in applications programming
+    amount to accidental complexity: friction which is introduced by the solution space where only a small amount is likely to be an essential
+    consideration for the problem at hand. Unfortunately software engineers seem to gravitate towards challenges that may be technically
+    interesting but have unclear business value. A basic smell test for such considerations is whether their removal would confer a competitive
+    advantage - if you're investing in establishing deep technical expertise but a competitor made use of an alternative which avoided that
+    overhead would they be able to undercut you? If that resonates then it is a strong indication of an accretion of accidental complexity
+    which is likely to escalate both delivery and maintenance costs. No-code, low-code, and ML-assisted development may help reduce smooth out
+    some of these edges but a far more fundamental adjustment is simply to recognize the difference between systems and application programming
+    and the natural corollary that unless your core deliverable is software itself rather than the output of such software, any and all effort
+    expended in producing such output with the desired characteristics is cost and should be managed appropriately. There's a larger thread
+    lurking within this sentiment around accountability and how perverse some routine engineering efforts would seem if analogs within other
+    departments existed but are accepted in the magical world of software, but that's likely a larger topic.
+  </p><p>
+    Much of this ties directly back to the concepts in <q>The What and the How</q>: application programming is best expressed entirely in
+    terms of <em>what</em>s. Preferring more declarative interfaces can make machines far more economical to develop and easier to reason about,
+    verify, and optimize. Most application programming, however, tends to remain largely imperative without a clear delineation from systems
+    programming. This break is certainly not a clearly achievable goal and is likely to echo the largely unrealized dream of fourth generation
+    languages, <em>but</em> a key distinction in this thread is that the focus is emphatically not about pursuing a language but rather reuse
+    and composition of abstractions. This also touches back upon <q>Software Tools and Monoliths</q> and echoes some of Martin Kleppmann's
+    sentiments at the end of <a href="#src-ddai">Desiging Data-Intensive Applications</a> which imagines being able to compose data flows
+    as easily as Unix pipelines.
+  </p>
+
+  <h3>Underlying Concerns</h3>
+
+  <p>
+    The previous ideas stay pretty conceptual but all of these ideas need to meet the metal at some point and some of the things that
+    have been glossed over need warrant some attention.
+  </p><p>
+    Perhaps one of the first places to start is that much of the described interoperability is available in the form of 
+    foreign function interfaces...but foreign? If two languages are running on the same system what is foreign? This cuts back to
+    the Python SSL code that pushed me over this ledge - why was so much code necessary to call a library that I could easily interact
+    with from the command line?
+  </p><p>
+    One of the clearest initial issues is the representation of data within any given language. Most instruction sets operate on
+    bits and while they may care about the number of bits involved they are far less likely to care about what the bits mean; semantics
+    that extend beyond basics such as a sign bit are likely to be largely handled by convention. While low level languages like C provide
+    some behavior on top of this such behavior is largely in the compiler so the data worked with is still largely bits rather than
+    having any particularly defined metadata. As most major operating systems are written in a C compatible language this leaves
+    higher level languages to track what additional data they need either alongside the data itself or in separate structures, establishing
+    local conventions which then need a translation layer for "foreign" data.
+  </p><p>
+    A related but arguably less fundamental concern is around some of the additional behavior provided by particular languages.
+    Concerns such as memory management or safety may require that any data which is not provided through standard channels must be
+    somehow taken into the fold. This is significant but ultimately this should correspond to some combination of the aforementioned
+    metadata and perhaps a function invocation. There are certainly stickier considerations if data is registered for such functionality
+    while remaining accessible to external code, but those are detail devils that are ultimately the result of some of the initial
+    practices which are being questioned (if such functionality were orthogonal to some notion of "language" then the foreign/external
+    boundary disappears.
+  </p><p>
+    When considering established approaches such as unix pipelines a hidden concern is that of inter-process communication (IPC).
+    Consistently sharing data by value is wonderfully simple...but can be fairly costly. The same concern manifests in microservices
+    and the goals of GNU Hurd. On a given system this is another incarantion of the previous concern: any perceived <em>requirement</em>
+    that the value must be handled in a particular way is the result of it crossing some potentially arbitrary boundary.
+  </p>
+
+</div>
+
+<div class="section">
+
+  <h2>Where This Leads</h2>
+
+  <p>
+    I'll be exploring some of the options with some of the ideas above, much of this circles around the notion of relying upon an
+    established low level interface to avoid some of the translation boundaries, where the clearest initial such interface would
+    be the SysV ABI. Particular features of given languages would be implemented independently of the language itself, and the
+    means of expression which often seem to dominate current languages would be a layer on top of all of these (like a lightweight
+    compiler frontend). This will probably result primarily in adoption of tools which match these goals (I feel like I may be
+    getting pulled toward C++) with some gaps filled by some homemade glue (particularly for some of the additional tastes like
+    literate programming).
+  </p>
+
+</div>
+
+<div class="section">
+
+  <h2>References</h2>
+
+  <ol class="sources">
+    <li><a id="src-ddai">Designing Data-Intensive Applications</a></li>
+    <li><a id="src-gnucoreutils_manual" data-in="src-ddai" href="https://www.gnu.org/software/coreutils/manual/html_node/index.html">GNU Coreutils Manual</a></li>
+    <li><a id="src-gnumanuals" data-in="src-gnucoreutils_manual" href="https://www.gnu.org/manual">GNU Manuals Online</a></li>
+    <li><a id="src-github_blog" data-in="src-ddai" href="https://github.blog">GitHub Blog</a></li>
+    <li><a id="src-gnuartanis" data-in="src-gnumanuals" href="https://www.gnu.org/software/artanis">GNU Artanis</a></li>
+    <li><a id="src-gnuguile" data-in="src-gnumanuals" href="https://www.gnu.org/software/guile">GNU Guile</a></li>
+    <li><a id="src-github_blog_pages" data-in="src-github_blog" href="https://github.blog/2008-12-18-github-pages">GitHub Pages | The GitHub Blog</a></li>
+    <li><a id="src-artanis_gitlab" data-in="src-gnuartanis" href="https://gitlab.com/hardenedlinux/artanis">HardenedLinux / artanis</a></li>
+    <li><a id="src-github_blog_rebase_9" data-in="src-github_blog" href="https://github.blog/2008-12-22-github-rebase-9">GitHub Rebase #9 | The GitHub Blog</a></li>
+    <li><a id="src-gae" data-in="src-github_blog_rebase_9" href="https://cloud.google.com/appengine/">App Engine Application Platform | Google Cloud</a></li>
+    <li><a id="src-gae-flexible" data-in="src-gae" href="https://cloud.google.com/appengine/docs/flexible">
+      Google App Engine flexible environment docs | Google Cloud
+    </a></li>
+    <li><a id="src-nalaginrut" data-in="src-artanis_gitlab" href="https://nalaginrut.com">Samson's Machete</a></li>
+    <li><a id="src-nalaginrut-artanis_docker" data-in="src-artanis_gitlab" href="https://nalaginrut.com/archives/2019/09/18/install%20gnu%20artanis%20with%20docker">
+      Samson's Machete (Install GNU Artanis with Docker)
+    </a></li>
+    <li><a id="src-docker-get" data-in="src-nalaginrut-artanis_docker" href="https://docs.docker.com/get-docker/">Get Docker | Docker Documentation</a></li>
+    <li><a id="src-docker-reference" data-in="src-docker-get" href="https://docs.docker.com/reference">Reference documentation | Docker Documentation</a></li>
+    <li><a id="src-docker-cli" data-in="src-docker-reference" href="https://docs.docker.com/engine/reference/commandline/cli">Use the Docker command line | Docker Documentation</a></li>
+    <li><a id="src-docker-run" data-in="src-docker-run" href="https://docs.docker.com/engine/reference/commandline/run">docker run | Docker Documentation</a></li>
+    <li><a id="src-github_blog_git_site" data-in="src-github_blog" href="https://github.blog/2008-07-26-new-git-site/">
+      New Git Site | The GitHub Blog
+    </a></li>
+    <li><a id="src-nalaginrut-artanis_0.5_docker" href="https://nalaginrut.com/archives/2021/02/16/gnu%20artanis-0.5%20is%20ready%20for%20docker">
+      Samsons's Machete (GNU Artanis-0.5 is ready for docker)
+    </a></li>
+    <li><a id="src-nalaginrut-hurd" href="https://nalaginrut.com/archives/2019/12/11/hurd%2c%20sel4%2x%20thoughts">
+      Samsons's Machete (Hurd, seL4, thoughts)
+    </a></li>
+  </ol>
+</div>
 
 </body>
 
