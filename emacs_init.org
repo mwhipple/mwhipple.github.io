@@ -1,0 +1,184 @@
+#+TITLE: My Emacs Configuration
+
+I use my emacs configuration both as a means to customize it and to
+document standard behavior. As a result much of it will strictly
+unnecessary.
+
+I'll also be looking to build up the configuration incrementally along
+with supporting knowledge and will start with integrating desired
+functionality directly into this file rather than pulling in external
+packages. This ties in with an overall goal I have in software in
+general to make consistent reuse of abstractions, and also can
+hopefully address a concern I've had with emacs in particular in the
+past where it felt as though there was both too much code floating
+around the ecosystem and too little readily composable functionality.
+
+I'm currently using `^-` as a prefix for my local definitions.
+This is inherited from a past project where I started to create a lot
+of macros and since the "macs" in Emacs is for macros I was thinking
+of it as macros squared...so `^-` is in the spirit of that while also
+being nice and short.
+
+** Define Header
+
+Define some standard header boilerplate like copyright...
+most significantly define lexical binding.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+
+  ;;; init.el -- Configure emacs to my liking. -*- lexical-binding: t; -*-
+
+  ;; Copyright (C) 2023 Matt Whipple <mattwhipple@acm.org>
+
+  ;; Author: Matt Whipple <mattwhipple@acm.org>
+  ;; Maintainer: Matt Whiple <mattwhipple@acm.org>
+  ;; URL: https://git.sr.ht/~mwhipple/etc
+  ;; Keywords: config
+  ;; Package: ^-config
+  ;; Package-Version: NA
+  ;; Package-Requires: ((emacs "29.1"))
+  ;; Filename: init.el
+
+  ;; This file is NOT part of GNU Emacs.
+
+  ;; This is free software: you can redistribute it and/or modify
+  ;; it under the terms of the GNU General Public License as published by
+  ;; the Free Software Foundation, either version 3 of the License, or
+  ;; (at your option) any later version.
+
+  ;; This software is distributed in the hope that it will be useful,
+  ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ;; GNU General Public License for more details.
+
+  ;; You should have received a copy of the GNU General Public License
+  ;; along with this file.  If not, see <http://www.gnu.org/licenses/>.
+
+  ;;; Commentary:
+
+  ;; This file will collect my configuration and documentation of emacs behavior,
+  ;; along with being the initial location of any extensions on which I work.
+
+  ;;; Code:
+
+#+END_SRC
+
+** Check Preconditions
+
+I'll be making use of whatever seems readily available rather than
+carefully tracking what features are available where, but as the lack
+of certain capabilities translate into errors on some system or other
+I'll add tests with more helpful messages here. If any of this code
+ends up being split out into libraries this should be handled with
+more discipline (and compatibility options should be explored).
+
+*** JSON Support
+
+This is required for EAF stuff and seems generally useful.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (unless (fboundp #'json-parse-buffer)
+    (warn "Emacs does not have JSON support!"))
+#+END_SRC
+
+** Enable Desktop Preservation
+
+Use desktop mode to save and restore desktops across invocations.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (desktop-save-mode)
+#+END_SRC
+
+** Customize Styling
+
+*** Show Some Stuff
+
+I often have emacs running full-screen so it's nice if it just provides
+me info that I need in the status bar such as what time it is and how
+much time until my battery will die and maybe other things that aren't
+time related.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (display-battery-mode)
+  (display-time)
+  (setq display-time-day-and-date t)
+#+END_SRC
+
+*** Hide Some Stuff
+
+Currently I'm very keyboard oriented and don't want to waste previous
+screen real estate so I'd rather get rid of UI elements intended for
+other forms of interaction. I may revisit this as I look at using
+emacs across a wider range of devices.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+#+END_SRC
+
+*** Go Dark
+
+I (like many people) generally prefer themes with dark
+backgrounds. Emacs in particular looks particularly primitive with the
+default white GUI background whereas on black it looks at least a bit
+more retro. While I may be tempted at some point to fiddle with this a
+bit more (especially given that it comes with some disclaimers) I'll
+start with some code I stumbled upon within the Emacs code base (I
+think frame.el...I should link it when I come across it again).
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (define-minor-mode dark-mode
+    "Use light text on dark background."  
+    :global t
+    :group 'faces
+    (when (eq dark-mode
+	      (eq 'light (frame--current-background-mode (selected-frame))))
+      ;; FIXME: Change the face's SPEC instead?
+      (set-face-attribute 'default nil
+			  :foreground (face-attribute 'default :background)
+			  :background (face-attribute 'default :foreground))
+     (frame-set-background-mode (selected-frame))))
+  (dark-mode)
+#+END_SRC
+
+** Define Self Inserting Characters
+
+Define and bind chose keys that result in the associated character
+being inserted. This is particularly standard behavior as provided by
+the terminal though Emacs does add some custom logic. These are
+defined in a variable for subsequent specialization (there is likely a
+more idiomatic way to do that such as using remap but I haven't gotten
+that far yet.
+
+This makes use of the relatively new `keymap-set` function which
+replaces `define-key`. Elsewhere will primarily use the `bind-key`
+family of macros but this make more direct use of the core
+functionality as it lends itself more readily to composition (and
+there's no clear value in using anything fancier). I'd generally be on
+the fence about using `bind-key` but since it's now included in Emacs
+it's hard to resist.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (setq self-insert-keys
+	'(
+	  "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m"			   
+	  "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M"
+	  "n" "o" "p" "q" "r" "s" "t" "u" "v" "w" "x" "y" "z"
+	  "N" "O" "P" "Q" "R" "S" "T" "U" "V" "W" "X" "Y" "Z"
+	  "0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "." "-" "$"
+	  "SPC" "=" "_" "*" "\"" "'" "`" "+" "~" "?"
+	  "!" "@" "#" "%" "^" "&" "|" "," ";" ":"
+	  "(" ")" "{" "}" "[" "]" "<" ">" "/" "\\"
+	  ))
+  (dolist (k self-insert-keys)
+    (apply #'keymap-set (list global-map k #'self-insert-command)))
+#+END_SRC
+
+** Bind Some Low-Level Commands
+
+Define some functions that seem relatively fundamental to dealing with
+commands in general.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (bind-keys :map global-map
+#+END_SRC

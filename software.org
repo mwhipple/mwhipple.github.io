@@ -1,0 +1,34 @@
+#+TITLE: Software
+
+** Software Selection
+
+The software used will also be driven primarily by what can be
+discovered through navigation, with a useful initial directory being
+provided by the [[file:sources.org::#gnumanuals][GNU Manuals]] (and a more comprehensive selection in the
+linked Free Software Directory which will be explored to fill possible
+gaps).
+
+This will follow a general pattern of slow expansion based on
+acquiring deep knowledge of the adopted software through both
+bottom-up parsing of the systems and back-filling of such information.
+
+** Toolbox
+
+Here I'll catalog some of the software that I've currently adopted for
+personal use. Many of these I'll also use where appropriate
+professionally but there I'm more likely to drift to anything more
+widely palatable or organizationally prudent.
+
+*** Emacs
+
+[[file:sources.org::#emacs][Emacs]] is a piece of software that I periodically swear off and then
+return to with my tail between my legs. I've adopted it for several
+reasons over the years but also moved away from it pursuit of
+something smaller and more in-line with the ideology of software
+tools. Currently it appeals to me as starting position for some larger
+ideas around how I may want my use of computers to evolve which will
+be elaborated upon as they are explored, this somewhat ties in with
+tongue-in-cheek perspective of emacs being more of an operating system
+than an editor.
+
+[[./emacs_init.org][My Emacs Configuration]]

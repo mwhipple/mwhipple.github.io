@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-06-09 Fri 08:29 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>This Site</title>
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">This Site</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org6e2e098">1. Information Collection</a></li>
+<li><a href="#org80aa290">2. Markup</a></li>
+<li><a href="#orgb25984d">3. GitHub</a></li>
+<li><a href="#org43ca63a">4. GitHub Pages</a></li>
+<li><a href="#org273f15f">5. Google App Engine</a></li>
+<li><a href="#org5c515c3">6. nginx</a></li>
+<li><a href="#org35b961a">7. Artanis (Old)</a></li>
+<li><a href="#org7dfe99a">8. Containerized Execution</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org6e2e098" class="outline-2">
+<h2 id="org6e2e098"><span class="section-number-2">1.</span> Information Collection</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+I'll be collecting information for this site <span class="underline">primarily</span> through
+navigation rather than searching. This is partly for amusement and
+also to foster deeper knowledge acquisition. I will likely at some
+point also look at producing a visualization of the resulting graph
+using something DOTy.
+</p>
+
+<p>
+One of the initial roots for the search will be Martin Kleppmann's
+excellent <a href="sources.html#ddia">Designing Data-Intensive Applications</a> which is not only a
+great resource by itself but also a treasure trove of <a href="sources.html#ddia-references">useful
+references</a>. In addition to this I'll be using books that I have or
+discover at libraries and information read from assorted memberships
+to O'Reilly, ACM, IEEE and the New York Times.
+</p>
+
+<p>
+Additionally this will be supplemented by research done in support of
+particular projects, where the paths to connect any such detached
+pieces of information will be sought over time.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org80aa290" class="outline-2">
+<h2 id="org80aa290"><span class="section-number-2">2.</span> Markup</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+The markup for this site will initially start as what is exported by
+Org mode, and then some practices and tricks may be borrowed from
+selected sources below which will be listed here.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb25984d" class="outline-2">
+<h2 id="orgb25984d"><span class="section-number-2">3.</span> GitHub</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Initially the source for this site will be hosted on GitHub. I
+personally have more interest in some other alternatives which I'll
+look to explore for any projects that I publish, but GitHub is what
+I'm currently using for work and also is the most readily navigable
+service from my Information Collection approach, starting with some
+GitHub blog posts.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org43ca63a" class="outline-2">
+<h2 id="org43ca63a"><span class="section-number-2">4.</span> GitHub Pages</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+This site will first be hosted on <a href="sources.html#github_blog_pages">GitHub Pages</a>. This is a solid option
+overall and one I've used in the past. I will likely be looking to
+move away from it for reasons that will be elucidated if and when that
+happens (nothing overly important).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org273f15f" class="outline-2">
+<h2 id="org273f15f"><span class="section-number-2">5.</span> Google App Engine</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+<a href="sources.html#gae">Google App Engine</a> is a viable hosting option that came up fairly
+early in my information navigation and seems to potentially fit the
+right set of criteria. Google Cloud is also a technology I'll be using
+for work and one which I haven't spent too much time (like much of the
+industry I'm far more comfortable with AWS).
+</p>
+
+<p>
+I used and evangelized GAE a fair amount quite a while ago (prior to
+and during the period when it went General Availability), and would be
+likely to use it again if I were looking to develop an appropriate
+app. While I'm currently looking to use the flexible model for
+containerized deployment I've generally been of the mindset that
+adapting designs to fit within the constraints of systems like GAE can
+provide significant upfront benefits. Typically the aversion to such
+technologies that I've seen seems to be a fixed mindset where people
+are turned off that they can't use their preferred hammers, which
+isn't to say that that isn't often a compelling reason, particularly
+for an organization. Similarly there may be some cases for which a
+particular type of technology is most appropriate but an awkward
+fit. Additionally I haven't run the numbers for GAE in particular but
+in most similar systems there's a breakeven point after which it is
+likely to be far more cost effective to use something closer to the
+metal even after accounting for the operational overhead. But&#x2026;as
+mentioned the <span class="underline">upfront</span> benefits can be substantial and other than
+cultural resistance (which isn't a concern for my personal projects)
+many of the other concerns are initially aspirational.
+</p>
+
+<p>
+For this particular project I'll be looking to make use of the
+<a href="sources.html#gae-flexible">flexible environment</a> as I'm very comfortable with dealing with
+containers and I'll be starting to use a non-supported runtime and
+likely evolving into making use of a relatively standard container
+which is also not directly supported, so in both cases relying on a
+<a href="sources.html#gae-custom">custom runtime</a>. An enticing longer term plan may be to switch to <a href="sources.html#src-gae-cloud-run">Cloud
+Run</a> as it is likely to be lower cost at low volume, but in the
+immediate term it seems like a distraction and I may also want to look
+at more static-centric alternatives in the future.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5c515c3" class="outline-2">
+<h2 id="org5c515c3"><span class="section-number-2">6.</span> nginx</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+I'll be looking to deploy this site as a static site hosted through
+nginx as outlined in the Google App Engine flexible runtime
+<a href="sources.html#src-gae-quickstart">quickstart</a>. I've spent a fair amount of time fiddling with nginx and
+while I'm not particularly fond of their business model (particularly
+the somewhat crippled open source offering) the software itself has
+proven to be very robust and efficient with wide adoption&#x2026;and I have
+assorted nginx stickers and T-shirts (one of which is black-on-black
+and probably my favorite tech shirt) so I should probably validate the
+swag by using the software. My past experience also gives me
+confidence that I can bend it to my wishes in some way or another and
+maybe learn some new tricks along the way (I already have a module
+sitting around to address the DNS resolution issue which may otherwise
+dissuade me).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org35b961a" class="outline-2">
+<h2 id="org35b961a"><span class="section-number-2">7.</span> Artanis (Old)</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+This site was going to will looking to be running on top of <a href="sources.html#src-gnuartanis">GNU
+Artanis</a>. This is largely a consequence of the approach to
+Information Collection, although the project may potentially align
+with some longer term goals. I'm more likely to ultimately land on a
+solution that is more closely aligned with a static Web site/JAM
+stack, but I think I also want the site to have some basic support for
+concepts such as content negotiation which many static solutions don't
+lend themselves naturally to and therefore I'll probably ultimately
+move to something like nginx (which is also recommended in front of
+Artanis but I haven't navigated my way over there yet). I enjoy Scheme
+but am likely to gravitate more towards Python, I'll elaborate upon
+some of my larger thoughts around languages in an upcoming update.
+</p>
+
+<p>
+Relatively up-to-date information on Artanis seems to be provided on
+its <a href="sources.html#src-artanis_github">GitLab page</a> (including containerized execution which I'll be
+looking to build on top of). Artanis itself is built on top of <a href="sources.html#src-gnuguile">GNU
+Guile</a> which was installed but not detected on my system (it is
+potentially outdated), so I may also dig into that project though I'll
+likely start with seeing about containerized Artanis.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7dfe99a" class="outline-2">
+<h2 id="org7dfe99a"><span class="section-number-2">8.</span> Containerized Execution</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+I'll be looking to run Artanis in a container, and accordingly the
+initially desired development environment is also using containers to
+most closely align with the deployment (installing anything on my host
+is effectively more of a workflow optimization). There are <a href="sources.html#src-nalaginrut-artanis-docker">some
+instructions</a> provided for running Artanis in a container, but those
+instructions need to be tuned a bit. Most significantly the tag for
+the image is outdated and should instead be more of the form
+`registry.gitlab.com/hardenedlinux/artanis` to reflect the project
+being transferred. Updated guidance is provided with the <a href="sources.html#src-nalaginrut-artanis_0.5_docker">instructions
+for Artanis 0.5</a>. Beyond that there are a few adjustments for the
+sake of usability and reproducibility: the image should have an
+appropriate entrypoint so that it can be launched directly and an
+ostensibly immutable tag should be used (where the latter concern
+transcends the scope of the blog post). The entrypoint decision is
+somewhat a matter of preference or perspective where the instructions
+seem to be more oriented towards using the container to provide an
+interactive contained environment which takes care of dependencies
+whereas my preference would be more of a directly invokable utility
+container which is more targeted towards providing a service to the
+host (where the entrypoint can always be overridden if needed). I'll
+therefore likely create an image for local development which adjusts
+the entrypoint whereas I'd typically look to just use the upstream
+image for that purpose (along with expected tweaks to the command.
+There's also a decent chance the image could be slimmed down a bit if
+it's not expected to be interactive, but it doesn't seem <span class="underline">overly</span>
+large given the use case and so that feels like premature optimization
+for the time being (it seems unnecessarily large given the
+functionality for a deployment that is expected to scale but I
+presently have no reason to think this site fits that criterion).  The
+standard upstream image also seems to fall into a fairly common trap
+of using root rather than a less-privileged user. I think this is
+covered as part of Dockerfile best practices that I'll need to chase
+down.  Another fairly general note is that the guidance on the post
+suggests using <a href="sources.html#src-docker-get">docker</a> but I'd probably gravitate towards an
+alternative like `nerdctl`. This is relatively insignificant as it can
+be abstracted by the Makefile but seems worth mentioning given the
+strong sentiment in the Artanis documentation and the GNU community as
+a whole towards free software against which the licensing for Docker
+Desktop <span class="underline">may</span> run afoul.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2023-06-09 Fri 08:29</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

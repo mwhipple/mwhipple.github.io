@@ -1,0 +1,8 @@
+#+TITLE: Home | Matt Whipple
+
+Welcome to the latest iteration of my Web site.
+
+I'll be copying information from previous incarnations.
+
+** [[./software.org][Software]]
+** [[file:this_site.org][This Site]]

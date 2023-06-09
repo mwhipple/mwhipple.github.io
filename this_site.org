@@ -1,0 +1,160 @@
+#+TITLE: This Site
+
+** Information Collection
+
+I'll be collecting information for this site _primarily_ through
+navigation rather than searching. This is partly for amusement and
+also to foster deeper knowledge acquisition. I will likely at some
+point also look at producing a visualization of the resulting graph
+using something DOTy.
+
+One of the initial roots for the search will be Martin Kleppmann's
+excellent [[file:sources.org::#ddia][Designing Data-Intensive Applications]] which is not only a
+great resource by itself but also a treasure trove of [[file:sources.org::#ddia-references][useful
+references]]. In addition to this I'll be using books that I have or
+discover at libraries and information read from assorted memberships
+to O'Reilly, ACM, IEEE and the New York Times.
+
+Additionally this will be supplemented by research done in support of
+particular projects, where the paths to connect any such detached
+pieces of information will be sought over time.
+
+** Markup
+
+The markup for this site will initially start as what is exported by
+Org mode, and then some practices and tricks may be borrowed from
+selected sources below which will be listed here.
+
+** GitHub
+
+Initially the source for this site will be hosted on GitHub. I
+personally have more interest in some other alternatives which I'll
+look to explore for any projects that I publish, but GitHub is what
+I'm currently using for work and also is the most readily navigable
+service from my Information Collection approach, starting with some
+GitHub blog posts.
+
+** GitHub Pages
+
+This site will first be hosted on [[file:sources.org::#github_blog_pages][GitHub Pages]]. This is a solid option
+overall and one I've used in the past. I will likely be looking to
+move away from it for reasons that will be elucidated if and when that
+happens (nothing overly important).
+
+** Google App Engine
+
+[[file:sources.org::#gae][Google App Engine]] is a viable hosting option that came up fairly
+early in my information navigation and seems to potentially fit the
+right set of criteria. Google Cloud is also a technology I'll be using
+for work and one which I haven't spent too much time (like much of the
+industry I'm far more comfortable with AWS).
+
+I used and evangelized GAE a fair amount quite a while ago (prior to
+and during the period when it went General Availability), and would be
+likely to use it again if I were looking to develop an appropriate
+app. While I'm currently looking to use the flexible model for
+containerized deployment I've generally been of the mindset that
+adapting designs to fit within the constraints of systems like GAE can
+provide significant upfront benefits. Typically the aversion to such
+technologies that I've seen seems to be a fixed mindset where people
+are turned off that they can't use their preferred hammers, which
+isn't to say that that isn't often a compelling reason, particularly
+for an organization. Similarly there may be some cases for which a
+particular type of technology is most appropriate but an awkward
+fit. Additionally I haven't run the numbers for GAE in particular but
+in most similar systems there's a breakeven point after which it is
+likely to be far more cost effective to use something closer to the
+metal even after accounting for the operational overhead. But...as
+mentioned the _upfront_ benefits can be substantial and other than
+cultural resistance (which isn't a concern for my personal projects)
+many of the other concerns are initially aspirational.
+
+For this particular project I'll be looking to make use of the
+[[file:sources.org::#gae-flexible][flexible environment]] as I'm very comfortable with dealing with
+containers and I'll be starting to use a non-supported runtime and
+likely evolving into making use of a relatively standard container
+which is also not directly supported, so in both cases relying on a
+[[file:sources.org::#gae-custom][custom runtime]]. An enticing longer term plan may be to switch to [[#src-gae-cloud-run][Cloud
+Run]] as it is likely to be lower cost at low volume, but in the
+immediate term it seems like a distraction and I may also want to look
+at more static-centric alternatives in the future.
+
+** nginx
+
+I'll be looking to deploy this site as a static site hosted through
+nginx as outlined in the Google App Engine flexible runtime
+[[#src-gae-quickstart][quickstart]]. I've spent a fair amount of time fiddling with nginx and
+while I'm not particularly fond of their business model (particularly
+the somewhat crippled open source offering) the software itself has
+proven to be very robust and efficient with wide adoption...and I have
+assorted nginx stickers and T-shirts (one of which is black-on-black
+and probably my favorite tech shirt) so I should probably validate the
+swag by using the software. My past experience also gives me
+confidence that I can bend it to my wishes in some way or another and
+maybe learn some new tricks along the way (I already have a module
+sitting around to address the DNS resolution issue which may otherwise
+dissuade me).
+
+** Artanis (Old)
+
+This site was going to will looking to be running on top of [[src-gnuartanis][GNU
+Artanis]]. This is largely a consequence of the approach to
+Information Collection, although the project may potentially align
+with some longer term goals. I'm more likely to ultimately land on a
+solution that is more closely aligned with a static Web site/JAM
+stack, but I think I also want the site to have some basic support for
+concepts such as content negotiation which many static solutions don't
+lend themselves naturally to and therefore I'll probably ultimately
+move to something like nginx (which is also recommended in front of
+Artanis but I haven't navigated my way over there yet). I enjoy Scheme
+but am likely to gravitate more towards Python, I'll elaborate upon
+some of my larger thoughts around languages in an upcoming update.
+
+Relatively up-to-date information on Artanis seems to be provided on
+its [[#src-artanis_github][GitLab page]] (including containerized execution which I'll be
+looking to build on top of). Artanis itself is built on top of [[#src-gnuguile][GNU
+Guile]] which was installed but not detected on my system (it is
+potentially outdated), so I may also dig into that project though I'll
+likely start with seeing about containerized Artanis.
+
+** Containerized Execution
+
+I'll be looking to run Artanis in a container, and accordingly the
+initially desired development environment is also using containers to
+most closely align with the deployment (installing anything on my host
+is effectively more of a workflow optimization). There are [[#src-nalaginrut-artanis-docker][some
+instructions]] provided for running Artanis in a container, but those
+instructions need to be tuned a bit. Most significantly the tag for
+the image is outdated and should instead be more of the form
+`registry.gitlab.com/hardenedlinux/artanis` to reflect the project
+being transferred. Updated guidance is provided with the [[#src-nalaginrut-artanis_0.5_docker][instructions
+for Artanis 0.5]]. Beyond that there are a few adjustments for the
+sake of usability and reproducibility: the image should have an
+appropriate entrypoint so that it can be launched directly and an
+ostensibly immutable tag should be used (where the latter concern
+transcends the scope of the blog post). The entrypoint decision is
+somewhat a matter of preference or perspective where the instructions
+seem to be more oriented towards using the container to provide an
+interactive contained environment which takes care of dependencies
+whereas my preference would be more of a directly invokable utility
+container which is more targeted towards providing a service to the
+host (where the entrypoint can always be overridden if needed). I'll
+therefore likely create an image for local development which adjusts
+the entrypoint whereas I'd typically look to just use the upstream
+image for that purpose (along with expected tweaks to the command.
+There's also a decent chance the image could be slimmed down a bit if
+it's not expected to be interactive, but it doesn't seem _overly_
+large given the use case and so that feels like premature optimization
+for the time being (it seems unnecessarily large given the
+functionality for a deployment that is expected to scale but I
+presently have no reason to think this site fits that criterion).  The
+standard upstream image also seems to fall into a fairly common trap
+of using root rather than a less-privileged user. I think this is
+covered as part of Dockerfile best practices that I'll need to chase
+down.  Another fairly general note is that the guidance on the post
+suggests using [[#src-docker-get][docker]] but I'd probably gravitate towards an
+alternative like `nerdctl`. This is relatively insignificant as it can
+be abstracted by the Makefile but seems worth mentioning given the
+strong sentiment in the Artanis documentation and the GNU community as
+a whole towards free software against which the licensing for Docker
+Desktop _may_ run afoul.
