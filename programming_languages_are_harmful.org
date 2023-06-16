@@ -1,0 +1,201 @@
+#+TITLE: Programming Languages are Harmful
+
+** Backstory
+
+Over my career I've programmed in a range of different languages and
+I'm currently nursing an idea that languages offer tenuous return on
+investment to the software industry. Don't get me wrong, I certainly
+think many languages have contributed many great ideas and I'm also
+vehemently opposed to panaceas and golden hammers and therefore
+recognize that some problems are best explored using appropriate means
+of expression.
+
+The back-breaking straw of this idea was likely spending a chunk of
+one of my days spelunking through Python's SSL implementation and
+corresponding C code to work through a bug whose behavior I could
+readily reproduce and resolve using the `openssl` command. While I
+used this as a chance to brush up on some TLS details the main
+lingering impression was the large tracts of code that existed not to
+do anything new, but simply to reexpress an established solution (the
+particular issue was resolved by swapping out LibreSSL for OpenSSL).
+Some other recent background context was likely being engaged in
+several conversations around language adoption, and somewhat
+relatively recently within an engineering culture that had a <q>one
+language to rule them all</q> mindset even when the output of that
+mindset was often bizarre paths of using that language to invoke shell
+commands to launch other languages or containers (which I looked to
+simplify as things broke...which they often did).
+
+** Software Tools and Monoliths
+
+A well-known exchange in the annals of computing history is Doug
+McIlroy's criticism of a program Don Knuth wrote to demonstrate
+literate programming for Jon Bentley's Programming Pearls CACM column
+(with the underlying premise that if software is treated as literature
+it should be subjected to criticism). While there is a fair amount to
+glean from all of the material, one of the main The prospect of
+software tools composed with uniform pipes offered an approach which
+could be more quickly produced, more readily evolved, and was more
+able to tap portable background knowledge.  As alluded to the
+discussion is a bit more nuanced and as one of my former coworkers
+posited that argument is on much shakier ground when considering a
+system such as TeX (and I personally am a proponent of literate
+programming), but it is worth recognizing that all too often
+programming languages seem to drift towards such monolithic
+recreations of functionality which could otherwise be more readily
+composed. From a more modern perspective many of the software tools
+ideas carry forward to pursuits such as microserves...or less
+ambitiously any use of well designed utility containers.
+
+** The What and the How
+
+At its core, programming is largely about algorithms are the
+imperative complement to declarative knowledge.  A clear and often
+used example (I think it appears in sources such as The Art of
+Computer Programming and The Go Programming Language) is _how_
+Euclid's Algorithm can be coded to determine _what_ is the greatest
+common divisor (GCD) of two numbers.  The GCD is an important declared
+concept and the automation of how to derive the appropriate value is
+enormously valuable.
+
+While automating such processes is the core value of computers, one of
+the most valuable tools in engineering is that of
+abstraction. Abstraction is essential for making systems
+comprehensible and while it is crucial in all fields of engineering,
+it is integral to software engineering - not only is the base level of
+software engineering built atop many layers of electrical engineering
+abstractions, but the creation of abstractions is one of the core
+tools of software engineers.  Abstraction effectively buries the
+previously mentioned core value of computing; drawing on the earlier
+example while the value of _computers_ is the automation of the _how_
+of Euclid's Algorithm, the value delivered by the software is that of
+producing the _what_ of the GCD. Therefore the produced machine is
+most simply represented as a _what_ producing blackbox so the GCD and
+any other relevant pieces of data can be used without getting swamped
+in details.
+
+Unfortunately languages are often too focused on aspects of _how_ -
+all too often there are established and abstracted solutions for
+particular problems but all too often significant additional effort is
+required to reimplement or adapt such solutions so that they conform
+with _how_ a particular language seeks to express ideas within the
+solution space. This perspective in isolation is a bit simplistic but
+will be elaborated upon further.
+
+** Systems vs. Application Programming
+
+A key distinction when discussing programming is that between systems
+programming and application programming. The official definitions
+should be incorporated here, but for in the short term I'll consider
+systems programming as that which is focused on enabling use of what
+is immediately available. At the lowest level this involves things
+like hardware and instruction sets but more typically this is likely
+to make use of the facilities provided by the operating system or
+higher level of abstraction such as virtual machines. The output of
+systems programming is likely to be a generalized machine.
+
+Applications programming is developing software to solve specific
+business cases...which is the vast majority of modern software being
+created. Drawing on Fred Brooks's "No Silver Bullet", the vast
+majority of concerns introduced by software in applications
+programming amount to accidental complexity: friction which is
+introduced by the solution space where only a small amount is likely
+to be an essential consideration for the problem at
+hand. Unfortunately software engineers seem to gravitate towards
+challenges that may be technically interesting but have unclear
+business value. A basic smell test for such considerations is whether
+their removal would confer a competitive advantage - if you're
+investing in establishing deep technical expertise but a competitor
+made use of an alternative which avoided that overhead would they be
+able to undercut you? If that resonates then it is a strong indication
+of an accretion of accidental complexity which is likely to escalate
+both delivery and maintenance costs. No-code, low-code, and
+ML-assisted development may help reduce smooth out some of these edges
+but a far more fundamental adjustment is simply to recognize the
+difference between systems and application programming and the natural
+corollary that unless your core deliverable is software itself rather
+than the output of such software, any and all effort expended in
+producing such output with the desired characteristics is cost and
+should be managed appropriately. There's a larger thread lurking
+within this sentiment around accountability and how perverse some
+routine engineering efforts would seem if analogs within other
+departments existed but are accepted in the magical world of software,
+but that's likely a larger topic. Much of this ties directly back to
+the concepts in The What and the How: application programming is best
+expressed entirely in terms of _what_s. Preferring more declarative
+interfaces can make machines far more economical to develop and easier
+to reason about, verify, and optimize. Most application programming,
+however, tends to remain largely imperative without a clear
+delineation from systems programming. This break is certainly not a
+clearly achievable goal and is likely to echo the largely unrealized
+dream of fourth generation languages, _but_ a key distinction in this
+thread is that the focus is emphatically not about pursuing a language
+but rather reuse and composition of abstractions. This also touches
+back upon Software Tools and Monoliths and echoes some of Martin
+Kleppmann's sentiments at the end of [[file:sources.org::#ddia][Desiging Data-Intensive
+Applications]] which imagines being able to compose data flows as
+easily as Unix pipelines.
+
+** Underlying Concerns
+
+The previous ideas stay pretty conceptual but all of these ideas need
+to meet the metal at some point and some of the things that have been
+glossed over need warrant some attention.
+
+Perhaps one of the first places to start is that much of the described
+interoperability is available in the form of foreign function
+interfaces...but foreign? If two languages are running on the same
+system what is foreign? This cuts back to the Python SSL code that
+pushed me over this ledge - why was so much code necessary to call a
+library that I could easily interact with from the command line?
+
+One of the clearest initial issues is the representation of data
+within any given language. Most instruction sets operate on bits and
+while they may care about the number of bits involved they are far
+less likely to care about what the bits mean; semantics that extend
+beyond basics such as a sign bit are likely to be largely handled by
+convention. While low level languages like C provide some behavior on
+top of this such behavior is largely in the compiler so the data
+worked with is still largely bits rather than having any particularly
+defined metadata. As most major operating systems are written in a C
+compatible language this leaves higher level languages to track what
+additional data they need either alongside the data itself or in
+separate structures, establishing local conventions which then need a
+translation layer for "foreign" data.
+
+A related but arguably less fundamental concern is around some of the
+additional behavior provided by particular languages. Concerns such as
+memory management or safety may require that any data which is not
+provided through standard channels must be somehow taken into the
+fold. This is significant but ultimately this should correspond to
+some combination of the aforementioned metadata and perhaps a function
+invocation. There are certainly stickier considerations if data is
+registered for such functionality while remaining accessible to
+external code, but those are detail devils that are ultimately the
+result of some of the initial practices which are being questioned (if
+such functionality were orthogonal to some notion of "language" then
+the foreign/external boundary disappears.
+
+When considering established approaches such as unix pipelines a
+hidden concern is that of inter-process communication (IPC).
+Consistently sharing data by value is wonderfully simple...but can be
+fairly costly. The same concern manifests in microservices and the
+goals of GNU Hurd. On a given system this is another incarantion of
+the previous concern: any perceived _requirement_ that the value must
+be handled in a particular way is the result of it crossing some
+potentially arbitrary boundary.
+
+** Where This Leads
+
+I'll be exploring some of the options with some of the ideas above,
+much of this circles around the notion of relying upon an established
+low level interface to avoid some of the translation boundaries, where
+the clearest initial such interface would be the SysV ABI. Particular
+features of given languages would be implemented independently of the
+language itself, and the means of expression which often seem to
+dominate current languages would be a layer on top of all of these
+(like a lightweight compiler frontend). This will probably result
+primarily in adoption of tools which match these goals (I feel like I
+may be getting pulled toward C++) with some gaps filled by some
+homemade glue (particularly for some of the additional tastes like
+literate programming).

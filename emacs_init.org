@@ -1,6 +1,6 @@
 #+TITLE: My Emacs Configuration
 
-I use my emacs configuration both as a means to customize it and to
+I use my Emacs configuration both as a means to customize it and to
 document standard behavior. As a result much of it will strictly
 unnecessary.
 
@@ -9,7 +9,7 @@ with supporting knowledge and will start with integrating desired
 functionality directly into this file rather than pulling in external
 packages. This ties in with an overall goal I have in software in
 general to make consistent reuse of abstractions, and also can
-hopefully address a concern I've had with emacs in particular in the
+hopefully address a concern I've had with Emacs in particular in the
 past where it felt as though there was both too much code floating
 around the ecosystem and too little readily composable functionality.
 
@@ -18,6 +18,11 @@ This is inherited from a past project where I started to create a lot
 of macros and since the "macs" in Emacs is for macros I was thinking
 of it as macros squared...so `^-` is in the spirit of that while also
 being nice and short.
+
+Over time I'll likely also look to evolve the configuration so that it
+is increasingly declarative data structures operated upon by fewer
+functions. This may ease reuse of the same configuration across
+multiple targets as the number of operations to support will be reduced.
 
 ** Define Header
 
@@ -32,14 +37,13 @@ most significantly define lexical binding.
 
   ;; Author: Matt Whipple <mattwhipple@acm.org>
   ;; Maintainer: Matt Whiple <mattwhipple@acm.org>
-  ;; URL: https://git.sr.ht/~mwhipple/etc
   ;; Keywords: config
   ;; Package: ^-config
   ;; Package-Version: NA
   ;; Package-Requires: ((emacs "29.1"))
   ;; Filename: init.el
 
-  ;; This file is NOT part of GNU Emacs.
+  ;; This file is not part of GNU Emacs.
 
   ;; This is free software: you can redistribute it and/or modify
   ;; it under the terms of the GNU General Public License as published by
@@ -66,11 +70,12 @@ most significantly define lexical binding.
 ** Check Preconditions
 
 I'll be making use of whatever seems readily available rather than
-carefully tracking what features are available where, but as the lack
-of certain capabilities translate into errors on some system or other
-I'll add tests with more helpful messages here. If any of this code
-ends up being split out into libraries this should be handled with
-more discipline (and compatibility options should be explored).
+carefully tracking what features are available on what systems, but as
+the lack of certain capabilities translate into errors on some system
+or other I'll add tests with more helpful messages here. If any of
+this code ends up being split out into libraries this should be
+handled with more discipline (and compatibility options should be
+explored).
 
 *** JSON Support
 
@@ -90,10 +95,9 @@ Use desktop mode to save and restore desktops across invocations.
 #+END_SRC
 
 ** Customize Styling
-
 *** Show Some Stuff
 
-I often have emacs running full-screen so it's nice if it just provides
+I often have Emacs running full-screen so it's nice if it just provides
 me info that I need in the status bar such as what time it is and how
 much time until my battery will die and maybe other things that aren't
 time related.
@@ -107,9 +111,9 @@ time related.
 *** Hide Some Stuff
 
 Currently I'm very keyboard oriented and don't want to waste previous
-screen real estate so I'd rather get rid of UI elements intended for
-other forms of interaction. I may revisit this as I look at using
-emacs across a wider range of devices.
+screen real estate so I'd rather get rid of user interface elements
+intended for other forms of interaction. I may revisit this as I look
+at using Emacs across a wider range of devices.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (tool-bar-mode -1)
@@ -181,4 +185,456 @@ commands in general.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (bind-keys :map global-map
+	     ("C-g" . keyboard-quit)
+	     ("M-x" . execute-extended-command))
 #+END_SRC
+
+** Provide Some Basic Editing
+*** Insert Content
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (bind-keys :map global-map
+	     ("RET" . newline)
+	     ("TAB" . indent-for-tab-command)
+	     ("C-o" . open-line))
+#+END_SRC
+
+*** Remove Content
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+    (bind-keys :map global-map
+	       ("DEL"  . backward-delete-char-untabify)
+	       ("C-d" .  delete-char)
+	       ("M-\\" . delete-horizontal-space)
+	       ("M-z" . zap-up-to-char))
+#+END_SRC
+
+*** Support Moving Point Around Within a Buffer
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (bind-keys :map global-map
+	     ("C-f" . forward-char)
+	     ("C-b" . backward-char)
+	     ("C-n" . next-line)
+	     ("C-p" . previous-line)
+	     ("C-e" . move-end-of-line)
+	     ("C-a" . move-beginning-of-line)
+	     ("M-f" . forward-word)
+	     ("M-b" . backward-word)
+	     ("M->" . end-of-buffer)
+	     ("M-<" . beginning-of-buffer)
+	     ("M-}" . forward-paragraph)
+	     ("M-{" . backward-paragraph)
+	     ("C-v" . scroll-up-command)
+	     ("M-v" . scroll-down-command))
+#+END_SRC
+
+*** Change View of Buffer
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (bind-keys :map global-map
+	     ("C-l" . recenter-top-bottom))
+#+END_SRC
+
+*** Play With Mark
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (bind-keys :map global-map
+	     ("C-SPC" . set-mark-command)
+	     ("C-x h" . mark-whole-buffer))
+#+END_SRC
+
+*** Work with Kill Ring
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (bind-keys :map global-map
+	     ("C-y" . yank)
+	     ("C-k" . kill-line)
+	     ("M-w" . kill-ring-save))
+#+END_SRC
+
+** Generate Content
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (bind-keys :map global-map
+	     ("M-/" . dabbrev-expand))
+#+END_SRC
+
+** Searching and Potentially Replacing
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (bind-keys :map global-map
+	     ("C-s" . isearch-forward)
+	     ("M-%" . query-replace)
+	     ("M-." . xref-find-definitions))
+#+END_SRC
+
+** Support Some Inter-Process Communication
+*** Support Invoking of External Commands
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (bind-keys :map global-map
+	     ("M-!" . shell-command))
+#+END_SRC
+
+*** Handle Escape Sequences from External Commands
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
+#+END_SRC
+
+** Manage View Objects
+
+Deal with buffers and windows. I'm currently lumping these together
+and customizing their binding a bit to make use of the `C-M`
+modifier combination. This is an experimental shift, but in a past
+adoption of Emacs I remember doing something or other to rebind window
+resizing such that it did not require a chain and as these operations
+are so fundamental this seems like a potentially nice route.
+
+These are global and since the prefix is likely used elsewhere they
+are forced using `bind-keys*` to stick them in the override map.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (bind-keys* ("C-M-n" . next-buffer)
+	      ("C-M-<right>" . next-buffer)
+	      ("C-M-p" . previous-buffer)
+	      ("C-M-<left>" . previous-buffer)
+	      ("C-M-b" . switch-to-buffer)
+	      ("C-M-k" . kill-buffer)
+	      ("C-M-l" . list-buffers)
+	      ("C-M-s" . save-buffer)
+	      ("C-M-0" . delete-window)
+	      ("C-M-1" . delete-other-windows)
+	      ("C-M-2" . split-window-below)
+	      ("C-M-3" . split-window-right)
+	      ("C-M-o" . other-window)
+	      ("C-M-}" . enlarge-window-horizontally)
+	      ("C-M-{" . shrink-window-horizontally)
+	      ("C-M-]" . enlarge-window)
+	      ("C-M-[" . shrink-window))
+#+END_SRC
+
+** Help Me!
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+    (bind-keys :prefix "C-h"
+	       :prefix-map help-map
+	       :prefix-docstring "Help me!"
+	       ("b" . describe-bindings)
+	       ("f" . describe-function)
+	       ("i" . info)
+	       ("k" . describe-key)
+	       ("l" . view-lossage)
+	       ("m" . describe-mode)
+	       ("v" . describe-variable)
+	       ("w" . where-is))
+#+END_SRC
+
+** Define Some Minibuffer Bindings
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (bind-keys :map minibuffer-mode-map
+	     ("TAB" . minibuffer-complete)
+	     ("RET" . exit-minibuffer)
+	     ("M-n" . next-history-element)
+	     ("M-p" . previous-history-element)))
+#+END_SRC
+
+** Define Some Navigation Through a Project
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (bind-keys :map global-map
+	     ("C-x `" . next-error))
+#+END_SRC
+
+** Configure Org Mode
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+   (use-package org
+     :bind (:map org-mode-map
+     ("DEL" . org-delete-backward-char)
+     ("TAB" . org-cycle)
+     ("M-RET" . org-meta-return)
+     ("M-<right>" . org-metaright)
+     ("M-<left>" . org-metaleft)
+     ("C-a" . org-beginning-of-line)
+     ("C-k" . org-kill-line)
+     ("C-c C-w" . org-refile)
+     ("C-c C-q" . org-set-tags-command)
+     ("C-x RET" . org-open-at-point)))
+#+END_SRC
+
+** Configure Dired Mode
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (use-package dired
+    :bind
+    ("C-p" . dired-previous-line)
+    ("C-n" . dired-next-line)
+    ("RET" . dired-find-file))
+#+END_SRC
+
+** Configure Org Agenda
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (use-package org-agenda
+    :bind
+    ("C-n" . org-agenda-next-line)
+    ("C-p" . org-agenda-previous-line)
+    ("TAB" . org-agenda-goto)
+    ("g" . org-agenda-redo-all)
+    ("t" . org-agenda-todo)
+    ("u" . org-agenda-bulk-unmark)
+    ("T" . org-agenda-show-tags)
+    :config
+    (setq org-agenda-span 'day)
+    ;; Allow for very old scheduled items for catch-up behavior.
+    (setq org-scheduled-past-days 99999)
+    ;; Use hl-line mode in org-agenda for visibilitiy
+    (add-hook 'org-agenda-mode-hook 'hl-line-mode))
+#+END_SRC
+
+** Configure hexl Mode
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+    (use-package hexl
+      :bind
+      ("C-v" . hexl-scroll-up)
+      ("M-v" . hexl-scroll-down))
+#+END_SRC
+
+** Configure Info Mode
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (use-package info
+    :bind
+    ("SPC" . Info-scroll-up))    
+#+END_SRC
+
+** Manage Environment for Called Commands
+
+Some operating systems (such as OS X) will invoke Emacs with a
+separate profile that may not include configuration that has been
+defined for login sessions such as environment variables.
+
+This basically steals the logic from exec-path-from-shell (to link)
+but the code itself is a bit dumber and is more oriented towards
+building out a larger code base rather than providing drop-in
+functionality.
+
+Most of the constructs here will be prefixed with `^-env` but those
+that are more general will omit the `env` segment.
+
+*** Customization Group
+
+I have not used customize in the past, but in addition to providing a
+UI which may be more usable across devices it also seems to offer a
+natural means to locally specialize behavior without worrying about
+what goes into which file.
+
+These will be functions which in some places helps reduce the overall
+complexity while retaining flexibility, and others are done largely
+for consistency. The large possible drawback is that this pushes more
+power and required expertise to the user (but additional protections
+and conveniences could be layered off if desired).
+
+Initially funcall will be used fairly liberally until I stumble across
+a means to identify variables as functions and push Emacs lisp closer
+to a lisp 1 (I know such mechanisms are readily available but I'm just
+not actively looking).
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+
+  (defgroup ^-env
+    nil
+    "Tune the environment."
+    :prefix "^-env"
+    :group 'environment)
+#+END_SRC
+
+**** Expand Using Shell
+
+The underlying functionality revolves around evaluating expressions in
+a shell which is invoked with the login profile. Much of this _may_ be
+able to be further generalized but there's currently no clear path or
+reason to do so.
+
+At the high level such expansion will be done by wrapping the name as
+a shell parameter and then passing it through the fairly ubiquitous
+`printf` function.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (defun ^-shell-expand (name)
+    (let ((shell-variable (^-enveloper '("${" . "}"))))
+      (^-shell-printf "%s" (funcall shell-variable name))))
+#+END_SRC
+
+***** Enveloper
+
+The above uses an "enveloper" which wraps a string in the provided
+pair. There's some similar behavior that seems worth extracting
+into an object when I get to reading about some of the object
+libraries in Emacs (it doesn't seem worth going the manual route of
+routing messages).
+
+This makes use of currying since...I like currying. More specifically
+I think use of partial applications in local variables can provide
+tidy invocations of general blocks. Later on I'll probably make use of
+some library or other (dash?) to provide a range of functional
+programming behavior for me.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (defun ^-enveloper (pair)
+    "Produce a function which will wrap a string within pair."
+    (lambda (s) (concat (car pair) s (cdr pair))))
+#+END_SRC
+
+***** Define the Called Commands
+
+****** Shell Supplier
+
+The evaluation itself will be performed through a shell command which
+is defined here, defaulting to the Emacs standard.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (defcustom ^-env-shell-supplier
+    (lambda () shell-file-name)
+    "Define the function which will return the shell to invoke
+     along with any additional arguments."
+    :type 'function
+    :group '^-env)
+#+END_SRC
+
+****** Shell Login Argument Supplier
+
+The shell command may also require some additional arguments to make
+sure that it is executed using the login profile.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (defcustom ^-env-shell-login-arg-supplier
+    (lambda () '("-l" "-i"))
+    "Define the function which will return arguments that when
+     passed to the shell will operate in login mode."
+    :type 'function
+    :group '^-env)
+#+END_SRC
+
+****** Printf Command Supplier
+
+As previously mentioned this will expect to be evaluated using some
+form of printf...how practically extensible this is given the current
+logic seems unclear - likely most of these functions would be better
+off as being passed the argument they're expanding but all of that
+feels like premature generalization and right now the goal is just to
+define some of the magic values.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (defcustom ^-env-printf-supplier
+    (lambda () "printf")
+    "Define the function which will return the printf command
+     to be invoked by the shell."
+    :type 'function
+    :group '^-env)
+#+END_SRC
+
+***** Support Invoking the Commands
+
+There's likely some better constructs for this floating around
+somewhere, but for now I'll start with what was inherited.
+
+****** Warn On Slow Evaluation
+
+Warning on a slow call is carried forward from exec-from-shell...I'm
+not entirely sure of its value given that there's no timeout behavior
+and the execution is not typically done repeatedly.  I'd conjecture
+that maybe this is useful as such slow executions could produce
+undesirably slow Emacs start times. In any case it seems worth keeping
+around for the time being.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (defcustom ^-env-warn-evaluation-duration-millis-supplier
+    (lambda () 500)
+    "Print a warning if evaluation duration exceeds this number of milliseconds."
+    :type 'function
+    :group '^-env)
+#+END_SRC
+
+****** Support Timed Evaluation
+
+There's nothing particularly specialized about timing a call so this
+will be implemented through providing a first class function which
+takes a curried handler to which the time will be passed and can then
+be passed any body as a thunk which will be evaluated and timed.
+This would almost certainly be more idiomatically a macro in Emacs
+lisp but I tend to avoid that (which will be covered separately at
+some point).
+
+The implementation is typical timer behavior of tracking start time
+and then reporting the difference between the start and end times (in
+this case passing it to the handler. A general note (not specific to
+this code or language) is that it is often desirable to consistently
+report the time and therefore any calls that return through alternate
+paths (such as exceptions) should also be tracked (and preferably
+annotated accordingly). This is optimistically ignored for this code
+(and I'd typically prefer Either semantics over exceptions which makes
+that issue simpler to reason about) but that scenario may need further
+attention with this code.
+
+******* Millisecond Duration
+
+The duration will be passed in milliseconds as that's what's inherited
+from the original logic. This also generally seems to be the most
+common unit for timing application code - it is appropriate for
+relatively slow actions like invoking another process and faster
+actions can be timed in aggregates which can help smooth out the many
+things can skew sub-millisecond timings.
+
+This provides a basic implementation to calculate such a duration
+from two timestamps using Emacs functionality. There may be a
+date/time library floating around that could replace this later.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (defun ^-temporal-diff-millis (start end)
+    (thread-last start
+		(time-subtract end)
+		float-time
+		(* 1000.0)))
+#+END_SRC
+
+******* Implement Timer
+
+This function body is a fairly straightforward higher-order
+function. Currently the handler will be invoked with funcall (which
+should be modified later).
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (defun ^-timed (handler)
+    "Produce a function that will invoke thunks and return their value
+     while also passing the execution duration to <handler>."
+    (lambda (thunk)
+      (let* ((start-time (current-time))
+	     (result (funcall thunk))
+	     (duration (^-temporal-diff-millis start-time (current-time))))
+	(funcall handler duration)
+	result)))
+#+END_SRC
+
+******* Wire Warning
+
+The specific handler for the duration warning 
+
+**** Transplants
+
+The environment variables that should be carried across profiles will
+be called "transplants".
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (defcustom ^-env-variable-transplants-supplier
+    (lambda '("MANPATH"))
+    "List of environment variables which will be transplanted on initialization."
+    :group '^-env)
+#+END_SRC
+
+
+#  LocalWords:  Minibuffer Dired

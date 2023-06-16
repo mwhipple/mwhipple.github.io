@@ -1,5 +1,7 @@
 #+TITLE: This Site
 
+- [[file:this_site_authoring.org][Authoring]]
+
 ** Information Collection
 
 I'll be collecting information for this site _primarily_ through
@@ -62,7 +64,7 @@ isn't to say that that isn't often a compelling reason, particularly
 for an organization. Similarly there may be some cases for which a
 particular type of technology is most appropriate but an awkward
 fit. Additionally I haven't run the numbers for GAE in particular but
-in most similar systems there's a breakeven point after which it is
+in most similar systems there's a break-even point after which it is
 likely to be far more cost effective to use something closer to the
 metal even after accounting for the operational overhead. But...as
 mentioned the _upfront_ benefits can be substantial and other than
@@ -74,20 +76,24 @@ For this particular project I'll be looking to make use of the
 containers and I'll be starting to use a non-supported runtime and
 likely evolving into making use of a relatively standard container
 which is also not directly supported, so in both cases relying on a
-[[file:sources.org::#gae-custom][custom runtime]]. An enticing longer term plan may be to switch to [[#src-gae-cloud-run][Cloud
-Run]] as it is likely to be lower cost at low volume, but in the
-immediate term it seems like a distraction and I may also want to look
-at more static-centric alternatives in the future.
+[[file:sources.org::#gae-custom][custom runtime]]. An enticing longer term plan may be to switch to
+[[file:sources.org::#gae-cloud-run][Cloud Run]] as it is likely to
+be lower cost at low volume, but in the immediate term it seems like a
+distraction and I may also want to look at more static-centric
+alternatives in the future.
+
+I'm also coincidentally looking at Cloud Run for a work related
+project so that seems likely to slide it in front of GAE.
 
 ** nginx
 
 I'll be looking to deploy this site as a static site hosted through
-nginx as outlined in the Google App Engine flexible runtime
-[[#src-gae-quickstart][quickstart]]. I've spent a fair amount of time fiddling with nginx and
+[[file:sources.org::#nginx-oss][nginx (open source)]] as outlined in the Google App Engine custom runtime
+[[file:sources.org::#gae-custom-quickstart][quickstart]]. I've spent a fair amount of time fiddling with nginx and
 while I'm not particularly fond of their business model (particularly
 the somewhat crippled open source offering) the software itself has
 proven to be very robust and efficient with wide adoption...and I have
-assorted nginx stickers and T-shirts (one of which is black-on-black
+assorted [[file:sources.org::#nginx][nginx]] stickers and T-shirts (one of which is black-on-black
 and probably my favorite tech shirt) so I should probably validate the
 swag by using the software. My past experience also gives me
 confidence that I can bend it to my wishes in some way or another and
@@ -97,7 +103,7 @@ dissuade me).
 
 ** Artanis (Old)
 
-This site was going to will looking to be running on top of [[src-gnuartanis][GNU
+This site was going to will looking to be running on top of [[file:sources.org::#src-gnuartanis][GNU
 Artanis]]. This is largely a consequence of the approach to
 Information Collection, although the project may potentially align
 with some longer term goals. I'm more likely to ultimately land on a
@@ -111,8 +117,8 @@ but am likely to gravitate more towards Python, I'll elaborate upon
 some of my larger thoughts around languages in an upcoming update.
 
 Relatively up-to-date information on Artanis seems to be provided on
-its [[#src-artanis_github][GitLab page]] (including containerized execution which I'll be
-looking to build on top of). Artanis itself is built on top of [[#src-gnuguile][GNU
+its [[file:sources.org::#src-artanis_github][GitLab page]] (including containerized execution which I'll be
+looking to build on top of). Artanis itself is built on top of [[file:sources.org::#src-gnuguile][GNU
 Guile]] which was installed but not detected on my system (it is
 potentially outdated), so I may also dig into that project though I'll
 likely start with seeing about containerized Artanis.
@@ -122,12 +128,12 @@ likely start with seeing about containerized Artanis.
 I'll be looking to run Artanis in a container, and accordingly the
 initially desired development environment is also using containers to
 most closely align with the deployment (installing anything on my host
-is effectively more of a workflow optimization). There are [[#src-nalaginrut-artanis-docker][some
+is effectively more of a workflow optimization). There are [[file:sources.org::#src-nalaginrut-artanis-docker][some
 instructions]] provided for running Artanis in a container, but those
 instructions need to be tuned a bit. Most significantly the tag for
 the image is outdated and should instead be more of the form
 `registry.gitlab.com/hardenedlinux/artanis` to reflect the project
-being transferred. Updated guidance is provided with the [[#src-nalaginrut-artanis_0.5_docker][instructions
+being transferred. Updated guidance is provided with the [[file:sources.org::#src-nalaginrut-artanis_0.5_docker][instructions
 for Artanis 0.5]]. Beyond that there are a few adjustments for the
 sake of usability and reproducibility: the image should have an
 appropriate entrypoint so that it can be launched directly and an
@@ -152,9 +158,24 @@ standard upstream image also seems to fall into a fairly common trap
 of using root rather than a less-privileged user. I think this is
 covered as part of Dockerfile best practices that I'll need to chase
 down.  Another fairly general note is that the guidance on the post
-suggests using [[#src-docker-get][docker]] but I'd probably gravitate towards an
+suggests using [[file:sources.org::#src-docker-get][docker]] but I'd probably gravitate towards an
 alternative like `nerdctl`. This is relatively insignificant as it can
 be abstracted by the Makefile but seems worth mentioning given the
 strong sentiment in the Artanis documentation and the GNU community as
 a whole towards free software against which the licensing for Docker
 Desktop _may_ run afoul.
+
+*** Details
+
+My starting point is to use the provided image and access a locally
+running site...unfortunately some of my quick tweaks didn't quite land
+so I'll need to quickly retrieve specifics from the [[file:sources.org::#docker-reference][Docker reference
+documentation]] since I typically can remember what options there are
+but not quite how they look. While I (as mentioned) am looking to move
+away from Docker it has good documentation and remains the de facto
+standard at the moment so starting with what is documented for Docker
+is certainly a safe point while pursuing what is currently
+Docker-compatible invocations.  To get the ball rolling I just fiddled
+with the command to get it to work, but I'll adjust them based on the
+[[file:sources.org::#docker-run][docker run documentation]] and replace the short options with the longer
+forms.

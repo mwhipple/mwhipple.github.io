@@ -18,6 +18,11 @@
 :CUSTOM_ID: gae
 :IN:       github_blog_rebase_9
 :END:
+** TODO [[https://cloud.google.com/appengine/docs/flexible/custom-runtimes/create-app][Quickstart: Create a custom runtime app in the App Engine flexible environment  |  Google App Engine flexible environment docs  |  Google Cloud]]
+:PROPERTIES:
+:CUSTOM_ID: gae-custom-quickstart
+:IN:       gae-flexible
+:END:
 ** [[https://cloud.google.com/appengine/docs/flexible/custom-runtimes/about-custom-runtimes][About Custom runtimes | Google Cloud]]
 :PROPERTIES:
 :CUSTOM_ID: gae-custom
@@ -28,6 +33,11 @@
 :CUSTOM_ID: gae-flexible
 :IN:  gae
 :END:
+** [[https://cloud.google.com/appengine/docs/flexible/cloud-run-for-gae-customers][Cloud Run for App Engine customers | Google App Engine flexible environment docs | Google Cloud]]
+:PROPERTIES:
+:CUSTOM_ID: gae-cloud-run
+:IN:       gae-flexible
+:END:
 ** [[https://github.blog/2008-12-18-github-pages][GitHub Pages | The GitHub Blog]]
 :PROPERTIES:
 :CUSTOM_ID: github_blog_pages
@@ -37,4 +47,21 @@
 :PROPERTIES:
 :CUSTOM_ID: gnumanuals
 :IN: [[#gnucoreutils_manual]]
+:END:
+** [[https://www.nginx.com/][Advanced Load Balancer, Web Server, & Reverse Proxy - NGINX]]
+:PROPERTIES:
+:CUSTOM_ID: nginx
+:END:
+** [[https://github.com/nginxinc/][NGINX, Inc. · GitHub]]
+:PROPERTIES:
+:CUSTOM_ID: nginx-github
+:END:
+** [[https://nginx.org/][nginx news]]
+:PROPERTIES:
+:IN:       nginx-github
+:CUSTOM_ID: nginx-oss
+:END:
+** [[info:with-editor#Top][With-Editor Users Manual]]
+:PROPERTIES:
+:CUSTOM_ID: with-editor-info
 :END:

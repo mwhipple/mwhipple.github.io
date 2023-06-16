@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-06-16 Fri 09:07 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Programming Languages are Harmful</title>
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Programming Languages are Harmful</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgfcb0772">1. Backstory</a></li>
+<li><a href="#org8c1f6a0">2. Software Tools and Monoliths</a></li>
+<li><a href="#org1792221">3. The What and the How</a></li>
+<li><a href="#org6264428">4. Systems vs. Application Programming</a></li>
+<li><a href="#orgf0f0cf4">5. Underlying Concerns</a></li>
+<li><a href="#orgb6aa6cd">6. Where This Leads</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgfcb0772" class="outline-2">
+<h2 id="orgfcb0772"><span class="section-number-2">1.</span> Backstory</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Over my career I've programmed in a range of different languages and
+I'm currently nursing an idea that languages offer tenuous return on
+investment to the software industry. Don't get me wrong, I certainly
+think many languages have contributed many great ideas and I'm also
+vehemently opposed to panaceas and golden hammers and therefore
+recognize that some problems are best explored using appropriate means
+of expression.
+</p>
+
+<p>
+The back-breaking straw of this idea was likely spending a chunk of
+one of my days spelunking through Python's SSL implementation and
+corresponding C code to work through a bug whose behavior I could
+readily reproduce and resolve using the `openssl` command. While I
+used this as a chance to brush up on some TLS details the main
+lingering impression was the large tracts of code that existed not to
+do anything new, but simply to reexpress an established solution (the
+particular issue was resolved by swapping out LibreSSL for OpenSSL).
+Some other recent background context was likely being engaged in
+several conversations around language adoption, and somewhat
+relatively recently within an engineering culture that had a &lt;q&gt;one
+language to rule them all&lt;/q&gt; mindset even when the output of that
+mindset was often bizarre paths of using that language to invoke shell
+commands to launch other languages or containers (which I looked to
+simplify as things broke&#x2026;which they often did).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8c1f6a0" class="outline-2">
+<h2 id="org8c1f6a0"><span class="section-number-2">2.</span> Software Tools and Monoliths</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+A well-known exchange in the annals of computing history is Doug
+McIlroy's criticism of a program Don Knuth wrote to demonstrate
+literate programming for Jon Bentley's Programming Pearls CACM column
+(with the underlying premise that if software is treated as literature
+it should be subjected to criticism). While there is a fair amount to
+glean from all of the material, one of the main The prospect of
+software tools composed with uniform pipes offered an approach which
+could be more quickly produced, more readily evolved, and was more
+able to tap portable background knowledge.  As alluded to the
+discussion is a bit more nuanced and as one of my former coworkers
+posited that argument is on much shakier ground when considering a
+system such as TeX (and I personally am a proponent of literate
+programming), but it is worth recognizing that all too often
+programming languages seem to drift towards such monolithic
+recreations of functionality which could otherwise be more readily
+composed. From a more modern perspective many of the software tools
+ideas carry forward to pursuits such as microserves&#x2026;or less
+ambitiously any use of well designed utility containers.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1792221" class="outline-2">
+<h2 id="org1792221"><span class="section-number-2">3.</span> The What and the How</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+At its core, programming is largely about algorithms are the
+imperative complement to declarative knowledge.  A clear and often
+used example (I think it appears in sources such as The Art of
+Computer Programming and The Go Programming Language) is <span class="underline">how</span>
+Euclid's Algorithm can be coded to determine <span class="underline">what</span> is the greatest
+common divisor (GCD) of two numbers.  The GCD is an important declared
+concept and the automation of how to derive the appropriate value is
+enormously valuable.
+</p>
+
+<p>
+While automating such processes is the core value of computers, one of
+the most valuable tools in engineering is that of
+abstraction. Abstraction is essential for making systems
+comprehensible and while it is crucial in all fields of engineering,
+it is integral to software engineering - not only is the base level of
+software engineering built atop many layers of electrical engineering
+abstractions, but the creation of abstractions is one of the core
+tools of software engineers.  Abstraction effectively buries the
+previously mentioned core value of computing; drawing on the earlier
+example while the value of <span class="underline">computers</span> is the automation of the <span class="underline">how</span>
+of Euclid's Algorithm, the value delivered by the software is that of
+producing the <span class="underline">what</span> of the GCD. Therefore the produced machine is
+most simply represented as a <span class="underline">what</span> producing blackbox so the GCD and
+any other relevant pieces of data can be used without getting swamped
+in details.
+</p>
+
+<p>
+Unfortunately languages are often too focused on aspects of <span class="underline">how</span> -
+all too often there are established and abstracted solutions for
+particular problems but all too often significant additional effort is
+required to reimplement or adapt such solutions so that they conform
+with <span class="underline">how</span> a particular language seeks to express ideas within the
+solution space. This perspective in isolation is a bit simplistic but
+will be elaborated upon further.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6264428" class="outline-2">
+<h2 id="org6264428"><span class="section-number-2">4.</span> Systems vs. Application Programming</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+A key distinction when discussing programming is that between systems
+programming and application programming. The official definitions
+should be incorporated here, but for in the short term I'll consider
+systems programming as that which is focused on enabling use of what
+is immediately available. At the lowest level this involves things
+like hardware and instruction sets but more typically this is likely
+to make use of the facilities provided by the operating system or
+higher level of abstraction such as virtual machines. The output of
+systems programming is likely to be a generalized machine.
+</p>
+
+<p>
+Applications programming is developing software to solve specific
+business cases&#x2026;which is the vast majority of modern software being
+created. Drawing on Fred Brooks's "No Silver Bullet", the vast
+majority of concerns introduced by software in applications
+programming amount to accidental complexity: friction which is
+introduced by the solution space where only a small amount is likely
+to be an essential consideration for the problem at
+hand. Unfortunately software engineers seem to gravitate towards
+challenges that may be technically interesting but have unclear
+business value. A basic smell test for such considerations is whether
+their removal would confer a competitive advantage - if you're
+investing in establishing deep technical expertise but a competitor
+made use of an alternative which avoided that overhead would they be
+able to undercut you? If that resonates then it is a strong indication
+of an accretion of accidental complexity which is likely to escalate
+both delivery and maintenance costs. No-code, low-code, and
+ML-assisted development may help reduce smooth out some of these edges
+but a far more fundamental adjustment is simply to recognize the
+difference between systems and application programming and the natural
+corollary that unless your core deliverable is software itself rather
+than the output of such software, any and all effort expended in
+producing such output with the desired characteristics is cost and
+should be managed appropriately. There's a larger thread lurking
+within this sentiment around accountability and how perverse some
+routine engineering efforts would seem if analogs within other
+departments existed but are accepted in the magical world of software,
+but that's likely a larger topic. Much of this ties directly back to
+the concepts in The What and the How: application programming is best
+expressed entirely in terms of <span class="underline">what<sub>s</sub>. Preferring more declarative
+interfaces can make machines far more economical to develop and easier
+to reason about, verify, and optimize. Most application programming,
+however, tends to remain largely imperative without a clear
+delineation from systems programming. This break is certainly not a
+clearly achievable goal and is likely to echo the largely unrealized
+dream of fourth generation languages, _but</span> a key distinction in this
+thread is that the focus is emphatically not about pursuing a language
+but rather reuse and composition of abstractions. This also touches
+back upon Software Tools and Monoliths and echoes some of Martin
+Kleppmann's sentiments at the end of <a href="sources.html#ddia">Desiging Data-Intensive
+Applications</a> which imagines being able to compose data flows as
+easily as Unix pipelines.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf0f0cf4" class="outline-2">
+<h2 id="orgf0f0cf4"><span class="section-number-2">5.</span> Underlying Concerns</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+The previous ideas stay pretty conceptual but all of these ideas need
+to meet the metal at some point and some of the things that have been
+glossed over need warrant some attention.
+</p>
+
+<p>
+Perhaps one of the first places to start is that much of the described
+interoperability is available in the form of foreign function
+interfaces&#x2026;but foreign? If two languages are running on the same
+system what is foreign? This cuts back to the Python SSL code that
+pushed me over this ledge - why was so much code necessary to call a
+library that I could easily interact with from the command line?
+</p>
+
+<p>
+One of the clearest initial issues is the representation of data
+within any given language. Most instruction sets operate on bits and
+while they may care about the number of bits involved they are far
+less likely to care about what the bits mean; semantics that extend
+beyond basics such as a sign bit are likely to be largely handled by
+convention. While low level languages like C provide some behavior on
+top of this such behavior is largely in the compiler so the data
+worked with is still largely bits rather than having any particularly
+defined metadata. As most major operating systems are written in a C
+compatible language this leaves higher level languages to track what
+additional data they need either alongside the data itself or in
+separate structures, establishing local conventions which then need a
+translation layer for "foreign" data.
+</p>
+
+<p>
+A related but arguably less fundamental concern is around some of the
+additional behavior provided by particular languages. Concerns such as
+memory management or safety may require that any data which is not
+provided through standard channels must be somehow taken into the
+fold. This is significant but ultimately this should correspond to
+some combination of the aforementioned metadata and perhaps a function
+invocation. There are certainly stickier considerations if data is
+registered for such functionality while remaining accessible to
+external code, but those are detail devils that are ultimately the
+result of some of the initial practices which are being questioned (if
+such functionality were orthogonal to some notion of "language" then
+the foreign/external boundary disappears.
+</p>
+
+<p>
+When considering established approaches such as unix pipelines a
+hidden concern is that of inter-process communication (IPC).
+Consistently sharing data by value is wonderfully simple&#x2026;but can be
+fairly costly. The same concern manifests in microservices and the
+goals of GNU Hurd. On a given system this is another incarantion of
+the previous concern: any perceived <span class="underline">requirement</span> that the value must
+be handled in a particular way is the result of it crossing some
+potentially arbitrary boundary.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb6aa6cd" class="outline-2">
+<h2 id="orgb6aa6cd"><span class="section-number-2">6.</span> Where This Leads</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+I'll be exploring some of the options with some of the ideas above,
+much of this circles around the notion of relying upon an established
+low level interface to avoid some of the translation boundaries, where
+the clearest initial such interface would be the SysV ABI. Particular
+features of given languages would be implemented independently of the
+language itself, and the means of expression which often seem to
+dominate current languages would be a layer on top of all of these
+(like a lightweight compiler frontend). This will probably result
+primarily in adoption of tools which match these goals (I feel like I
+may be getting pulled toward C++) with some gaps filled by some
+homemade glue (particularly for some of the additional tastes like
+literate programming).
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2023-06-16 Fri 09:07</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

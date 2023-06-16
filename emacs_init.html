@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-06-09 Fri 08:26 -->
+<!-- 2023-06-16 Fri 12:37 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>My Emacs Configuration</title>
@@ -200,27 +200,64 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgcb9f6d9">1. Define Header</a></li>
-<li><a href="#orgb6c7ace">2. Check Preconditions</a>
+<li><a href="#org08f3cdd">1. Define Header</a></li>
+<li><a href="#orga601c0a">2. Check Preconditions</a>
 <ul>
-<li><a href="#org83f026e">2.1. JSON Support</a></li>
+<li><a href="#org9fc0eac">2.1. JSON Support</a></li>
 </ul>
 </li>
-<li><a href="#org553c576">3. Enable Desktop Preservation</a></li>
-<li><a href="#org1510c27">4. Customize Styling</a>
+<li><a href="#orgc1a2811">3. Enable Desktop Preservation</a></li>
+<li><a href="#orgb34c1f1">4. Customize Styling</a>
 <ul>
-<li><a href="#org07fc64d">4.1. Show Some Stuff</a></li>
-<li><a href="#org7bff983">4.2. Hide Some Stuff</a></li>
-<li><a href="#orgfbd77b3">4.3. Go Dark</a></li>
+<li><a href="#org3a415c3">4.1. Show Some Stuff</a></li>
+<li><a href="#org74af343">4.2. Hide Some Stuff</a></li>
+<li><a href="#org0bb4dbe">4.3. Go Dark</a></li>
 </ul>
 </li>
-<li><a href="#org9b1a426">5. Define Self Inserting Characters</a></li>
-<li><a href="#orga8795e4">6. Bind Some Low-Level Commands</a></li>
+<li><a href="#org6c42044">5. Define Self Inserting Characters</a></li>
+<li><a href="#org4e68770">6. Bind Some Low-Level Commands</a></li>
+<li><a href="#org7db444a">7. Provide Some Basic Editing</a>
+<ul>
+<li><a href="#orgbe69b11">7.1. Insert Content</a></li>
+<li><a href="#org5faae42">7.2. Remove Content</a></li>
+<li><a href="#orgfed016d">7.3. Support Moving Point Around Within a Buffer</a></li>
+<li><a href="#org5a94cde">7.4. Change View of Buffer</a></li>
+<li><a href="#org45ea22a">7.5. Play With Mark</a></li>
+<li><a href="#orgf03abc9">7.6. Work with Kill Ring</a></li>
+</ul>
+</li>
+<li><a href="#org80cf6f4">8. Generate Content</a></li>
+<li><a href="#orga528ef0">9. Searching and Potentially Replacing</a></li>
+<li><a href="#orgc0b6b5c">10. Support Some Inter-Process Communication</a>
+<ul>
+<li><a href="#org0a147be">10.1. Support Invoking of External Commands</a></li>
+<li><a href="#org571b9be">10.2. Handle Escape Sequences from External Commands</a></li>
+</ul>
+</li>
+<li><a href="#org0bdc3fa">11. Manage View Objects</a></li>
+<li><a href="#org86dddf3">12. Help Me!</a></li>
+<li><a href="#org11273b6">13. Define Some Minibuffer Bindings</a></li>
+<li><a href="#org6bc0e90">14. Define Some Navigation Through a Project</a></li>
+<li><a href="#org8f8599c">15. Configure Org Mode</a></li>
+<li><a href="#orgff24eb4">16. Configure Dired Mode</a></li>
+<li><a href="#org4cef713">17. Configure Org Agenda</a></li>
+<li><a href="#org6d7ebd1">18. Configure hexl Mode</a></li>
+<li><a href="#orgf960c05">19. Configure Info Mode</a></li>
+<li><a href="#org4cb938e">20. Manage Environment for Called Commands</a>
+<ul>
+<li><a href="#orgb56d76e">20.1. Customization Group</a>
+<ul>
+<li><a href="#org388b67e">20.1.1. Expand Using Shell</a></li>
+<li><a href="#orgadb7876">20.1.2. Transplants</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <p>
-I use my emacs configuration both as a means to customize it and to
+I use my Emacs configuration both as a means to customize it and to
 document standard behavior. As a result much of it will strictly
 unnecessary.
 </p>
@@ -231,7 +268,7 @@ with supporting knowledge and will start with integrating desired
 functionality directly into this file rather than pulling in external
 packages. This ties in with an overall goal I have in software in
 general to make consistent reuse of abstractions, and also can
-hopefully address a concern I've had with emacs in particular in the
+hopefully address a concern I've had with Emacs in particular in the
 past where it felt as though there was both too much code floating
 around the ecosystem and too little readily composable functionality.
 </p>
@@ -244,8 +281,15 @@ of it as macros squared&#x2026;so `^-` is in the spirit of that while also
 being nice and short.
 </p>
 
-<div id="outline-container-orgcb9f6d9" class="outline-2">
-<h2 id="orgcb9f6d9"><span class="section-number-2">1.</span> Define Header</h2>
+<p>
+Over time I'll likely also look to evolve the configuration so that it
+is increasingly declarative data structures operated upon by fewer
+functions. This may ease reuse of the same configuration across
+multiple targets as the number of operations to support will be reduced.
+</p>
+
+<div id="outline-container-org08f3cdd" class="outline-2">
+<h2 id="org08f3cdd"><span class="section-number-2">1.</span> Define Header</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Define some standard header boilerplate like copyright&#x2026;
@@ -260,14 +304,13 @@ most significantly define lexical binding.
 
 ;; Author: Matt Whipple &lt;mattwhipple@acm.org&gt;
 ;; Maintainer: Matt Whiple &lt;mattwhipple@acm.org&gt;
-;; URL: https://git.sr.ht/~mwhipple/etc
 ;; Keywords: config
 ;; Package: ^-config
 ;; Package-Version: NA
 ;; Package-Requires: ((emacs "29.1"))
 ;; Filename: init.el
 
-;; This file is NOT part of GNU Emacs.
+;; This file is not part of GNU Emacs.
 
 ;; This is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -294,21 +337,22 @@ most significantly define lexical binding.
 </div>
 </div>
 
-<div id="outline-container-orgb6c7ace" class="outline-2">
-<h2 id="orgb6c7ace"><span class="section-number-2">2.</span> Check Preconditions</h2>
+<div id="outline-container-orga601c0a" class="outline-2">
+<h2 id="orga601c0a"><span class="section-number-2">2.</span> Check Preconditions</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 I'll be making use of whatever seems readily available rather than
-carefully tracking what features are available where, but as the lack
-of certain capabilities translate into errors on some system or other
-I'll add tests with more helpful messages here. If any of this code
-ends up being split out into libraries this should be handled with
-more discipline (and compatibility options should be explored).
+carefully tracking what features are available on what systems, but as
+the lack of certain capabilities translate into errors on some system
+or other I'll add tests with more helpful messages here. If any of
+this code ends up being split out into libraries this should be
+handled with more discipline (and compatibility options should be
+explored).
 </p>
 </div>
 
-<div id="outline-container-org83f026e" class="outline-3">
-<h3 id="org83f026e"><span class="section-number-3">2.1.</span> JSON Support</h3>
+<div id="outline-container-org9fc0eac" class="outline-3">
+<h3 id="org9fc0eac"><span class="section-number-3">2.1.</span> JSON Support</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 This is required for EAF stuff and seems generally useful.
@@ -323,8 +367,8 @@ This is required for EAF stuff and seems generally useful.
 </div>
 </div>
 
-<div id="outline-container-org553c576" class="outline-2">
-<h2 id="org553c576"><span class="section-number-2">3.</span> Enable Desktop Preservation</h2>
+<div id="outline-container-orgc1a2811" class="outline-2">
+<h2 id="orgc1a2811"><span class="section-number-2">3.</span> Enable Desktop Preservation</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Use desktop mode to save and restore desktops across invocations.
@@ -337,15 +381,15 @@ Use desktop mode to save and restore desktops across invocations.
 </div>
 </div>
 
-<div id="outline-container-org1510c27" class="outline-2">
-<h2 id="org1510c27"><span class="section-number-2">4.</span> Customize Styling</h2>
+<div id="outline-container-orgb34c1f1" class="outline-2">
+<h2 id="orgb34c1f1"><span class="section-number-2">4.</span> Customize Styling</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-org07fc64d" class="outline-3">
-<h3 id="org07fc64d"><span class="section-number-3">4.1.</span> Show Some Stuff</h3>
+<div id="outline-container-org3a415c3" class="outline-3">
+<h3 id="org3a415c3"><span class="section-number-3">4.1.</span> Show Some Stuff</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
-I often have emacs running full-screen so it's nice if it just provides
+I often have Emacs running full-screen so it's nice if it just provides
 me info that I need in the status bar such as what time it is and how
 much time until my battery will die and maybe other things that aren't
 time related.
@@ -360,14 +404,14 @@ time related.
 </div>
 </div>
 
-<div id="outline-container-org7bff983" class="outline-3">
-<h3 id="org7bff983"><span class="section-number-3">4.2.</span> Hide Some Stuff</h3>
+<div id="outline-container-org74af343" class="outline-3">
+<h3 id="org74af343"><span class="section-number-3">4.2.</span> Hide Some Stuff</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 Currently I'm very keyboard oriented and don't want to waste previous
-screen real estate so I'd rather get rid of UI elements intended for
-other forms of interaction. I may revisit this as I look at using
-emacs across a wider range of devices.
+screen real estate so I'd rather get rid of user interface elements
+intended for other forms of interaction. I may revisit this as I look
+at using Emacs across a wider range of devices.
 </p>
 
 <div class="org-src-container">
@@ -378,8 +422,8 @@ emacs across a wider range of devices.
 </div>
 </div>
 
-<div id="outline-container-orgfbd77b3" class="outline-3">
-<h3 id="orgfbd77b3"><span class="section-number-3">4.3.</span> Go Dark</h3>
+<div id="outline-container-org0bb4dbe" class="outline-3">
+<h3 id="org0bb4dbe"><span class="section-number-3">4.3.</span> Go Dark</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 I (like many people) generally prefer themes with dark
@@ -410,8 +454,8 @@ think frame.el&#x2026;I should link it when I come across it again).
 </div>
 </div>
 
-<div id="outline-container-org9b1a426" class="outline-2">
-<h2 id="org9b1a426"><span class="section-number-2">5.</span> Define Self Inserting Characters</h2>
+<div id="outline-container-org6c42044" class="outline-2">
+<h2 id="org6c42044"><span class="section-number-2">5.</span> Define Self Inserting Characters</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 Define and bind chose keys that result in the associated character
@@ -451,8 +495,8 @@ it's hard to resist.
 </div>
 </div>
 
-<div id="outline-container-orga8795e4" class="outline-2">
-<h2 id="orga8795e4"><span class="section-number-2">6.</span> Bind Some Low-Level Commands</h2>
+<div id="outline-container-org4e68770" class="outline-2">
+<h2 id="org4e68770"><span class="section-number-2">6.</span> Bind Some Low-Level Commands</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 Define some functions that seem relatively fundamental to dealing with
@@ -461,14 +505,644 @@ commands in general.
 
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(bind-keys :map global-map
-           ("C-g" . keyboard-quit))
+           ("C-g" . keyboard-quit)
+           ("M-x" . execute-extended-command))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7db444a" class="outline-2">
+<h2 id="org7db444a"><span class="section-number-2">7.</span> Provide Some Basic Editing</h2>
+<div class="outline-text-2" id="text-7">
+</div>
+<div id="outline-container-orgbe69b11" class="outline-3">
+<h3 id="orgbe69b11"><span class="section-number-3">7.1.</span> Insert Content</h3>
+<div class="outline-text-3" id="text-7-1">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(bind-keys :map global-map
+           ("RET" . newline)
+           ("TAB" . indent-for-tab-command)
+           ("C-o" . open-line))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5faae42" class="outline-3">
+<h3 id="org5faae42"><span class="section-number-3">7.2.</span> Remove Content</h3>
+<div class="outline-text-3" id="text-7-2">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(bind-keys :map global-map
+           ("DEL"  . backward-delete-char-untabify)
+           ("C-d" .  delete-char)
+           ("M-\\" . delete-horizontal-space)
+           ("M-z" . zap-up-to-char))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfed016d" class="outline-3">
+<h3 id="orgfed016d"><span class="section-number-3">7.3.</span> Support Moving Point Around Within a Buffer</h3>
+<div class="outline-text-3" id="text-7-3">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(bind-keys :map global-map
+           ("C-f" . forward-char)
+           ("C-b" . backward-char)
+           ("C-n" . next-line)
+           ("C-p" . previous-line)
+           ("C-e" . move-end-of-line)
+           ("C-a" . move-beginning-of-line)
+           ("M-f" . forward-word)
+           ("M-b" . backward-word)
+           ("M-&gt;" . end-of-buffer)
+           ("M-&lt;" . beginning-of-buffer)
+           ("M-}" . forward-paragraph)
+           ("M-{" . backward-paragraph)
+           ("C-v" . scroll-up-command)
+           ("M-v" . scroll-down-command))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5a94cde" class="outline-3">
+<h3 id="org5a94cde"><span class="section-number-3">7.4.</span> Change View of Buffer</h3>
+<div class="outline-text-3" id="text-7-4">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(bind-keys :map global-map
+           ("C-l" . recenter-top-bottom))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org45ea22a" class="outline-3">
+<h3 id="org45ea22a"><span class="section-number-3">7.5.</span> Play With Mark</h3>
+<div class="outline-text-3" id="text-7-5">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(bind-keys :map global-map
+           ("C-SPC" . set-mark-command)
+           ("C-x h" . mark-whole-buffer))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf03abc9" class="outline-3">
+<h3 id="orgf03abc9"><span class="section-number-3">7.6.</span> Work with Kill Ring</h3>
+<div class="outline-text-3" id="text-7-6">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(bind-keys :map global-map
+           ("C-y" . yank)
+           ("C-k" . kill-line)
+           ("M-w" . kill-ring-save))
 </pre>
 </div>
 </div>
 </div>
 </div>
+
+<div id="outline-container-org80cf6f4" class="outline-2">
+<h2 id="org80cf6f4"><span class="section-number-2">8.</span> Generate Content</h2>
+<div class="outline-text-2" id="text-8">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(bind-keys :map global-map
+           ("M-/" . dabbrev-expand))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga528ef0" class="outline-2">
+<h2 id="orga528ef0"><span class="section-number-2">9.</span> Searching and Potentially Replacing</h2>
+<div class="outline-text-2" id="text-9">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(bind-keys :map global-map
+           ("C-s" . isearch-forward)
+           ("M-%" . query-replace)
+           ("M-." . xref-find-definitions))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc0b6b5c" class="outline-2">
+<h2 id="orgc0b6b5c"><span class="section-number-2">10.</span> Support Some Inter-Process Communication</h2>
+<div class="outline-text-2" id="text-10">
+</div>
+<div id="outline-container-org0a147be" class="outline-3">
+<h3 id="org0a147be"><span class="section-number-3">10.1.</span> Support Invoking of External Commands</h3>
+<div class="outline-text-3" id="text-10-1">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(bind-keys :map global-map
+           ("M-!" . shell-command))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org571b9be" class="outline-3">
+<h3 id="org571b9be"><span class="section-number-3">10.2.</span> Handle Escape Sequences from External Commands</h3>
+<div class="outline-text-3" id="text-10-2">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0bdc3fa" class="outline-2">
+<h2 id="org0bdc3fa"><span class="section-number-2">11.</span> Manage View Objects</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+Deal with buffers and windows. I'm currently lumping these together
+and customizing their binding a bit to make use of the `C-M`
+modifier combination. This is an experimental shift, but in a past
+adoption of Emacs I remember doing something or other to rebind window
+resizing such that it did not require a chain and as these operations
+are so fundamental this seems like a potentially nice route.
+</p>
+
+<p>
+These are global and since the prefix is likely used elsewhere they
+are forced using `bind-keys*` to stick them in the override map.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(bind-keys* ("C-M-n" . next-buffer)
+            ("C-M-&lt;right&gt;" . next-buffer)
+            ("C-M-p" . previous-buffer)
+            ("C-M-&lt;left&gt;" . previous-buffer)
+            ("C-M-b" . switch-to-buffer)
+            ("C-M-k" . kill-buffer)
+            ("C-M-l" . list-buffers)
+            ("C-M-s" . save-buffer)
+            ("C-M-0" . delete-window)
+            ("C-M-1" . delete-other-windows)
+            ("C-M-2" . split-window-below)
+            ("C-M-3" . split-window-right)
+            ("C-M-o" . other-window)
+            ("C-M-}" . enlarge-window-horizontally)
+            ("C-M-{" . shrink-window-horizontally)
+            ("C-M-]" . enlarge-window)
+            ("C-M-[" . shrink-window))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org86dddf3" class="outline-2">
+<h2 id="org86dddf3"><span class="section-number-2">12.</span> Help Me!</h2>
+<div class="outline-text-2" id="text-12">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(bind-keys :prefix "C-h"
+           :prefix-map help-map
+           :prefix-docstring "Help me!"
+           ("b" . describe-bindings)
+           ("f" . describe-function)
+           ("i" . info)
+           ("k" . describe-key)
+           ("l" . view-lossage)
+           ("m" . describe-mode)
+           ("v" . describe-variable)
+           ("w" . where-is))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org11273b6" class="outline-2">
+<h2 id="org11273b6"><span class="section-number-2">13.</span> Define Some Minibuffer Bindings</h2>
+<div class="outline-text-2" id="text-13">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(bind-keys :map minibuffer-mode-map
+           ("TAB" . minibuffer-complete)
+           ("RET" . exit-minibuffer)
+           ("M-n" . next-history-element)
+           ("M-p" . previous-history-element)))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6bc0e90" class="outline-2">
+<h2 id="org6bc0e90"><span class="section-number-2">14.</span> Define Some Navigation Through a Project</h2>
+<div class="outline-text-2" id="text-14">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(bind-keys :map global-map
+           ("C-x `" . next-error))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8f8599c" class="outline-2">
+<h2 id="org8f8599c"><span class="section-number-2">15.</span> Configure Org Mode</h2>
+<div class="outline-text-2" id="text-15">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package org
+  :bind (:map org-mode-map
+  ("DEL" . org-delete-backward-char)
+  ("TAB" . org-cycle)
+  ("M-RET" . org-meta-return)
+  ("M-&lt;right&gt;" . org-metaright)
+  ("M-&lt;left&gt;" . org-metaleft)
+  ("C-a" . org-beginning-of-line)
+  ("C-k" . org-kill-line)
+  ("C-c C-w" . org-refile)
+  ("C-c C-q" . org-set-tags-command)
+  ("C-x RET" . org-open-at-point)))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgff24eb4" class="outline-2">
+<h2 id="orgff24eb4"><span class="section-number-2">16.</span> Configure Dired Mode</h2>
+<div class="outline-text-2" id="text-16">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package dired
+  :bind
+  ("C-p" . dired-previous-line)
+  ("C-n" . dired-next-line)
+  ("RET" . dired-find-file))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4cef713" class="outline-2">
+<h2 id="org4cef713"><span class="section-number-2">17.</span> Configure Org Agenda</h2>
+<div class="outline-text-2" id="text-17">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package org-agenda
+  :bind
+  ("C-n" . org-agenda-next-line)
+  ("C-p" . org-agenda-previous-line)
+  ("TAB" . org-agenda-goto)
+  ("g" . org-agenda-redo-all)
+  ("t" . org-agenda-todo)
+  ("u" . org-agenda-bulk-unmark)
+  ("T" . org-agenda-show-tags)
+  :config
+  (setq org-agenda-span 'day)
+  ;; Allow for very old scheduled items for catch-up behavior.
+  (setq org-scheduled-past-days 99999)
+  ;; Use hl-line mode in org-agenda for visibilitiy
+  (add-hook 'org-agenda-mode-hook 'hl-line-mode))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6d7ebd1" class="outline-2">
+<h2 id="org6d7ebd1"><span class="section-number-2">18.</span> Configure hexl Mode</h2>
+<div class="outline-text-2" id="text-18">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package hexl
+  :bind
+  ("C-v" . hexl-scroll-up)
+  ("M-v" . hexl-scroll-down))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf960c05" class="outline-2">
+<h2 id="orgf960c05"><span class="section-number-2">19.</span> Configure Info Mode</h2>
+<div class="outline-text-2" id="text-19">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(use-package info
+  :bind
+  ("SPC" . Info-scroll-up))    
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4cb938e" class="outline-2">
+<h2 id="org4cb938e"><span class="section-number-2">20.</span> Manage Environment for Called Commands</h2>
+<div class="outline-text-2" id="text-20">
+<p>
+Some operating systems (such as OS X) will invoke Emacs with a
+separate profile that may not include configuration that has been
+defined for login sessions such as environment variables.
+</p>
+
+<p>
+This basically steals the logic from exec-path-from-shell (to link)
+but the code itself is a bit dumber and is more oriented towards
+building out a larger code base rather than providing drop-in
+functionality.
+</p>
+
+<p>
+Most of the constructs here will be prefixed with `<sup>-env</sup>` but those
+that are more general will omit the `env` segment.
+</p>
+</div>
+
+<div id="outline-container-orgb56d76e" class="outline-3">
+<h3 id="orgb56d76e"><span class="section-number-3">20.1.</span> Customization Group</h3>
+<div class="outline-text-3" id="text-20-1">
+<p>
+I have not used customize in the past, but in addition to providing a
+UI which may be more usable across devices it also seems to offer a
+natural means to locally specialize behavior without worrying about
+what goes into which file.
+</p>
+
+<p>
+These will be functions which in some places helps reduce the overall
+complexity while retaining flexibility, and others are done largely
+for consistency. The large possible drawback is that this pushes more
+power and required expertise to the user (but additional protections
+and conveniences could be layered off if desired).
+</p>
+
+<p>
+Initially funcall will be used fairly liberally until I stumble across
+a means to identify variables as functions and push Emacs lisp closer
+to a lisp 1 (I know such mechanisms are readily available but I'm just
+not actively looking).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">
+(defgroup ^-env
+  nil
+  "Tune the environment."
+  :prefix "^-env"
+  :group 'environment)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org388b67e" class="outline-4">
+<h4 id="org388b67e"><span class="section-number-4">20.1.1.</span> Expand Using Shell</h4>
+<div class="outline-text-4" id="text-20-1-1">
+<p>
+The underlying functionality revolves around evaluating expressions in
+a shell which is invoked with the login profile. Much of this <span class="underline">may</span> be
+able to be further generalized but there's currently no clear path or
+reason to do so.
+</p>
+
+<p>
+At the high level such expansion will be done by wrapping the name as
+a shell parameter and then passing it through the fairly ubiquitous
+`printf` function.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun ^-shell-expand (name)
+  (let ((shell-variable (^-enveloper '("${" . "}"))))
+    (^-shell-printf "%s" (funcall shell-variable name))))
+</pre>
+</div>
+</div>
+
+<ol class="org-ol">
+<li><a id="orgcfdcd07"></a>Enveloper<br />
+<div class="outline-text-5" id="text-20-1-1-1">
+<p>
+The above uses an "enveloper" which wraps a string in the provided
+pair. There's some similar behavior that seems worth extracting
+into an object when I get to reading about some of the object
+libraries in Emacs (it doesn't seem worth going the manual route of
+routing messages).
+</p>
+
+<p>
+This makes use of currying since&#x2026;I like currying. More specifically
+I think use of partial applications in local variables can provide
+tidy invocations of general blocks. Later on I'll probably make use of
+some library or other (dash?) to provide a range of functional
+programming behavior for me.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun ^-enveloper (pair)
+  "Produce a function which will wrap a string within pair."
+  (lambda (s) (concat (car pair) s (cdr pair))))
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org42f378a"></a>Define the Called Commands<br />
+<ol class="org-ol">
+<li><a id="orgf2e3b3b"></a>Shell Supplier<br />
+<div class="outline-text-6" id="text-20-1-1-2-1">
+<p>
+The evaluation itself will be performed through a shell command which
+is defined here, defaulting to the Emacs standard.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defcustom ^-env-shell-supplier
+  (lambda () shell-file-name)
+  "Define the function which will return the shell to invoke
+   along with any additional arguments."
+  :type 'function
+  :group '^-env)
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgb0190f7"></a>Shell Login Argument Supplier<br />
+<div class="outline-text-6" id="text-20-1-1-2-2">
+<p>
+The shell command may also require some additional arguments to make
+sure that it is executed using the login profile.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defcustom ^-env-shell-login-arg-supplier
+  (lambda () '("-l" "-i"))
+  "Define the function which will return arguments that when
+   passed to the shell will operate in login mode."
+  :type 'function
+  :group '^-env)
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org4262e91"></a>Printf Command Supplier<br />
+<div class="outline-text-6" id="text-20-1-1-2-3">
+<p>
+As previously mentioned this will expect to be evaluated using some
+form of printf&#x2026;how practically extensible this is given the current
+logic seems unclear - likely most of these functions would be better
+off as being passed the argument they're expanding but all of that
+feels like premature generalization and right now the goal is just to
+define some of the magic values.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defcustom ^-env-printf-supplier
+  (lambda () "printf")
+  "Define the function which will return the printf command
+   to be invoked by the shell."
+  :type 'function
+  :group '^-env)
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</li>
+
+<li><a id="org1b8eb3f"></a>Support Invoking the Commands<br />
+<div class="outline-text-5" id="text-20-1-1-3">
+<p>
+There's likely some better constructs for this floating around
+somewhere, but for now I'll start with what was inherited.
+</p>
+</div>
+
+<ol class="org-ol">
+<li><a id="orga877989"></a>Warn On Slow Evaluation<br />
+<div class="outline-text-6" id="text-20-1-1-3-1">
+<p>
+Warning on a slow call is carried forward from exec-from-shell&#x2026;I'm
+not entirely sure of its value given that there's no timeout behavior
+and the execution is not typically done repeatedly.  I'd conjecture
+that maybe this is useful as such slow executions could produce
+undesirably slow Emacs start times. In any case it seems worth keeping
+around for the time being.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defcustom ^-env-warn-evaluation-duration-millis-supplier
+  (lambda () 500)
+  "Print a warning if evaluation duration exceeds this number of milliseconds."
+  :type 'function
+  :group '^-env)
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org123ac0a"></a>Support Timed Evaluation<br />
+<div class="outline-text-6" id="text-20-1-1-3-2">
+<p>
+There's nothing particularly specialized about timing a call so this
+will be implemented through providing a first class function which
+takes a curried handler to which the time will be passed and can then
+be passed any body as a thunk which will be evaluated and timed.
+This would almost certainly be more idiomatically a macro in Emacs
+lisp but I tend to avoid that (which will be covered separately at
+some point).
+</p>
+
+<p>
+The implementation is typical timer behavior of tracking start time
+and then reporting the difference between the start and end times (in
+this case passing it to the handler. A general note (not specific to
+this code or language) is that it is often desirable to consistently
+report the time and therefore any calls that return through alternate
+paths (such as exceptions) should also be tracked (and preferably
+annotated accordingly). This is optimistically ignored for this code
+(and I'd typically prefer Either semantics over exceptions which makes
+that issue simpler to reason about) but that scenario may need further
+attention with this code.
+</p>
+</div>
+
+<ol class="org-ol">
+<li><a id="org3044a30"></a>Millisecond Duration<br />
+<div class="outline-text-7" id="text-20-1-1-3-2-1">
+<p>
+The duration will be passed in milliseconds as that's what's inherited
+from the original logic. This also generally seems to be the most
+common unit for timing application code - it is appropriate for
+relatively slow actions like invoking another process and faster
+actions can be timed in aggregates which can help smooth out the many
+things can skew sub-millisecond timings.
+</p>
+
+<p>
+This provides a basic implementation to calculate such a duration
+from two timestamps using Emacs functionality. There may be a
+date/time library floating around that could replace this later.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun ^-temporal-diff-millis (start end)
+  (thread-last start
+              (time-subtract end)
+              float-time
+              (* 1000.0)))
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgb12c927"></a>Implement Timer<br />
+<div class="outline-text-7" id="text-20-1-1-3-2-2">
+<p>
+This function body is a fairly straightforward higher-order
+function. Currently the handler will be invoked with funcall (which
+should be modified later).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun ^-timed (handler)
+  "Produce a function that will invoke thunks and return their value
+   while also passing the execution duration to &lt;handler&gt;."
+  (lambda (thunk)
+    (let* ((start-time (current-time))
+           (result (funcall thunk))
+           (duration (^-temporal-diff-millis start-time (current-time))))
+      (funcall handler duration)
+      result)))
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org80f4bda"></a>Wire Warning<br />
+<div class="outline-text-7" id="text-20-1-1-3-2-3">
+<p>
+The specific handler for the duration warning 
+</p>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-orgadb7876" class="outline-4">
+<h4 id="orgadb7876"><span class="section-number-4">20.1.2.</span> Transplants</h4>
+<div class="outline-text-4" id="text-20-1-2">
+<p>
+The environment variables that should be carried across profiles will
+be called "transplants".
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defcustom ^-env-variable-transplants-supplier
+  (lambda '("MANPATH"))
+  "List of environment variables which will be transplanted on initialization."
+  :group '^-env)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div id="postamble" class="status">
-<p class="date">Created: 2023-06-09 Fri 08:26</p>
+<p class="date">Created: 2023-06-16 Fri 12:37</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

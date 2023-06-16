@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-06-16 Fri 09:06 -->
+<!-- 2023-06-16 Fri 12:37 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Software</title>
+<title>This Site, Authoring</title>
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -195,75 +195,22 @@
 </head>
 <body>
 <div id="content" class="content">
-<h1 class="title">Software</h1>
-<div id="table-of-contents" role="doc-toc">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents" role="doc-toc">
-<ul>
-<li><a href="#orga082242">1. Software Selection</a></li>
-<li><a href="#org7bd9451">2. Toolbox</a>
-<ul>
-<li><a href="#org6b2ac8c">2.1. Emacs</a></li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-
-<div id="outline-container-orga082242" class="outline-2">
-<h2 id="orga082242"><span class="section-number-2">1.</span> Software Selection</h2>
-<div class="outline-text-2" id="text-1">
+<h1 class="title">This Site, Authoring</h1>
 <p>
-The software used will also be driven primarily by what can be
-discovered through navigation, with a useful initial directory being
-provided by the <a href="sources.html#gnumanuals">GNU Manuals</a> (and a more comprehensive selection in the
-linked Free Software Directory which will be explored to fill possible
-gaps).
+This site is currently being authored using Org mode.
 </p>
 
-<p>
-This will follow a general pattern of slow expansion based on
-acquiring deep knowledge of the adopted software through both
-bottom-up parsing of the systems and back-filling of such information.
-</p>
-</div>
-</div>
-
-<div id="outline-container-org7bd9451" class="outline-2">
-<h2 id="org7bd9451"><span class="section-number-2">2.</span> Toolbox</h2>
-<div class="outline-text-2" id="text-2">
-<p>
-Here I'll catalog some of the software that I've currently adopted for
-personal use. Many of these I'll also use where appropriate
-professionally but there I'm more likely to drift to anything more
-widely palatable or organizationally prudent.
-</p>
-</div>
-
-<div id="outline-container-org6b2ac8c" class="outline-3">
-<h3 id="org6b2ac8c"><span class="section-number-3">2.1.</span> Emacs</h3>
-<div class="outline-text-3" id="text-2-1">
-<p>
-<a href="sources.html#emacs">Emacs</a> is a piece of software that I periodically swear off and then
-return to with my tail between my legs. I've adopted it for several
-reasons over the years but also moved away from it pursuit of
-something smaller and more in-line with the ideology of software
-tools. Currently it appeals to me as starting position for some larger
-ideas around how I may want my use of computers to evolve which will
-be elaborated upon as they are explored, this somewhat ties in with
-tongue-in-cheek perspective of emacs being more of an operating system
-than an editor.
-</p>
-
-<p>
-<a href="./emacs_init.html">My Emacs Configuration</a>
-</p>
-</div>
-</div>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(let* ((src-dir (file-name-directory (buffer-file-name)))
+       (out-dir (file-name-concat src-dir "out")))
+    (org-publish (list "mweb"
+      :base-directory src-dir
+      :publishing-directory src-dir)))
+</pre>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2023-06-16 Fri 09:06</p>
+<p class="date">Created: 2023-06-16 Fri 12:37</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
