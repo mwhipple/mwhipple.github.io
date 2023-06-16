@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-06-16 Fri 12:37 -->
+<!-- 2023-06-16 Fri 17:22 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>This Site, Authoring</title>
@@ -208,9 +208,22 @@ This site is currently being authored using Org mode.
       :publishing-directory src-dir)))
 </pre>
 </div>
+
+<p>
+This needs to be cleaned up a bit. The last command is currently blocked by the need to configure ssh-agent&#x2026;
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(^-buffer-command "git" (list "add" "-u" "."))
+(^-buffer-command "git" (list "add" "*.html"))
+(^-buffer-command "git" (list "add" "[a-z]*.org"))
+(^-buffer-command "git" (list "commit" "-m" "Sync"))
+(^-buffer-command "git" (list "push"))
+</pre>
+</div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2023-06-16 Fri 12:37</p>
+<p class="date">Created: 2023-06-16 Fri 17:22</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

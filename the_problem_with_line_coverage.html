@@ -6,7 +6,7 @@
 <!-- 2023-06-16 Fri 17:22 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Home | Matt Whipple</title>
+<title>The Problem With Line Coverage</title>
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -195,41 +195,169 @@
 </head>
 <body>
 <div id="content" class="content">
-<h1 class="title">Home | Matt Whipple</h1>
+<h1 class="title">The Problem With Line Coverage</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgcaed1d4">1. Programming Languages are Harmful</a></li>
-<li><a href="#orgee0e6a8">2. Reorienting Microservice Architectures</a></li>
-<li><a href="#org02bc5a7">3. Software</a></li>
-<li><a href="#org04fe246">4. The Problem With Line Coverage</a></li>
-<li><a href="#org803b3e1">5. This Site</a></li>
+<li><a href="#orgddefd1a">1. Introduction</a></li>
+<li><a href="#orgd587694">2. Simple Example</a></li>
+<li><a href="#org7d1f7f5">3. Not So Simple Example</a></li>
+<li><a href="#org2cf4af6">4. Takeaway</a></li>
 </ul>
 </div>
 </div>
+
+<div id="outline-container-orgddefd1a" class="outline-2">
+<h2 id="orgddefd1a"><span class="section-number-2">1.</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
 <p>
-Welcome to the latest iteration of my Web site.
+Over the past years automated sofware testing has become commonplace,
+with many organizations also making use of and enforcing test
+coverage. While testing can be enormously valuable the use of such
+coverage is often naive which may yield a false sense of security and
+wasted efforts.
 </p>
 
 <p>
-I'll be copying information from previous incarnations.
+In particularly unfortunate cases such coverage goals can yield
+worthless tests that effectively verify the behavior of the runtime
+itself rather than resultant logic: testing that the code is written a
+particular way rather than that it provides desired outcomes. A clear
+example of such a problem would be mocking out a delegate and
+verifying that such calls are made but the only way that such calls
+could <span class="underline">not</span> be made would be if the runtime itself were broken in some
+way. I have related ideas around how to organize tests and use test
+doubles which I'll cover at some point later (typically reserving
+mocks for interaction testing) but the short version is that these
+tools are valuable but are too often abused.
 </p>
 
-<div id="outline-container-orgcaed1d4" class="outline-2">
-<h2 id="orgcaed1d4"><span class="section-number-2">1.</span> <a href="programming_languages_are_harmful.html">Programming Languages are Harmful</a></h2>
+<p>
+<span class="underline">Line</span> coverage seems particularly subject to abuse but seems to be
+most widely adopted; this is likely due to the simplicity but based on
+interviews I've conducted in the past many people also seem to not be
+aware of alternatives and equate test coverage with line coverage. The
+fundamental issue is that you can cover a sufficient number of <span class="underline">lines</span>
+in any given block of code without sufficiently exercising the <span class="underline">paths</span>
+through the code. More sophisticated alternatives can encourage
+simpler code and provide more visibility into how the tests fall
+through the defined logic.
+</p>
+
+<p>
+More essentially test coverage is a valuable tool (and I find it
+particularly useful to drive simplification rather than trusting
+coverage to tell me much) but many of the hairiest issues are outside
+of the streetlamp that any such automated approaches will reveal.
+</p>
+
+<p>
+The specific issue can be exemplified with two single line
+methods which provide upsert style behavior.
+I'll write these in an imaginary statement-y language which for the
+sake of completeness has immutable strings (as many do) and behaves
+predictably like similar languages.
+</p>
 </div>
-<div id="outline-container-orgee0e6a8" class="outline-2">
-<h2 id="orgee0e6a8"><span class="section-number-2">2.</span> <a href="reorienting_microservice_architectures.html">Reorienting Microservice Architectures</a></h2>
 </div>
-<div id="outline-container-org02bc5a7" class="outline-2">
-<h2 id="org02bc5a7"><span class="section-number-2">3.</span> <a href="./software.html">Software</a></h2>
+
+<div id="outline-container-orgd587694" class="outline-2">
+<h2 id="orgd587694"><span class="section-number-2">2.</span> Simple Example</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Let's start with the simple one:
+</p>
+
+<pre class="example">
+fn useValue(input String) {
+  return input;
+}
+</pre>
+
+<p>
+This logic is simple enough that not only should testing be trivial,
+there is no value in testing it in isolation; unit testing would do
+little other than test the language itself. Such code should be
+exercised by some higher form of testing (if nothing else to prove
+that it is actually used).
+</p>
 </div>
-<div id="outline-container-org04fe246" class="outline-2">
-<h2 id="org04fe246"><span class="section-number-2">4.</span> <a href="the_problem_with_line_coverage.html">The Problem With Line Coverage</a></h2>
 </div>
-<div id="outline-container-org803b3e1" class="outline-2">
-<h2 id="org803b3e1"><span class="section-number-2">5.</span> <a href="this_site.html">This Site</a></h2>
+
+<div id="outline-container-org7d1f7f5" class="outline-2">
+<h2 id="org7d1f7f5"><span class="section-number-2">3.</span> Not So Simple Example</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Assume that the value is instead being persisted somewhere reasonably
+durable.
+</p>
+
+<pre class="example">
+fn useValue(input String) {
+  return valueRepository.upsert(input);
+}
+</pre>
+
+<p>
+Line coverage for this code could be obtained with the same test as
+the code above with a provided stub - but that leaves some pretty
+glaring gaps. Let's first dispense with the obvious one in that the
+call could fail&#x2026;then what? Such risky calls are best protected
+against using language features which could also allow them to be
+detected by coverage analysis but let's poke a bit more&#x2026;
+</p>
+
+<p>
+what if&#x2026;
+</p>
+<ul class="org-ul">
+<li>the value is too large for the space allocated for persistence?</li>
+<li>encoding/decoding or serializing/deserializing the value has issues?</li>
+<li>the previous issues represent a security concern?</li>
+<li>there are edge quirks such as empty strings not being saved?</li>
+<li>the upsert call hangs?</li>
+<li>the read/write is not atomic and there's a race condition with
+concurrent updates?</li>
+<li>the update succeeds but the response could not be sent to the user?</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org2cf4af6" class="outline-2">
+<h2 id="org2cf4af6"><span class="section-number-2">4.</span> Takeaway</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Test coverage is unlikely to help answer many of these questions and
+many of them also don't have a clear solution. I'm also not promoting
+such exhaustive attention for all every piece of functionality but
+simply to dispel the notion that test coverage is in <span class="underline">any</span> way
+exhaustive or should be trusted as anything more than a very coarse
+signal (insert Dijkstra quote here).
+</p>
+
+<p>
+The above example is kept very simple to emphasize the stark
+difference, but in my experience and (as a reflection of my scars) I've
+come across code not much more complicated that was fully covered but
+wide open to race conditions and being left in inconsistent states
+(and potentially corresponding production data issues) and such risks
+were unrecognized and subsequently largely ignored all while pursuing
+coverage goals.
+</p>
+
+<p>
+Approaches to building out trustworthy and maintainable tests is a
+large and complicated topic, and while there is a lot of very good
+perspectives floating around both academia and the indsutry, too often
+organizations seem to fall into a one-size-fits-all mentality around
+the type of tests to write (functional tests) and how to gauge them
+(line coverage). Adopting a wider range of types of tests can help
+significantly along with ever relevant advice to critically assess and
+pay attention to what is being built rather than seeking a technology
+that is a solution rather than a tool.
+</p>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">

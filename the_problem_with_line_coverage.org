@@ -1,0 +1,113 @@
+#+TITLE: The Problem With Line Coverage
+
+** Introduction
+
+Over the past years automated sofware testing has become commonplace,
+with many organizations also making use of and enforcing test
+coverage. While testing can be enormously valuable the use of such
+coverage is often naive which may yield a false sense of security and
+wasted efforts.
+
+In particularly unfortunate cases such coverage goals can yield
+worthless tests that effectively verify the behavior of the runtime
+itself rather than resultant logic: testing that the code is written a
+particular way rather than that it provides desired outcomes. A clear
+example of such a problem would be mocking out a delegate and
+verifying that such calls are made but the only way that such calls
+could _not_ be made would be if the runtime itself were broken in some
+way. I have related ideas around how to organize tests and use test
+doubles which I'll cover at some point later (typically reserving
+mocks for interaction testing) but the short version is that these
+tools are valuable but are too often abused.
+
+_Line_ coverage seems particularly subject to abuse but seems to be
+most widely adopted; this is likely due to the simplicity but based on
+interviews I've conducted in the past many people also seem to not be
+aware of alternatives and equate test coverage with line coverage. The
+fundamental issue is that you can cover a sufficient number of _lines_
+in any given block of code without sufficiently exercising the _paths_
+through the code. More sophisticated alternatives can encourage
+simpler code and provide more visibility into how the tests fall
+through the defined logic.
+
+More essentially test coverage is a valuable tool (and I find it
+particularly useful to drive simplification rather than trusting
+coverage to tell me much) but many of the hairiest issues are outside
+of the streetlamp that any such automated approaches will reveal.
+
+The specific issue can be exemplified with two single line
+methods which provide upsert style behavior.
+I'll write these in an imaginary statement-y language which for the
+sake of completeness has immutable strings (as many do) and behaves
+predictably like similar languages.
+
+** Simple Example
+
+Let's start with the simple one:
+
+#+BEGIN_SRC
+fn useValue(input String) {
+  return input;
+}
+#+END_SRC
+
+This logic is simple enough that not only should testing be trivial,
+there is no value in testing it in isolation; unit testing would do
+little other than test the language itself. Such code should be
+exercised by some higher form of testing (if nothing else to prove
+that it is actually used).
+
+** Not So Simple Example
+
+Assume that the value is instead being persisted somewhere reasonably
+durable.
+
+#+BEGIN_SRC
+fn useValue(input String) {
+  return valueRepository.upsert(input);
+}
+#+END_SRC
+
+Line coverage for this code could be obtained with the same test as
+the code above with a provided stub - but that leaves some pretty
+glaring gaps. Let's first dispense with the obvious one in that the
+call could fail...then what? Such risky calls are best protected
+against using language features which could also allow them to be
+detected by coverage analysis but let's poke a bit more...
+
+what if...
+- the value is too large for the space allocated for persistence?
+- encoding/decoding or serializing/deserializing the value has issues?
+- the previous issues represent a security concern?
+- there are edge quirks such as empty strings not being saved?
+- the upsert call hangs?
+- the read/write is not atomic and there's a race condition with
+  concurrent updates?
+- the update succeeds but the response could not be sent to the user?
+
+** Takeaway
+
+Test coverage is unlikely to help answer many of these questions and
+many of them also don't have a clear solution. I'm also not promoting
+such exhaustive attention for all every piece of functionality but
+simply to dispel the notion that test coverage is in _any_ way
+exhaustive or should be trusted as anything more than a very coarse
+signal (insert Dijkstra quote here).
+
+The above example is kept very simple to emphasize the stark
+difference, but in my experience and (as a reflection of my scars) I've
+come across code not much more complicated that was fully covered but
+wide open to race conditions and being left in inconsistent states
+(and potentially corresponding production data issues) and such risks
+were unrecognized and subsequently largely ignored all while pursuing
+coverage goals.
+
+Approaches to building out trustworthy and maintainable tests is a
+large and complicated topic, and while there is a lot of very good
+perspectives floating around both academia and the indsutry, too often
+organizations seem to fall into a one-size-fits-all mentality around
+the type of tests to write (functional tests) and how to gauge them
+(line coverage). Adopting a wider range of types of tests can help
+significantly along with ever relevant advice to critically assess and
+pay attention to what is being built rather than seeking a technology
+that is a solution rather than a tool.

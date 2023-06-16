@@ -10,9 +10,12 @@ This site is currently being authored using Org mode.
          :publishing-directory src-dir)))
 #+END_SRC
 
+This needs to be cleaned up a bit. The last command is currently blocked by the need to configure ssh-agent...
+
 #+BEGIN_SRC emacs-lisp
   (^-buffer-command "git" (list "add" "-u" "."))
   (^-buffer-command "git" (list "add" "*.html"))
-  (^-buffer-command "git" (list "add" "*.org"))
+  (^-buffer-command "git" (list "add" "[a-z]*.org"))
   (^-buffer-command "git" (list "commit" "-m" "Sync"))
+  (^-buffer-command "git" (list "push"))
 #+END_SRC

@@ -338,7 +338,7 @@ are forced using `bind-keys*` to stick them in the override map.
 	     ("TAB" . minibuffer-complete)
 	     ("RET" . exit-minibuffer)
 	     ("M-n" . next-history-element)
-	     ("M-p" . previous-history-element)))
+	     ("M-p" . previous-history-element))
 #+END_SRC
 
 ** Define Some Navigation Through a Project
