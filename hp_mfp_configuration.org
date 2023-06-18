@@ -1,0 +1,16 @@
+#+TITLE: HP MFP Configuration
+
+Configuring printers is one of those things that I don't care enough
+about or do often enough to remember much of the details, but pops up
+every year or so and requires fiddling.
+
+https://wiki.archlinux.org/title/Avahi#Hostname_resolution
+
+
+MFP M140WE
+
+188
+
+https://support.hp.com/hk-en/document/ish_4465286-4403574-16
+
+https://wiki.debian.org/CUPSIPPEverywhere?action=show&redirect=IPPEverywhere

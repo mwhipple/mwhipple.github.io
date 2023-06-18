@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-06-16 Fri 09:07 -->
+<!-- 2023-06-17 Sat 20:41 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Programming Languages are Harmful</title>
@@ -194,7 +194,11 @@
 </style>
 </head>
 <body>
-<div id="content" class="content">
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="./index.html"> HOME </a>
+</div><div id="content" class="content">
 <h1 class="title">Programming Languages are Harmful</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
@@ -227,15 +231,15 @@ of expression.
 The back-breaking straw of this idea was likely spending a chunk of
 one of my days spelunking through Python's SSL implementation and
 corresponding C code to work through a bug whose behavior I could
-readily reproduce and resolve using the `openssl` command. While I
+readily reproduce and resolve using the <code>openssl</code> command. While I
 used this as a chance to brush up on some TLS details the main
 lingering impression was the large tracts of code that existed not to
-do anything new, but simply to reexpress an established solution (the
-particular issue was resolved by swapping out LibreSSL for OpenSSL).
+do anything new, but simply to re-express an established solution (the
+particular issue was resolved by swapping out <code>LibreSSL</code> for <code>OpenSSL</code>).
 Some other recent background context was likely being engaged in
 several conversations around language adoption, and somewhat
-relatively recently within an engineering culture that had a &lt;q&gt;one
-language to rule them all&lt;/q&gt; mindset even when the output of that
+relatively recently within an engineering culture that had a "one
+language to rule them all" mindset even when the output of that
 mindset was often bizarre paths of using that language to invoke shell
 commands to launch other languages or containers (which I looked to
 simplify as things broke&#x2026;which they often did).
@@ -255,7 +259,7 @@ it should be subjected to criticism). While there is a fair amount to
 glean from all of the material, one of the main The prospect of
 software tools composed with uniform pipes offered an approach which
 could be more quickly produced, more readily evolved, and was more
-able to tap portable background knowledge.  As alluded to the
+able to tap portable background knowledge. As alluded to the
 discussion is a bit more nuanced and as one of my former coworkers
 posited that argument is on much shakier ground when considering a
 system such as TeX (and I personally am a proponent of literate
@@ -263,7 +267,7 @@ programming), but it is worth recognizing that all too often
 programming languages seem to drift towards such monolithic
 recreations of functionality which could otherwise be more readily
 composed. From a more modern perspective many of the software tools
-ideas carry forward to pursuits such as microserves&#x2026;or less
+ideas carry forward to pursuits such as microservices&#x2026;or less
 ambitiously any use of well designed utility containers.
 </p>
 </div>
@@ -273,8 +277,8 @@ ambitiously any use of well designed utility containers.
 <h2 id="org1792221"><span class="section-number-2">3.</span> The What and the How</h2>
 <div class="outline-text-2" id="text-3">
 <p>
-At its core, programming is largely about algorithms are the
-imperative complement to declarative knowledge.  A clear and often
+At its core, programming is largely about algorithms which are the
+imperative complement to declarative knowledge. A clear and often
 used example (I think it appears in sources such as The Art of
 Computer Programming and The Go Programming Language) is <span class="underline">how</span>
 Euclid's Algorithm can be coded to determine <span class="underline">what</span> is the greatest
@@ -291,12 +295,12 @@ comprehensible and while it is crucial in all fields of engineering,
 it is integral to software engineering - not only is the base level of
 software engineering built atop many layers of electrical engineering
 abstractions, but the creation of abstractions is one of the core
-tools of software engineers.  Abstraction effectively buries the
-previously mentioned core value of computing; drawing on the earlier
-example while the value of <span class="underline">computers</span> is the automation of the <span class="underline">how</span>
+tools of software engineers. Abstraction effectively buries the
+previously mentioned core value of computing. Drawing on the earlier
+example - while the value of <span class="underline">computers</span> is the automation of the <span class="underline">how</span>
 of Euclid's Algorithm, the value delivered by the software is that of
 producing the <span class="underline">what</span> of the GCD. Therefore the produced machine is
-most simply represented as a <span class="underline">what</span> producing blackbox so the GCD and
+most simply represented as a <span class="underline">what</span> producing black box so the GCD and
 any other relevant pieces of data can be used without getting swamped
 in details.
 </p>
@@ -305,7 +309,7 @@ in details.
 Unfortunately languages are often too focused on aspects of <span class="underline">how</span> -
 all too often there are established and abstracted solutions for
 particular problems but all too often significant additional effort is
-required to reimplement or adapt such solutions so that they conform
+required to re-implement or adapt such solutions so that they conform
 with <span class="underline">how</span> a particular language seeks to express ideas within the
 solution space. This perspective in isolation is a bit simplistic but
 will be elaborated upon further.
@@ -320,12 +324,12 @@ will be elaborated upon further.
 A key distinction when discussing programming is that between systems
 programming and application programming. The official definitions
 should be incorporated here, but for in the short term I'll consider
-systems programming as that which is focused on enabling use of what
-is immediately available. At the lowest level this involves things
-like hardware and instruction sets but more typically this is likely
-to make use of the facilities provided by the operating system or
-higher level of abstraction such as virtual machines. The output of
-systems programming is likely to be a generalized machine.
+systems programming as that which is focused on enabling use of
+relatively primitive technical constructs. At the lowest level this
+involves things like hardware and instruction sets but more typically
+this is likely to make use of the facilities provided by the operating
+system or higher level of abstraction such as virtual machines. The
+output of systems programming is likely to be a generalized machine.
 </p>
 
 <p>
@@ -351,25 +355,28 @@ difference between systems and application programming and the natural
 corollary that unless your core deliverable is software itself rather
 than the output of such software, any and all effort expended in
 producing such output with the desired characteristics is cost and
-should be managed appropriately. There's a larger thread lurking
-within this sentiment around accountability and how perverse some
-routine engineering efforts would seem if analogs within other
-departments existed but are accepted in the magical world of software,
-but that's likely a larger topic. Much of this ties directly back to
-the concepts in The What and the How: application programming is best
-expressed entirely in terms of <span class="underline">what<sub>s</sub>. Preferring more declarative
-interfaces can make machines far more economical to develop and easier
-to reason about, verify, and optimize. Most application programming,
-however, tends to remain largely imperative without a clear
-delineation from systems programming. This break is certainly not a
-clearly achievable goal and is likely to echo the largely unrealized
-dream of fourth generation languages, _but</span> a key distinction in this
-thread is that the focus is emphatically not about pursuing a language
-but rather reuse and composition of abstractions. This also touches
-back upon Software Tools and Monoliths and echoes some of Martin
-Kleppmann's sentiments at the end of <a href="sources.html#ddia">Desiging Data-Intensive
-Applications</a> which imagines being able to compose data flows as
-easily as Unix pipelines.
+should be managed appropriately.
+</p>
+
+<p>
+There's a larger thread lurking within this sentiment around
+accountability and how perverse some routine engineering efforts would
+seem if analogs within other departments existed but are accepted in
+the magical world of software, but that's likely a larger topic. Much
+of this ties directly back to the concepts in The What and the How:
+application programming is best expressed entirely in terms of
+<span class="underline">what<sub>s</sub>. Preferring more declarative interfaces can make machines far
+more economical to develop and easier to reason about, verify, and
+optimize. Most application programming, however, tends to remain
+largely imperative without a clear delineation from systems
+programming. This break is certainly not a clearly achievable goal and
+is likely to echo the largely unrealized dream of fourth generation
+languages, _but</span> a key distinction in this thread is that the focus is
+emphatically not about pursuing a language but rather reuse and
+composition of abstractions. This also touches back upon Software
+Tools and Monoliths and echoes some of Martin Kleppmann's sentiments
+at the end of <a href="sources.html#ddia">Desiging Data-Intensive Applications</a> which imagines
+being able to compose data flows as easily as Unix pipelines.
 </p>
 </div>
 </div>
@@ -380,7 +387,7 @@ easily as Unix pipelines.
 <p>
 The previous ideas stay pretty conceptual but all of these ideas need
 to meet the metal at some point and some of the things that have been
-glossed over need warrant some attention.
+glossed over warrant some attention.
 </p>
 
 <p>
@@ -419,18 +426,18 @@ invocation. There are certainly stickier considerations if data is
 registered for such functionality while remaining accessible to
 external code, but those are detail devils that are ultimately the
 result of some of the initial practices which are being questioned (if
-such functionality were orthogonal to some notion of "language" then
-the foreign/external boundary disappears.
+such functionality were detached from some notion of "language" then
+the foreign/external boundary disappears).
 </p>
 
 <p>
-When considering established approaches such as unix pipelines a
-hidden concern is that of inter-process communication (IPC).
-Consistently sharing data by value is wonderfully simple&#x2026;but can be
-fairly costly. The same concern manifests in microservices and the
-goals of GNU Hurd. On a given system this is another incarantion of
-the previous concern: any perceived <span class="underline">requirement</span> that the value must
-be handled in a particular way is the result of it crossing some
+When considering established approaches such as Unix pipelines another
+concern is that of inter-process communication (IPC). Consistently
+sharing data by value is wonderfully simple&#x2026;but can be fairly
+costly. The same concern manifests in microservices and the goals of
+GNU Hurd. On a given system this is another incarnation of the
+previous concern: any perceived <span class="underline">requirement</span> that the value must be
+handled in a particular way is the result of it crossing some
 potentially arbitrary boundary.
 </p>
 </div>
@@ -447,7 +454,7 @@ the clearest initial such interface would be the SysV ABI. Particular
 features of given languages would be implemented independently of the
 language itself, and the means of expression which often seem to
 dominate current languages would be a layer on top of all of these
-(like a lightweight compiler frontend). This will probably result
+(like a lightweight compiler front end). This will probably result
 primarily in adoption of tools which match these goals (I feel like I
 may be getting pulled toward C++) with some gaps filled by some
 homemade glue (particularly for some of the additional tastes like
@@ -457,7 +464,7 @@ literate programming).
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2023-06-16 Fri 09:07</p>
+<p class="date">Created: 2023-06-17 Sat 20:41</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

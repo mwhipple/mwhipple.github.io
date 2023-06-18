@@ -6,7 +6,7 @@
 <!-- 2023-06-17 Sat 20:41 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Home | Matt Whipple</title>
+<title>Lilypond Compilation Issues</title>
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -194,51 +194,79 @@
 </style>
 </head>
 <body>
-<div id="content" class="content">
-<h1 class="title">Home | Matt Whipple</h1>
-<div id="table-of-contents" role="doc-toc">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents" role="doc-toc">
-<ul>
-<li><a href="#org994a4f8">1. Demystifying Processes and Processors</a></li>
-<li><a href="#org666ba6d">2. Project Log</a></li>
-<li><a href="#orgcaed1d4">3. Programming Languages are Harmful</a></li>
-<li><a href="#orgee0e6a8">4. Reorienting Microservice Architectures</a></li>
-<li><a href="#org02bc5a7">5. Software</a></li>
-<li><a href="#org04fe246">6. The Problem With Line Coverage</a></li>
-<li><a href="#org803b3e1">7. This Site</a></li>
-</ul>
-</div>
-</div>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./project_log.html"> UP </a>
+ |
+ <a accesskey="H" href="./project_log.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Lilypond Compilation Issues</h1>
 <p>
-Welcome to the latest iteration of my Web site.
+I'm using lilypond as a means to dive into music theory and to
+inscribe an assortment of music (some songs that I've written, some
+written by my father, some written by others).  I also opted to check
+out the source to poke around, but when I tried to transform one of
+the examples provided with the source code with my installed copy it
+threw a range of errors, presumably because the version installed by
+my package manager was out of date with trunk. To remove this variable
+I opted to use an executable compiled from the checked out source, but
+compilation did not go smoothly.
 </p>
 
 <p>
-I'll be copying information from previous incarnations.
+The first not real issue was getting the proper dependencies loaded
+where I'd somewhat assumed that they would be present by virtue of the
+previously installed version, but I seemed to be missing some Cyrillic
+TeX fonts that were either not previously used or were a disabled
+option, but in any case I just installed the package and the
+configuration step proceeded without issue&#x2026;but the compilation
+failed.
 </p>
 
-<div id="outline-container-org994a4f8" class="outline-2">
-<h2 id="org994a4f8"><span class="section-number-2">1.</span> <a href="demystifying_processes_and_processors.html">Demystifying Processes and Processors</a></h2>
-</div>
-<div id="outline-container-org666ba6d" class="outline-2">
-<h2 id="org666ba6d"><span class="section-number-2">2.</span> <a href="project_log.html">Project Log</a></h2>
-</div>
-<div id="outline-container-orgcaed1d4" class="outline-2">
-<h2 id="orgcaed1d4"><span class="section-number-2">3.</span> <a href="programming_languages_are_harmful.html">Programming Languages are Harmful</a></h2>
-</div>
-<div id="outline-container-orgee0e6a8" class="outline-2">
-<h2 id="orgee0e6a8"><span class="section-number-2">4.</span> <a href="reorienting_microservice_architectures.html">Reorienting Microservice Architectures</a></h2>
-</div>
-<div id="outline-container-org02bc5a7" class="outline-2">
-<h2 id="org02bc5a7"><span class="section-number-2">5.</span> <a href="./software.html">Software</a></h2>
-</div>
-<div id="outline-container-org04fe246" class="outline-2">
-<h2 id="org04fe246"><span class="section-number-2">6.</span> <a href="the_problem_with_line_coverage.html">The Problem With Line Coverage</a></h2>
-</div>
-<div id="outline-container-org803b3e1" class="outline-2">
-<h2 id="org803b3e1"><span class="section-number-2">7.</span> <a href="this_site.html">This Site</a></h2>
-</div>
+<p>
+The build threw errors around cairo linking with PNG.
+</p>
+
+<pre class="example">
+/usr/lib/gcc/x86_64-pc-linux-gnu/12/../../../../x86_64-pc-linux-gnu/bin/ld: ./out/cairo.o: undefined reference to symbol 'png_image_write_to_file@@PNG16_0'
+/usr/lib/gcc/x86_64-pc-linux-gnu/12/../../../../x86_64-pc-linux-gnu/bin/ld: /usr/lib64/libpng16.so.16: error adding symbols: DSO missing from command line
+collect2: error: ld returned 1 exit status
+make[1]: *** [GNUmakefile:42: out/lilypond] Error 1
+make: *** [make/generic-targets.make:6: all] Error 2
+</pre>
+
+<p>
+Using <code>make --no-silent</code> so that it echoed the commands I
+noticed that there was no relevant linker flag so I explicitly
+populate the relevant environment variables with the <code>pkg-config</code>
+output and tried the configure/build dance again to blow up on <span class="underline">other</span>
+errors.
+</p>
+
+<p>
+A this point I've noticed that while many of the dependencies are
+being detected there seems to be no parameters populated from <code>pkg-config</code>
+in <code>config.log</code>. I'd wonder if this may not be a practical concern,
+but it seemed to help in the PNG case so feels worth deeper inspection
+if this issue persists.
+</p>
+
+<p>
+From what I've started to incidentally pick through the Lilypond build
+process feels fairly primitive which means that it should both be
+fairly easy to pick through but also fairly likely to suffer from a
+potentially obscure issue with sparse readily available information.
+</p>
+
+<p>
+Unfortunately lilypond references an <code>INSTALL.txt</code> file which doesn't
+seem to exist in my working directory and I'm currently having issues
+accessing the online compilation guide.
+</p>
+
+<p>
+Attempting to rerun <code>autogen.sh</code> seems potentially promising as that
+populates some of the values for PNG in the logs&#x2026;
+</p>
 </div>
 <div id="postamble" class="status">
 <p class="date">Created: 2023-06-17 Sat 20:41</p>

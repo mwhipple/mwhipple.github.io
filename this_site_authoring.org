@@ -16,6 +16,6 @@ This needs to be cleaned up a bit. The last command is currently blocked by the 
   (^-buffer-command "git" (list "add" "-u" "."))
   (^-buffer-command "git" (list "add" "*.html"))
   (^-buffer-command "git" (list "add" "[a-z]*.org"))
-  (^-buffer-command "git" (list "commit" "-m" "Sync"))
+  (^-buffer-command "git" (list "commit" "-m" "Sync"))[main d2f3711] Sync
   (^-buffer-command "git" (list "push"))
 #+END_SRC

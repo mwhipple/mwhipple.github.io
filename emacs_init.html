@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-06-16 Fri 17:22 -->
+<!-- 2023-06-17 Sat 20:41 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>My Emacs Configuration</title>
@@ -245,10 +245,13 @@
 <li><a href="#orgf960c05">19. Configure Info Mode</a></li>
 <li><a href="#org4cb938e">20. Manage Environment for Called Commands</a>
 <ul>
-<li><a href="#orgb56d76e">20.1. Customization Group</a>
+<li><a href="#orgb56d76e">20.1. Customization Group</a></li>
+<li><a href="#org388b67e">20.2. Expand Using Shell</a>
 <ul>
-<li><a href="#org388b67e">20.1.1. Expand Using Shell</a></li>
-<li><a href="#orgadb7876">20.1.2. Transplants</a></li>
+<li><a href="#orgcfdcd07">20.2.1. Enveloper</a></li>
+<li><a href="#org42f378a">20.2.2. Define the Called Commands</a></li>
+<li><a href="#org1b8eb3f">20.2.3. Support Invoking the Commands</a></li>
+<li><a href="#orgadb7876">20.2.4. Transplants</a></li>
 </ul>
 </li>
 </ul>
@@ -765,10 +768,10 @@ are forced using `bind-keys*` to stick them in the override map.
 <div class="outline-text-2" id="text-16">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(use-package dired
-  :bind
+  :bind (:map dired-mode-map
   ("C-p" . dired-previous-line)
   ("C-n" . dired-next-line)
-  ("RET" . dired-find-file))
+  ("RET" . dired-find-file)))
 </pre>
 </div>
 </div>
@@ -779,14 +782,14 @@ are forced using `bind-keys*` to stick them in the override map.
 <div class="outline-text-2" id="text-17">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(use-package org-agenda
-  :bind
+  :bind (:map org-agenda-mode-map
   ("C-n" . org-agenda-next-line)
   ("C-p" . org-agenda-previous-line)
   ("TAB" . org-agenda-goto)
   ("g" . org-agenda-redo-all)
   ("t" . org-agenda-todo)
   ("u" . org-agenda-bulk-unmark)
-  ("T" . org-agenda-show-tags)
+  ("T" . org-agenda-show-tags))
   :config
   (setq org-agenda-span 'day)
   ;; Allow for very old scheduled items for catch-up behavior.
@@ -803,9 +806,9 @@ are forced using `bind-keys*` to stick them in the override map.
 <div class="outline-text-2" id="text-18">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(use-package hexl
-  :bind
+  :bind (:map hexl-mode
   ("C-v" . hexl-scroll-up)
-  ("M-v" . hexl-scroll-down))
+  ("M-v" . hexl-scroll-down)))
 </pre>
 </div>
 </div>
@@ -816,8 +819,8 @@ are forced using `bind-keys*` to stick them in the override map.
 <div class="outline-text-2" id="text-19">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(use-package info
-  :bind
-  ("SPC" . Info-scroll-up))    
+  :bind (:map Info-mode-map
+  ("SPC" . Info-scroll-up)))
 </pre>
 </div>
 </div>
@@ -850,9 +853,9 @@ that are more general will omit the `env` segment.
 <div class="outline-text-3" id="text-20-1">
 <p>
 I have not used customize in the past, but in addition to providing a
-UI which may be more usable across devices it also seems to offer a
-natural means to locally specialize behavior without worrying about
-what goes into which file.
+user interface which may be more usable across devices it also seems
+to offer a natural means to locally specialize behavior without
+worrying about what goes into which file.
 </p>
 
 <p>
@@ -880,10 +883,11 @@ not actively looking).
 </pre>
 </div>
 </div>
+</div>
 
-<div id="outline-container-org388b67e" class="outline-4">
-<h4 id="org388b67e"><span class="section-number-4">20.1.1.</span> Expand Using Shell</h4>
-<div class="outline-text-4" id="text-20-1-1">
+<div id="outline-container-org388b67e" class="outline-3">
+<h3 id="org388b67e"><span class="section-number-3">20.2.</span> Expand Using Shell</h3>
+<div class="outline-text-3" id="text-20-2">
 <p>
 The underlying functionality revolves around evaluating expressions in
 a shell which is invoked with the login profile. Much of this <span class="underline">may</span> be
@@ -905,9 +909,9 @@ a shell parameter and then passing it through the fairly ubiquitous
 </div>
 </div>
 
-<ol class="org-ol">
-<li><a id="orgcfdcd07"></a>Enveloper<br />
-<div class="outline-text-5" id="text-20-1-1-1">
+<div id="outline-container-orgcfdcd07" class="outline-4">
+<h4 id="orgcfdcd07"><span class="section-number-4">20.2.1.</span> Enveloper</h4>
+<div class="outline-text-4" id="text-20-2-1">
 <p>
 The above uses an "enveloper" which wraps a string in the provided
 pair. There's some similar behavior that seems worth extracting
@@ -931,12 +935,15 @@ programming behavior for me.
 </pre>
 </div>
 </div>
-</li>
+</div>
 
-<li><a id="org42f378a"></a>Define the Called Commands<br />
+<div id="outline-container-org42f378a" class="outline-4">
+<h4 id="org42f378a"><span class="section-number-4">20.2.2.</span> Define the Called Commands</h4>
+<div class="outline-text-4" id="text-20-2-2">
+</div>
 <ol class="org-ol">
 <li><a id="orgf2e3b3b"></a>Shell Supplier<br />
-<div class="outline-text-6" id="text-20-1-1-2-1">
+<div class="outline-text-5" id="text-20-2-2-1">
 <p>
 The evaluation itself will be performed through a shell command which
 is defined here, defaulting to the Emacs standard.
@@ -955,7 +962,7 @@ is defined here, defaulting to the Emacs standard.
 </li>
 
 <li><a id="orgb0190f7"></a>Shell Login Argument Supplier<br />
-<div class="outline-text-6" id="text-20-1-1-2-2">
+<div class="outline-text-5" id="text-20-2-2-2">
 <p>
 The shell command may also require some additional arguments to make
 sure that it is executed using the login profile.
@@ -974,7 +981,7 @@ sure that it is executed using the login profile.
 </li>
 
 <li><a id="org4262e91"></a>Printf Command Supplier<br />
-<div class="outline-text-6" id="text-20-1-1-2-3">
+<div class="outline-text-5" id="text-20-2-2-3">
 <p>
 As previously mentioned this will expect to be evaluated using some
 form of printf&#x2026;how practically extensible this is given the current
@@ -996,10 +1003,11 @@ define some of the magic values.
 </div>
 </li>
 </ol>
-</li>
+</div>
 
-<li><a id="org1b8eb3f"></a>Support Invoking the Commands<br />
-<div class="outline-text-5" id="text-20-1-1-3">
+<div id="outline-container-org1b8eb3f" class="outline-4">
+<h4 id="org1b8eb3f"><span class="section-number-4">20.2.3.</span> Support Invoking the Commands</h4>
+<div class="outline-text-4" id="text-20-2-3">
 <p>
 There's likely some better constructs for this floating around
 somewhere, but for now I'll start with what was inherited.
@@ -1008,7 +1016,7 @@ somewhere, but for now I'll start with what was inherited.
 
 <ol class="org-ol">
 <li><a id="orga877989"></a>Warn On Slow Evaluation<br />
-<div class="outline-text-6" id="text-20-1-1-3-1">
+<div class="outline-text-5" id="text-20-2-3-1">
 <p>
 Warning on a slow call is carried forward from exec-from-shell&#x2026;I'm
 not entirely sure of its value given that there's no timeout behavior
@@ -1030,7 +1038,7 @@ around for the time being.
 </li>
 
 <li><a id="org123ac0a"></a>Support Timed Evaluation<br />
-<div class="outline-text-6" id="text-20-1-1-3-2">
+<div class="outline-text-5" id="text-20-2-3-2">
 <p>
 There's nothing particularly specialized about timing a call so this
 will be implemented through providing a first class function which
@@ -1057,7 +1065,7 @@ attention with this code.
 
 <ol class="org-ol">
 <li><a id="org3044a30"></a>Millisecond Duration<br />
-<div class="outline-text-7" id="text-20-1-1-3-2-1">
+<div class="outline-text-6" id="text-20-2-3-2-1">
 <p>
 The duration will be passed in milliseconds as that's what's inherited
 from the original logic. This also generally seems to be the most
@@ -1085,10 +1093,10 @@ date/time library floating around that could replace this later.
 </li>
 
 <li><a id="orgb12c927"></a>Implement Timer<br />
-<div class="outline-text-7" id="text-20-1-1-3-2-2">
+<div class="outline-text-6" id="text-20-2-3-2-2">
 <p>
 This function body is a fairly straightforward higher-order
-function. Currently the handler will be invoked with funcall (which
+function. Currently the handler will be invoked with <code>funcall</code> (which
 should be modified later).
 </p>
 
@@ -1108,13 +1116,13 @@ should be modified later).
 </li>
 
 <li><a id="org80f4bda"></a>Wire Warning<br />
-<div class="outline-text-7" id="text-20-1-1-3-2-3">
+<div class="outline-text-6" id="text-20-2-3-2-3">
 <p>
-The specific handler for the duration warning 
+The specific handler for the duration warning needs to be configured
+to be plugged into the general timer. This will be provided by a
+closure over the setting which returns an appropriate handler.
 </p>
 </div>
-</li>
-</ol>
 </li>
 </ol>
 </li>
@@ -1122,8 +1130,8 @@ The specific handler for the duration warning
 </div>
 
 <div id="outline-container-orgadb7876" class="outline-4">
-<h4 id="orgadb7876"><span class="section-number-4">20.1.2.</span> Transplants</h4>
-<div class="outline-text-4" id="text-20-1-2">
+<h4 id="orgadb7876"><span class="section-number-4">20.2.4.</span> Transplants</h4>
+<div class="outline-text-4" id="text-20-2-4">
 <p>
 The environment variables that should be carried across profiles will
 be called "transplants".
@@ -1142,7 +1150,7 @@ be called "transplants".
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2023-06-16 Fri 17:22</p>
+<p class="date">Created: 2023-06-17 Sat 20:41</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

@@ -6,7 +6,7 @@
 <!-- 2023-06-17 Sat 20:41 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Home | Matt Whipple</title>
+<title>Demystifying Processes and Processors</title>
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -195,49 +195,65 @@
 </head>
 <body>
 <div id="content" class="content">
-<h1 class="title">Home | Matt Whipple</h1>
+<h1 class="title">Demystifying Processes and Processors</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org994a4f8">1. Demystifying Processes and Processors</a></li>
-<li><a href="#org666ba6d">2. Project Log</a></li>
-<li><a href="#orgcaed1d4">3. Programming Languages are Harmful</a></li>
-<li><a href="#orgee0e6a8">4. Reorienting Microservice Architectures</a></li>
-<li><a href="#org02bc5a7">5. Software</a></li>
-<li><a href="#org04fe246">6. The Problem With Line Coverage</a></li>
-<li><a href="#org803b3e1">7. This Site</a></li>
+<li><a href="#org5777465">1. Introduction</a></li>
+<li><a href="#orgfb1eec4">2. Context/Assumptions</a></li>
+<li><a href="#org2299101">3. A Process is Acted Upon</a></li>
 </ul>
 </div>
 </div>
+
+<div id="outline-container-org5777465" class="outline-2">
+<h2 id="org5777465"><span class="section-number-2">1.</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
 <p>
-Welcome to the latest iteration of my Web site.
+Every so often I end up getting pulled into discussions related to
+processes and processors which lead me to learn that many software
+engineers seem to have a questionable handle on how those concepts
+actually work. This has often been surprising for me but <span class="underline">in no way</span>
+is meant to be condescending or anything along those lines since I
+was personally driven by misconceptions for a long time but figured
+that was largely due to my lack of formal education and therefore was
+part of a minority among a mob that understood such inner workings.
 </p>
 
 <p>
-I'll be copying information from previous incarnations.
+Most often such discussions arise in the context of Kubernetes and
+resource requests and limits. To be clear this is a topic that is not
+only relatively nuanced but is also on top of many layers of
+complicated systems so it's unreasonable to expect anyone to fit the
+details of how it all fits together within their brain, but what seems
+to be an inaccurate mental model of how things work and lack of
+empircal approaches tend to lead people in questionable directions and
+some of the resulting conversations have exposed areas where there
+tend to be detours away from reality.
 </p>
+</div>
+</div>
 
-<div id="outline-container-org994a4f8" class="outline-2">
-<h2 id="org994a4f8"><span class="section-number-2">1.</span> <a href="demystifying_processes_and_processors.html">Demystifying Processes and Processors</a></h2>
+<div id="outline-container-orgfb1eec4" class="outline-2">
+<h2 id="orgfb1eec4"><span class="section-number-2">2.</span> Context/Assumptions</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+First it is worth framing some of the assertions that will be
+made. This will be written with the assumption that the system
+involved is one which provides preemptive multitasking with a
+scheduler which is furnished by a well designed delineation between
+kernel-space and user-space which protects such preemption. I will be
+drawing largely from some familiarity with how Linux handles this
+concern and while I'm sure there are some variations on some other
+platforms (particularly with different multitaking models) I <span class="underline">believe</span>
+most tend to follow a similar model.
+</p>
 </div>
-<div id="outline-container-org666ba6d" class="outline-2">
-<h2 id="org666ba6d"><span class="section-number-2">2.</span> <a href="project_log.html">Project Log</a></h2>
 </div>
-<div id="outline-container-orgcaed1d4" class="outline-2">
-<h2 id="orgcaed1d4"><span class="section-number-2">3.</span> <a href="programming_languages_are_harmful.html">Programming Languages are Harmful</a></h2>
-</div>
-<div id="outline-container-orgee0e6a8" class="outline-2">
-<h2 id="orgee0e6a8"><span class="section-number-2">4.</span> <a href="reorienting_microservice_architectures.html">Reorienting Microservice Architectures</a></h2>
-</div>
-<div id="outline-container-org02bc5a7" class="outline-2">
-<h2 id="org02bc5a7"><span class="section-number-2">5.</span> <a href="./software.html">Software</a></h2>
-</div>
-<div id="outline-container-org04fe246" class="outline-2">
-<h2 id="org04fe246"><span class="section-number-2">6.</span> <a href="the_problem_with_line_coverage.html">The Problem With Line Coverage</a></h2>
-</div>
-<div id="outline-container-org803b3e1" class="outline-2">
-<h2 id="org803b3e1"><span class="section-number-2">7.</span> <a href="this_site.html">This Site</a></h2>
+
+<div id="outline-container-org2299101" class="outline-2">
+<h2 id="org2299101"><span class="section-number-2">3.</span> A Process is Acted Upon</h2>
 </div>
 </div>
 <div id="postamble" class="status">

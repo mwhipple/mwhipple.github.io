@@ -369,24 +369,24 @@ are forced using `bind-keys*` to stick them in the override map.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (use-package dired
-    :bind
+    :bind (:map dired-mode-map
     ("C-p" . dired-previous-line)
     ("C-n" . dired-next-line)
-    ("RET" . dired-find-file))
+    ("RET" . dired-find-file)))
 #+END_SRC
 
 ** Configure Org Agenda
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (use-package org-agenda
-    :bind
+    :bind (:map org-agenda-mode-map
     ("C-n" . org-agenda-next-line)
     ("C-p" . org-agenda-previous-line)
     ("TAB" . org-agenda-goto)
     ("g" . org-agenda-redo-all)
     ("t" . org-agenda-todo)
     ("u" . org-agenda-bulk-unmark)
-    ("T" . org-agenda-show-tags)
+    ("T" . org-agenda-show-tags))
     :config
     (setq org-agenda-span 'day)
     ;; Allow for very old scheduled items for catch-up behavior.
@@ -399,17 +399,17 @@ are forced using `bind-keys*` to stick them in the override map.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
     (use-package hexl
-      :bind
+      :bind (:map hexl-mode
       ("C-v" . hexl-scroll-up)
-      ("M-v" . hexl-scroll-down))
+      ("M-v" . hexl-scroll-down)))
 #+END_SRC
 
 ** Configure Info Mode
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (use-package info
-    :bind
-    ("SPC" . Info-scroll-up))    
+    :bind (:map Info-mode-map
+    ("SPC" . Info-scroll-up)))
 #+END_SRC
 
 ** Manage Environment for Called Commands
@@ -429,9 +429,9 @@ that are more general will omit the `env` segment.
 *** Customization Group
 
 I have not used customize in the past, but in addition to providing a
-UI which may be more usable across devices it also seems to offer a
-natural means to locally specialize behavior without worrying about
-what goes into which file.
+user interface which may be more usable across devices it also seems
+to offer a natural means to locally specialize behavior without
+worrying about what goes into which file.
 
 These will be functions which in some places helps reduce the overall
 complexity while retaining flexibility, and others are done largely
@@ -453,7 +453,7 @@ not actively looking).
     :group 'environment)
 #+END_SRC
 
-**** Expand Using Shell
+*** Expand Using Shell
 
 The underlying functionality revolves around evaluating expressions in
 a shell which is invoked with the login profile. Much of this _may_ be
@@ -470,7 +470,7 @@ a shell parameter and then passing it through the fairly ubiquitous
       (^-shell-printf "%s" (funcall shell-variable name))))
 #+END_SRC
 
-***** Enveloper
+**** Enveloper
 
 The above uses an "enveloper" which wraps a string in the provided
 pair. There's some similar behavior that seems worth extracting
@@ -490,9 +490,9 @@ programming behavior for me.
     (lambda (s) (concat (car pair) s (cdr pair))))
 #+END_SRC
 
-***** Define the Called Commands
+**** Define the Called Commands
 
-****** Shell Supplier
+***** Shell Supplier
 
 The evaluation itself will be performed through a shell command which
 is defined here, defaulting to the Emacs standard.
@@ -506,7 +506,7 @@ is defined here, defaulting to the Emacs standard.
     :group '^-env)
 #+END_SRC
 
-****** Shell Login Argument Supplier
+***** Shell Login Argument Supplier
 
 The shell command may also require some additional arguments to make
 sure that it is executed using the login profile.
@@ -520,7 +520,7 @@ sure that it is executed using the login profile.
     :group '^-env)
 #+END_SRC
 
-****** Printf Command Supplier
+***** Printf Command Supplier
 
 As previously mentioned this will expect to be evaluated using some
 form of printf...how practically extensible this is given the current
@@ -538,12 +538,12 @@ define some of the magic values.
     :group '^-env)
 #+END_SRC
 
-***** Support Invoking the Commands
+**** Support Invoking the Commands
 
 There's likely some better constructs for this floating around
 somewhere, but for now I'll start with what was inherited.
 
-****** Warn On Slow Evaluation
+***** Warn On Slow Evaluation
 
 Warning on a slow call is carried forward from exec-from-shell...I'm
 not entirely sure of its value given that there's no timeout behavior
@@ -560,7 +560,7 @@ around for the time being.
     :group '^-env)
 #+END_SRC
 
-****** Support Timed Evaluation
+***** Support Timed Evaluation
 
 There's nothing particularly specialized about timing a call so this
 will be implemented through providing a first class function which
@@ -581,7 +581,7 @@ annotated accordingly). This is optimistically ignored for this code
 that issue simpler to reason about) but that scenario may need further
 attention with this code.
 
-******* Millisecond Duration
+****** Millisecond Duration
 
 The duration will be passed in milliseconds as that's what's inherited
 from the original logic. This also generally seems to be the most
@@ -602,10 +602,10 @@ date/time library floating around that could replace this later.
 		(* 1000.0)))
 #+END_SRC
 
-******* Implement Timer
+****** Implement Timer
 
 This function body is a fairly straightforward higher-order
-function. Currently the handler will be invoked with funcall (which
+function. Currently the handler will be invoked with ~funcall~ (which
 should be modified later).
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
@@ -620,9 +620,11 @@ should be modified later).
 	result)))
 #+END_SRC
 
-******* Wire Warning
+****** Wire Warning
 
-The specific handler for the duration warning 
+The specific handler for the duration warning needs to be configured
+to be plugged into the general timer. This will be provided by a
+closure over the setting which returns an appropriate handler.
 
 **** Transplants
 
@@ -637,4 +639,4 @@ be called "transplants".
 #+END_SRC
 
 
-#  LocalWords:  Minibuffer Dired
+#  LocalWords:  Minibuffer Dired hexl

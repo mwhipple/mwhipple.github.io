@@ -1,0 +1,37 @@
+#+TITLE: Demystifying Processes and Processors
+
+** Introduction
+
+Every so often I end up getting pulled into discussions related to
+processes and processors which lead me to learn that many software
+engineers seem to have a questionable handle on how those concepts
+actually work. This has often been surprising for me but _in no way_
+is meant to be condescending or anything along those lines since I
+was personally driven by misconceptions for a long time but figured
+that was largely due to my lack of formal education and therefore was
+part of a minority among a mob that understood such inner workings.
+
+Most often such discussions arise in the context of Kubernetes and
+resource requests and limits. To be clear this is a topic that is not
+only relatively nuanced but is also on top of many layers of
+complicated systems so it's unreasonable to expect anyone to fit the
+details of how it all fits together within their brain, but what seems
+to be an inaccurate mental model of how things work and lack of
+empircal approaches tend to lead people in questionable directions and
+some of the resulting conversations have exposed areas where there
+tend to be detours away from reality.
+
+** Context/Assumptions
+
+First it is worth framing some of the assertions that will be
+made. This will be written with the assumption that the system
+involved is one which provides preemptive multitasking with a
+scheduler which is furnished by a well designed delineation between
+kernel-space and user-space which protects such preemption. I will be
+drawing largely from some familiarity with how Linux handles this
+concern and while I'm sure there are some variations on some other
+platforms (particularly with different multitaking models) I _believe_
+most tend to follow a similar model.
+
+** A Process is Acted Upon
+

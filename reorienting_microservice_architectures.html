@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-06-16 Fri 09:07 -->
+<!-- 2023-06-17 Sat 20:41 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Reorienting Microservice Architectures</title>
@@ -194,7 +194,11 @@
 </style>
 </head>
 <body>
-<div id="content" class="content">
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="./index.html"> HOME </a>
+</div><div id="content" class="content">
 <h1 class="title">Reorienting Microservice Architectures</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
@@ -221,25 +225,25 @@ pages worth of criteria.
 <div class="outline-text-2" id="text-1">
 <p>
 In terms of both scale and cost some of the major considerations are
-in terms of higher initial overhead and the Pareto Principle.  MSAs
-out of the gate have higher costs (in all forms) and likely lower
+in terms of higher initial overhead and the Pareto Principle. MSAs out
+of the gate have higher costs (in all forms) and likely lower
 performance due to more expensive communication across nodes which has
-adverse impacts on being able to scale cost effectively. The Pareto
-Principle is likely the more significant consideration as the
+adverse implications on being able to cost effectively scale. The
+Pareto Principle is likely the more significant consideration as the
 assertion that the ability to scale pieces of your infrastructure
 independently is undermined by the notion that there are likely to be
 relatively few hot spots. This counterargument is furthered by the
 notion that latency sensitive apps also have bursty traffic patterns
 and therefore a cluster of those hot spots is likely to have
-sufficient spare cycles at any given time to handle the ~20% of lower
-volume traffic. This mirrors some of the benefits espoused by
-co-locating containers which are often wrapped in misconceptions around
-how such work will be isolated and resources will be shared - while
-attention should be paid to concerns such as process scheduling such
-behavior can be configured at the level of the OS (which is where it
-is handled in containers) or the relevant VM. In terms of
-organizational structure, MSAs can be a useful <span class="underline">tool</span> but are not a
-solution. A naive adoption of microservices will not deliver the
+sufficient spare cycles within a typical time window to handle the
+~20% of lower volume traffic. This mirrors some of the benefits
+espoused by co-locating containers which are often wrapped in
+misconceptions around how such work will be isolated and resources
+will be shared - while attention should be paid to concerns such as
+process scheduling such behavior can be configured at the level of the
+OS (which is where it is handled in containers) or the relevant VM. In
+terms of organizational structure, MSAs can be a useful <span class="underline">tool</span> but are
+not a solution. A naive adoption of microservices will not deliver the
 desired autonomy and agility but simply obscure the inherited friction
 and the overall system is likely to amount to a "distributed
 monolith".  Conway's Law can be a useful guiding framework for these
@@ -252,8 +256,8 @@ optimism otherwise any existing drag will simply be amplified as it
 passes through both systems and people. This manifests in both
 development time (coordinating on what to build) and runtime (tracking
 the successful delivery of value to users).  There are clear benefits
-<span class="underline">iff</span> there is independence which microservices can help
-reinforce but not enable.
+<span class="underline">iff</span> there is independence which microservices can help reinforce but
+not enable.
 </p>
 
 <p>
@@ -439,7 +443,7 @@ both control and dependencies.
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2023-06-16 Fri 09:07</p>
+<p class="date">Created: 2023-06-17 Sat 20:41</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

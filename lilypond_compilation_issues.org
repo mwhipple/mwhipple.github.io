@@ -1,0 +1,57 @@
+#+TITLE: Lilypond Compilation Issues
+#+HTML_LINK_HOME: ./project_log.html
+#+HTML_LINK_UP: ./project_log.html
+
+I'm using lilypond as a means to dive into music theory and to
+inscribe an assortment of music (some songs that I've written, some
+written by my father, some written by others).  I also opted to check
+out the source to poke around, but when I tried to transform one of
+the examples provided with the source code with my installed copy it
+threw a range of errors, presumably because the version installed by
+my package manager was out of date with trunk. To remove this variable
+I opted to use an executable compiled from the checked out source, but
+compilation did not go smoothly.
+
+The first not real issue was getting the proper dependencies loaded
+where I'd somewhat assumed that they would be present by virtue of the
+previously installed version, but I seemed to be missing some Cyrillic
+TeX fonts that were either not previously used or were a disabled
+option, but in any case I just installed the package and the
+configuration step proceeded without issue...but the compilation
+failed.
+
+The build threw errors around cairo linking with PNG.
+
+#+BEGIN_SRC
+/usr/lib/gcc/x86_64-pc-linux-gnu/12/../../../../x86_64-pc-linux-gnu/bin/ld: ./out/cairo.o: undefined reference to symbol 'png_image_write_to_file@@PNG16_0'
+/usr/lib/gcc/x86_64-pc-linux-gnu/12/../../../../x86_64-pc-linux-gnu/bin/ld: /usr/lib64/libpng16.so.16: error adding symbols: DSO missing from command line
+collect2: error: ld returned 1 exit status
+make[1]: *** [GNUmakefile:42: out/lilypond] Error 1
+make: *** [make/generic-targets.make:6: all] Error 2
+#+END_SRC
+
+Using ~make --no-silent~ so that it echoed the commands I
+noticed that there was no relevant linker flag so I explicitly
+populate the relevant environment variables with the =pkg-config=
+output and tried the configure/build dance again to blow up on _other_
+errors.
+
+A this point I've noticed that while many of the dependencies are
+being detected there seems to be no parameters populated from =pkg-config=
+in =config.log=. I'd wonder if this may not be a practical concern,
+but it seemed to help in the PNG case so feels worth deeper inspection
+if this issue persists.
+
+From what I've started to incidentally pick through the Lilypond build
+process feels fairly primitive which means that it should both be
+fairly easy to pick through but also fairly likely to suffer from a
+potentially obscure issue with sparse readily available information.
+
+Unfortunately lilypond references an =INSTALL.txt= file which doesn't
+seem to exist in my working directory and I'm currently having issues
+accessing the online compilation guide.
+
+Attempting to rerun =autogen.sh= seems potentially promising as that
+populates some of the values for PNG in the logs...
+
+#  LocalWords:  cairo libpng PNG
