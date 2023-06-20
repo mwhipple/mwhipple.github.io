@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-06-17 Sat 20:41 -->
+<!-- 2023-06-20 Tue 08:56 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>My Emacs Configuration</title>
@@ -1038,7 +1038,9 @@ around for the time being.
 </li>
 
 <li><a id="org123ac0a"></a>Support Timed Evaluation<br />
-<div class="outline-text-5" id="text-20-2-3-2">
+<ol class="org-ol">
+<li><a id="org8ad35ba"></a><span class="todo TODO">TODO</span> Replace with <code>with-delayed-message</code><br />
+<div class="outline-text-6" id="text-20-2-3-2-1">
 <p>
 There's nothing particularly specialized about timing a call so this
 will be implemented through providing a first class function which
@@ -1062,10 +1064,10 @@ that issue simpler to reason about) but that scenario may need further
 attention with this code.
 </p>
 </div>
+</li>
 
-<ol class="org-ol">
 <li><a id="org3044a30"></a>Millisecond Duration<br />
-<div class="outline-text-6" id="text-20-2-3-2-1">
+<div class="outline-text-6" id="text-20-2-3-2-2">
 <p>
 The duration will be passed in milliseconds as that's what's inherited
 from the original logic. This also generally seems to be the most
@@ -1093,7 +1095,7 @@ date/time library floating around that could replace this later.
 </li>
 
 <li><a id="orgb12c927"></a>Implement Timer<br />
-<div class="outline-text-6" id="text-20-2-3-2-2">
+<div class="outline-text-6" id="text-20-2-3-2-3">
 <p>
 This function body is a fairly straightforward higher-order
 function. Currently the handler will be invoked with <code>funcall</code> (which
@@ -1116,7 +1118,7 @@ should be modified later).
 </li>
 
 <li><a id="org80f4bda"></a>Wire Warning<br />
-<div class="outline-text-6" id="text-20-2-3-2-3">
+<div class="outline-text-6" id="text-20-2-3-2-4">
 <p>
 The specific handler for the duration warning needs to be configured
 to be plugged into the general timer. This will be provided by a
@@ -1150,7 +1152,7 @@ be called "transplants".
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2023-06-17 Sat 20:41</p>
+<p class="date">Created: 2023-06-20 Tue 08:56</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

@@ -1,6 +1,6 @@
 #+TITLE: Sources
 
-** TODO Designing Data-Intensive Applications
+** Designing Data-Intensive Applications
 :PROPERTIES:
 :CUSTOM_ID: ddia
 :END:

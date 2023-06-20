@@ -562,6 +562,8 @@ around for the time being.
 
 ***** Support Timed Evaluation
 
+****** TODO Replace with ~with-delayed-message~
+
 There's nothing particularly specialized about timing a call so this
 will be implemented through providing a first class function which
 takes a curried handler to which the time will be passed and can then

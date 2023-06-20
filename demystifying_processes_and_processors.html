@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-06-17 Sat 20:41 -->
+<!-- 2023-06-20 Tue 08:56 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Demystifying Processes and Processors</title>
@@ -194,7 +194,11 @@
 </style>
 </head>
 <body>
-<div id="content" class="content">
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="./index.html"> HOME </a>
+</div><div id="content" class="content">
 <h1 class="title">Demystifying Processes and Processors</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
@@ -203,6 +207,8 @@
 <li><a href="#org5777465">1. Introduction</a></li>
 <li><a href="#orgfb1eec4">2. Context/Assumptions</a></li>
 <li><a href="#org2299101">3. A Process is Acted Upon</a></li>
+<li><a href="#org359cf00">4. Processor Access is Binary</a></li>
+<li><a href="#orgdb2b320">5. Processor Use is Binary</a></li>
 </ul>
 </div>
 </div>
@@ -228,7 +234,7 @@ only relatively nuanced but is also on top of many layers of
 complicated systems so it's unreasonable to expect anyone to fit the
 details of how it all fits together within their brain, but what seems
 to be an inaccurate mental model of how things work and lack of
-empircal approaches tend to lead people in questionable directions and
+empirical approaches tend to lead people in questionable directions and
 some of the resulting conversations have exposed areas where there
 tend to be detours away from reality.
 </p>
@@ -243,21 +249,185 @@ First it is worth framing some of the assertions that will be
 made. This will be written with the assumption that the system
 involved is one which provides preemptive multitasking with a
 scheduler which is furnished by a well designed delineation between
-kernel-space and user-space which protects such preemption. I will be
+the kernel and user-land which protects such preemption. I will be
 drawing largely from some familiarity with how Linux handles this
 concern and while I'm sure there are some variations on some other
-platforms (particularly with different multitaking models) I <span class="underline">believe</span>
+platforms (particularly with different multitasking models) I <span class="underline">believe</span>
 most tend to follow a similar model.
+</p>
+
+<p>
+This is also focused on general use of CPUs rather than more
+specialized software or hardware.
 </p>
 </div>
 </div>
 
 <div id="outline-container-org2299101" class="outline-2">
 <h2 id="org2299101"><span class="section-number-2">3.</span> A Process is Acted Upon</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+A process is essentially dormant - it is an instance of executing a
+stored program which amounts to a struct that points to the relevant
+memory addresses. It is <span class="underline">not</span> something that has a life of its own.
+On the lowest level the processor itself is what activates your
+process as it performs the operations of the program and advances the
+address of the instruction pointer. This distinction may seem nebulous
+but even in the case where the process is directly loaded onto a
+processor it can be useful in understanding how other pieces of the
+puzzle fit together. For many years I silently wondered how processes
+could do nothing - what were my programs doing when they were waiting
+for something to happen but not spinlocking? The perspective that
+process are actively in control leads to some anthropomorphic notions
+but the shift to the more accurate perspective of the process being
+consumed by the processor makes any pause of such consumption a clear
+option.
+</p>
+
+<p>
+This is more relevant in the context of a typical OS scheduler. In
+this model which processes can be consumed when is at the discretion
+of the scheduler (and which processes are on a scheduler rather than
+something like a wait queue are at the discretion of the operating
+system). While the kernel deals with the onslaught of system calls and
+interrupts it remains in regular (albeit not constant) control of how
+user-land is mapped to hardware. The scheduler therefore regularly
+decides which processors will be consumed by which processes.
+</p>
+
+<p>
+This perspective popped up most recently related to observing CPU
+usage on Kubernetes where I was in a conversation with someone where
+we were in agreement about everything that mattered but I inferred
+that the other person was suggesting that processes would somehow need
+to be prevented from accessing processors rather than simply not be
+scheduled (i.e. they were active entities that needed to be put on a
+leash rather than just a to-do list that could be not
+read). Specifically we were both advocating avoidance of CPU limits
+and letting the scheduler do its thing but he was suggesting that
+throttling would still be a useful metric. Having spent a fair amount
+of time a few months ago collecting information to assuage fears about
+the removal of CPU limits (a campaign I've waged at multiple
+organizations) and based on resulting behavior my assertion is that
+throttling is not even reported when limits and cgroup quotas are not
+in play. This is coincidentally a natural segue to the next topic.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org359cf00" class="outline-2">
+<h2 id="org359cf00"><span class="section-number-2">4.</span> Processor Access is Binary</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+A process is either on a processor or it is not, or perhaps in clearer
+terms given some of the previously mentioned considerations - a
+processor is only consuming a single process at any given time
+and that is what the processor is doing at that time.
+</p>
+
+<p>
+This leads to what is likely fairly common advice to
+<b>not express CPU usage as a percentage</b>. Any time I've ever been in a
+meeting where such a metric has been displayed it has either yielded
+confusion or more innocuously the desire that the information is
+presented more legibly. This mirrors standard practice to prefer
+metrics such as system load.
+</p>
+
+<p>
+Anytime anything is expressed as a percentage the first question is
+"percentage of what?". From the perspective of a system percentage may
+be reasonable as a proportion of cores for that system (though as
+mentioned load is typically more useful) but for a process the
+appropriate whole is far more nebulous. Such a percentage may be in
+terms where each hundred corresponds to a single core such that the actual
+whole is one hundred multiplied by the number of cores used or one
+hundred may represent the capacity on the host machine or it may
+represent something else. The signal within such metrics can be
+non-obvious, particularly due to possible variations across a cluster.
+</p>
+
+<p>
+Another underlying consideration which is a driver for preferring load
+is that detection of CPU usage in proportion to capacity is not
+inherently useful. Processors are used but they are not <span class="underline">used up</span> -
+there are posts that refer to CPU as a "renewable resource" which may
+be useful to help adjust perspective but it may be better to just
+avoid thinking of it needing to be renewed. Similarly it may be best
+to avoid terms such as "exhaustion" when discussing CPU since it
+naturally leads to thinking of processors in similar terms to memory
+or storage where the system can suffer if there pressure is introduced
+by operating close to capacity. There <span class="underline">can</span> be concerns around given
+work not acquiring enough CPU time but the view should be more of
+passing work through persistent shared resources rather than the
+resources themselves being modified (and generally tracking any such
+concerns should be driven from the work done rather than the resources
+used). In practical terms spare CPU cycles represent time during which
+resources were not used and therefore from a cost efficiency
+perspective it can be preferable to keep processors fully utilized and
+therefore presenting the data in a format which may lead to thinking
+of being at capacity is problematic should be avoided.
+</p>
+
+<p>
+As mentioned repeatedly, using load is preferable from a system
+perspective and from a process perspective it is far clearer to
+convey usage in terms of time spent active (which is how it is
+typically reported). At any given instant a process will be in one
+state or another and therefore within any given window of time
+(typically a second) a process will have spent a certain amount of
+time in each state. This can then be presented against total time for
+the underlying resources without inviting any of the above ambiguities
+and hoping to deter confusion.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgdb2b320" class="outline-2">
+<h2 id="orgdb2b320"><span class="section-number-2">5.</span> Processor Use is Binary</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+On a closely related note, a processor is either being used or it is
+not. Another big reason to avoid the use of expressing CPU usage in
+percentage is that there may be a perspective that a process is using
+anything along the lines of "half of a processor" (rather than the
+more accurate perspective of using a processor for half of the time)
+and presented data should not reinforce any such ideas.
+</p>
+
+<p>
+From the other direction there also sometimes seems to be ideas
+that processes can somehow request some amount of processing
+power. This seems to have been potentially introduced through
+the Kubernetes (and similar systems) concept of CPU requests and
+weak understanding around the roles of pod scheduling and container
+runtime and how the Linux scheduler works. Somehow although presumably
+nobody with this idea has ever written code to request processing
+there is a perception that such a concept has crept into the many
+layers of magic upon which we currently place our code.
+</p>
+
+<p>
+The above points should help adjust perspectives but does not
+explicitly explain how any process could ever make use of more than
+one processor. To retroactively define terms, most of this is page is
+using "process" in the sense used by the Linux kernel which clearly
+aligns with the initial description of it as effectively a struct of
+memory addresses suitable for execution by a given processor - the
+concept of "threads" are simply processes which share memory (and as a
+result have lower creation/forking overhead). The ability to make use
+of processing power exceeding a single core is a function of using
+multiple such runnable processes or threads. Making use of
+multi-threading is a large topic and can be a bit of an art, but
+suffice it to say that you can't use more processors than you have
+processes and efficiency requires more attention than spinning up a
+bunch of threads and expecting to be able to turn some kind of dial.
+</p>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2023-06-17 Sat 20:41</p>
+<p class="date">Created: 2023-06-20 Tue 08:56</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
