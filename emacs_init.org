@@ -40,7 +40,7 @@ most significantly define lexical binding.
   ;; Keywords: config
   ;; Package: ^-config
   ;; Package-Version: NA
-  ;; Package-Requires: ((emacs "29.1"))
+  ;; Package-Requires: ((emacs "29.1") (dash "2.19.1")
   ;; Filename: init.el
 
   ;; This file is not part of GNU Emacs.
@@ -160,7 +160,8 @@ family of macros but this make more direct use of the core
 functionality as it lends itself more readily to composition (and
 there's no clear value in using anything fancier). I'd generally be on
 the fence about using `bind-key` but since it's now included in Emacs
-it's hard to resist.
+it's hard to resist. I'm fairly likely to switch that out later in
+favor of something simpler like ~define-keymap~ as I build out my emacs knowledge.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (setq self-insert-keys
@@ -186,7 +187,8 @@ commands in general.
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (bind-keys :map global-map
 	     ("C-g" . keyboard-quit)
-	     ("M-x" . execute-extended-command))
+	     ("M-x" . execute-extended-command)
+	     ("M-:" . eval-expression))
 #+END_SRC
 
 ** Provide Some Basic Editing
@@ -195,6 +197,7 @@ commands in general.
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (bind-keys :map global-map
 	     ("RET" . newline)
+	     ("C-j" . electric-newline-and-maybe-indent)
 	     ("TAB" . indent-for-tab-command)
 	     ("C-o" . open-line))
 #+END_SRC
@@ -202,11 +205,14 @@ commands in general.
 *** Remove Content
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
-    (bind-keys :map global-map
-	       ("DEL"  . backward-delete-char-untabify)
-	       ("C-d" .  delete-char)
-	       ("M-\\" . delete-horizontal-space)
-	       ("M-z" . zap-up-to-char))
+  (bind-keys :map global-map
+	     ("DEL"  . backward-delete-char-untabify)
+	     ("M-DEL" . backward-kill-word)
+	     ("C-d" .  delete-char)
+	     ("M-d" . kill-word)
+	     ("C-k" . kill-line)
+	     ("M-\\" . delete-horizontal-space)
+	     ("M-z" . zap-up-to-char))
 #+END_SRC
 
 *** Support Moving Point Around Within a Buffer
@@ -249,7 +255,6 @@ commands in general.
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (bind-keys :map global-map
 	     ("C-y" . yank)
-	     ("C-k" . kill-line)
 	     ("M-w" . kill-ring-save))
 #+END_SRC
 
@@ -411,6 +416,12 @@ are forced using `bind-keys*` to stick them in the override map.
     :bind (:map Info-mode-map
     ("SPC" . Info-scroll-up)))
 #+END_SRC
+
+** Configure Elisp
+(global-dash-fontify-mode)
+(with-eval-after-load 'info-look
+(dash-register-info-lookup))
+
 
 ** Manage Environment for Called Commands
 
@@ -640,5 +651,308 @@ be called "transplants".
     :group '^-env)
 #+END_SRC
 
+** Structurizr Mode
+
+The details of some of these should be covered. Why does
+font-lock-defaults require a nested list?
+
+For now there is no hook defined since it wouldn't be used
+(although it is likely to be standard).
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (define-derived-mode structurizr-mode fundamental-mode "Structurizr"
+    "Major mode for editing Structurizr dsl"
+    (set-syntax-table structurizr-mode-syntax-table)
+    (make-local-variable 'structurizr-indent-offset)
+    (set (make-local-variable 'indent-line-function) 'structurizr-indent-line)
+    (setq font-lock-defaults (list (funcall structurizr-font-lock-default-collector))))
+#+END_SRC
+
+*** Font Lock
+
+The definitions below are borrowed from the original mode, this should
+tied back more directly to the DSL reference with any resulting
+adjustment to naming or membership.
+
+**** Words for Face
+
+The original code also defined and then operated on values whereas
+this will attempt to make more use of in-place definitions with
+supporting functions as warranted.
+
+This seems like something that likely already exists but to start this
+will make use of what was originally in place but wrap it up in a
+function for more direct use.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (defun ^-words-for-face (face words)
+    "Return a pair of a regexp matching <words> and the provided <face>."
+    (cons (regexp-opt words 'words) face))
+#+END_SRC
+
+**** List Collector
+
+There is likely something readily available somewhere else that does
+this. When defining keywords in this file it is nice to allow each
+block to be self-contained so that it can be evaluated easily, but
+when collecting all lists that invites some possibly fragile
+mutability. To make this slightly cleaner, at least according to my
+tastes, we'll use an accumulator closure over the list that appends an
+argument if provided and returns the contents if no argument is provided.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (defun ^-list-collector ()
+    "Produce a list collector."
+    (let ((l nil))
+      (lambda (&optional arg)
+	(if arg (push arg l) l))))
+#+END_SRC
+
+**** Collect Categories of Known Words
+
+Each block will push onto the list to keep the blocks self-contained.
+
+There's a note around ordering being significant...ideally this can be
+avoided if it is substantiated but otherwise it should be very clearly
+laid out or ideally encoded within the logic.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+(setq structurizr-font-lock-default-collector (^-list-collector))
+#+END_SRC
+
+***** Keywords
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (funcall structurizr-font-lock-default-collector
+	   (^-words-for-face
+	    'font-lock-keyword-face
+	    '(
+	      "enterprise"
+	      "model"
+	      "views"
+	      "workspace"
+	      )))
+#+END_SRC
+
+***** Types
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (funcall structurizr-font-lock-default-collector
+	   (^-words-for-face
+	    'font-lock-type-face
+	    '(
+	      "branding"
+	      "component"
+	      "container"
+	      "containerInstance"
+	      "deployment"
+	      "deploymentEnvironment"
+	      "deploymentGroup"
+	      "deploymentNode"
+	      "dynamic"
+	      "element"
+	      "filtered"
+	      "group"
+	      "infrastructureNode"
+	      "person"
+	      "perspectives"
+	      "properties"
+	      "relationship"
+	      "softwareSystem"
+	      "softwareSystemInstance"
+	      "styles"
+	      "systemContext"
+	      "systemLandscape"
+	      "themes"
+	      )))
+#+END_SRC
+
+***** Relationship
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (funcall structurizr-font-lock-default-collector
+	   (^-words-for-face
+	    'font-lock-function-name-face
+	    '("->")))
+#+END_SRC
+
+***** Properties
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (funcall structurizr-font-lock-default-collector
+	   (^-words-for-face
+	    'font-lock-variable-name-face
+	    '(
+	      "autoLayout"
+	      "background"
+	      "border"
+	      "color"
+	      "colour"
+	      "dashed"
+	      "description"
+	      "exclude"
+	      "fontSize"
+	      "height"
+	      "icon"
+	      "include"
+	      "metadata"
+	      "opacity"
+	      "position"
+	      "routing"
+	      "shape"
+	      "stroke"
+	      "tags"
+	      "technology"
+	      "thickness"
+	      "title"
+	      "url"
+	      "width")))
+#+END_SRC
+
+*** Indentation
+**** Configure Offset
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+(defvar structurizr-indent-offset 4
+  "Deine the indendation offset for `structurizr-mode'.
+Lines will be indented this offset multiplied by the detected level.
+Currently only spaces are supported.")
+
+**** Determine Indentation Level
+
+The basic algorithm here will start from what was defined upstream.
+This will be broken up a bit and in the future any other standard
+algorithms will be explored.
+
+This currently adjusts the formatting after a newline rather than
+inserting the character itself so something more electric may be better.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (defun structurizr-indent-line ()
+    "Indent current line as Structurizr dsl."
+    (interactive)
+    (let* ((initial-level (^-opener-count-to-top "{"))
+	   (closers (^-closers-on-line "}"))
+	   (level (max 0 (- initial-level closers))))
+      (indent-line-to (* level structurizr-indent-offset))))
+
+#+END_SRC
+
+***** Opener Count to Top
+
+The current approach involves ascending lists until an ignored error
+is encountered, and then reporting the count of the number of a
+particlar opener that was encountered.
+
+This feels like it should be simpler in some way or another. This
+level should potentially be readily available and the ascenion
+behavior should be tied to the relevant grammar which would obviate
+the need for the additional check. At the moment I don't know what
+options are available and unused versus those that would need further
+support so I'll circle back to this over time (espeically as other
+modes are pulled in).
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (defun ^-opener-count-to-top (opener)
+    "Ascend through levels and count the number of <opener>s seen."
+    (let ((level 0))
+      (save-excursion
+	(beginning-of-line)
+	(condition-case nil
+	    (while t
+	      (backward-up-list 1)
+	      (when (looking-at opener)
+		(setq level (+ level 1))))
+	  (error nil)))
+      level))
+#+END_SRC
+
+***** Closer Count
+
+The current logic only decrements one if the first character is a
+closer. This may be nicer to just count all instances but that feels
+like a taste based on the resulting behavior. In any case it should
+likely support either.
+
+In the current form this will either return 0 or 1.
+
+There was also a separate test initially which seemed to look to
+prevent over-outdenting which can be addressed by a ramp function on
+ouside use.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (defun ^-closers-on-line (closer)
+    (save-excursion
+      (back-to-indentation)
+      (if (looking-at closer) 1 0)))
+#+END_SRC
+
+*** Syntax Table
+
+The standard syntax table function NEWENTRY value is bit arcane so I'm going to
+try to define some more expressive functions to produce the values (and likely find
+something that exists elsewhere).
+
+This can be generalized a bit as needed by producing functions which
+produce the first character but in the short term the only interesting
+one I need is for punctuation so that will be written as
+specialized. The underlying logic can then be a function which accepts
+named flags as keywords each of which will map to the underlying terse flag.
+
+Initially I'll use a fairly clunky ~cond~ block though there is almost
+certainly something cleaner. This could be cleaned up through partial
+application but I'd imagine there's some better pattern matching stuff
+I need to stumble upon.
+
+This should all be significantly cleaned up into a nicer DSL (or
+ideally an existing one found) but right now I'm starting with the
+basics. In particular the relationships between some of the flags
+should be modeled in that DSL whereas the naive approach allows for
+seemingly invalid combinations. These should also operate on a closure
+over a comment table.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (defun ^-syntax-table-punctuation (&rest flags)
+    (apply #'concat (cons ". "
+	    (mapcar (lambda (flag)
+		      (cond
+		       ((eq flag :start-2char-comment-open) "1")
+		       ((eq flag :end-2char-comment-open) "2")
+		       ((eq flag :start-2char-comment-close) "3")
+		       ((eq flag :end-2char-comment-close) "4")
+		       ((eq flag :for-comment-sequence-b) "b")
+		      (t (error "Unrecognized flag" flag))))
+		    flags))))
+  (defun ^-syntax-table-comment-ender () ">")
+
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+(setq structurizr-mode-syntax-table
+  (let ((syntax-table (make-syntax-table)))
+    (modify-syntax-entry
+      ?/
+      (^-syntax-table-punctuation
+        :start-2char-comment-open
+	:end-2char-comment-open
+	:end-2char-comment-close)
+      syntax-table)
+    (modify-syntax-entry
+      ?*
+      (^-syntax-table-punctuation
+        :end-2char-comment-open
+	:start-2char-comment-close
+	:for-comment-sequence-b))
+    (modify-syntax-entry ?\n (^-syntax-table-comment-ender) syntax-table)
+    syntax-table))
+
+*** Associate with Extension
+
+~dsl~ is certainly not unambiguously Strucutrizr files,
+but it's the only association I'm currently expecting.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+(add-to-list 'auto-mode-alist '("\\.dsl\\'" . structurizr-mode))
+#+END_SRC
 
 #  LocalWords:  Minibuffer Dired hexl

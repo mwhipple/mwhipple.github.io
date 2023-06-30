@@ -1,4 +1,6 @@
 #+TITLE: Software
+#+HTML_LINK_HOME: ./index.html
+#+HTML_LINK_UP: ./index.html
 
 ** Software Selection
 
@@ -19,6 +21,8 @@ personal use. Many of these I'll also use where appropriate
 professionally but there I'm more likely to drift to anything more
 widely palatable or organizationally prudent.
 
+[[file:my_software_configuration.org][My Software Configuration]]
+
 *** Emacs
 
 [[file:sources.org::#emacs][Emacs]] is a piece of software that I periodically swear off and then
@@ -32,3 +36,4 @@ tongue-in-cheek perspective of emacs being more of an operating system
 than an editor.
 
 [[./emacs_init.org][My Emacs Configuration]]
+
