@@ -1,0 +1,17 @@
+#+TITLE: My Software Configuration
+#+HTML_LINK_HOME: ./index.html
+#+HTML_LINK_UP: ./software.html
+
+** SSH
+
+Making sure that an SSH agent is running is a typical way to make use
+of password protected SSH keys without needing to repeatedly enter the
+password...or more significantly to east that when the invocation
+would otherwise not be interactive.
+
+This is recipe I've had sitting around for a bit borrowed from
+forgotten sources but some will be tracked down again. Loading upon
+starting a shell will launch an agent if determined to be necessary
+and attempt to reuse the values from any already running agents.
+
+*** Start the Agent

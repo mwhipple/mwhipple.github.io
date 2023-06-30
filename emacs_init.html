@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-06-20 Tue 08:56 -->
+<!-- 2023-06-30 Fri 17:10 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>My Emacs Configuration</title>
@@ -192,6 +192,38 @@
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   .org-svg { }
 </style>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 </head>
 <body>
 <div id="content" class="content">
@@ -243,17 +275,37 @@
 <li><a href="#org4cef713">17. Configure Org Agenda</a></li>
 <li><a href="#org6d7ebd1">18. Configure hexl Mode</a></li>
 <li><a href="#orgf960c05">19. Configure Info Mode</a></li>
-<li><a href="#org4cb938e">20. Manage Environment for Called Commands</a>
+<li><a href="#orgd60195e">20. Configure Elisp</a></li>
+<li><a href="#org4cb938e">21. Manage Environment for Called Commands</a>
 <ul>
-<li><a href="#orgb56d76e">20.1. Customization Group</a></li>
-<li><a href="#org388b67e">20.2. Expand Using Shell</a>
+<li><a href="#orgb56d76e">21.1. Customization Group</a></li>
+<li><a href="#org388b67e">21.2. Expand Using Shell</a>
 <ul>
-<li><a href="#orgcfdcd07">20.2.1. Enveloper</a></li>
-<li><a href="#org42f378a">20.2.2. Define the Called Commands</a></li>
-<li><a href="#org1b8eb3f">20.2.3. Support Invoking the Commands</a></li>
-<li><a href="#orgadb7876">20.2.4. Transplants</a></li>
+<li><a href="#orgcfdcd07">21.2.1. Enveloper</a></li>
+<li><a href="#org42f378a">21.2.2. Define the Called Commands</a></li>
+<li><a href="#org1b8eb3f">21.2.3. Support Invoking the Commands</a></li>
+<li><a href="#orgadb7876">21.2.4. Transplants</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li><a href="#org022c295">22. Structurizr Mode</a>
+<ul>
+<li><a href="#org8285092">22.1. Font Lock</a>
+<ul>
+<li><a href="#orgfbc5c31">22.1.1. Words for Face</a></li>
+<li><a href="#orgdd8df78">22.1.2. List Collector</a></li>
+<li><a href="#org9d445b5">22.1.3. Collect Categories of Known Words</a></li>
+</ul>
+</li>
+<li><a href="#org28e35a0">22.2. Indentation</a>
+<ul>
+<li><a href="#orgdbe88f6">22.2.1. Configure Offset</a></li>
+<li><a href="#org15ab8a3">22.2.2. Determine Indentation Level</a></li>
+</ul>
+</li>
+<li><a href="#org2351021">22.3. Syntax Table</a></li>
+<li><a href="#org1a69499">22.4. Associate with Extension</a></li>
 </ul>
 </li>
 </ul>
@@ -310,7 +362,7 @@ most significantly define lexical binding.
 ;; Keywords: config
 ;; Package: ^-config
 ;; Package-Version: NA
-;; Package-Requires: ((emacs "29.1"))
+;; Package-Requires: ((emacs "29.1") (dash "2.19.1")
 ;; Filename: init.el
 
 ;; This file is not part of GNU Emacs.
@@ -476,7 +528,8 @@ family of macros but this make more direct use of the core
 functionality as it lends itself more readily to composition (and
 there's no clear value in using anything fancier). I'd generally be on
 the fence about using `bind-key` but since it's now included in Emacs
-it's hard to resist.
+it's hard to resist. I'm fairly likely to switch that out later in
+favor of something simpler like <code>define-keymap</code> as I build out my emacs knowledge.
 </p>
 
 <div class="org-src-container">
@@ -509,7 +562,8 @@ commands in general.
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(bind-keys :map global-map
            ("C-g" . keyboard-quit)
-           ("M-x" . execute-extended-command))
+           ("M-x" . execute-extended-command)
+           ("M-:" . eval-expression))
 </pre>
 </div>
 </div>
@@ -525,6 +579,7 @@ commands in general.
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(bind-keys :map global-map
            ("RET" . newline)
+           ("C-j" . electric-newline-and-maybe-indent)
            ("TAB" . indent-for-tab-command)
            ("C-o" . open-line))
 </pre>
@@ -538,7 +593,10 @@ commands in general.
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(bind-keys :map global-map
            ("DEL"  . backward-delete-char-untabify)
+           ("M-DEL" . backward-kill-word)
            ("C-d" .  delete-char)
+           ("M-d" . kill-word)
+           ("C-k" . kill-line)
            ("M-\\" . delete-horizontal-space)
            ("M-z" . zap-up-to-char))
 </pre>
@@ -599,7 +657,6 @@ commands in general.
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(bind-keys :map global-map
            ("C-y" . yank)
-           ("C-k" . kill-line)
            ("M-w" . kill-ring-save))
 </pre>
 </div>
@@ -826,9 +883,21 @@ are forced using `bind-keys*` to stick them in the override map.
 </div>
 </div>
 
-<div id="outline-container-org4cb938e" class="outline-2">
-<h2 id="org4cb938e"><span class="section-number-2">20.</span> Manage Environment for Called Commands</h2>
+<div id="outline-container-orgd60195e" class="outline-2">
+<h2 id="orgd60195e"><span class="section-number-2">20.</span> Configure Elisp</h2>
 <div class="outline-text-2" id="text-20">
+<p>
+(global-dash-fontify-mode)
+(with-eval-after-load 'info-look
+(dash-register-info-lookup))
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org4cb938e" class="outline-2">
+<h2 id="org4cb938e"><span class="section-number-2">21.</span> Manage Environment for Called Commands</h2>
+<div class="outline-text-2" id="text-21">
 <p>
 Some operating systems (such as OS X) will invoke Emacs with a
 separate profile that may not include configuration that has been
@@ -849,8 +918,8 @@ that are more general will omit the `env` segment.
 </div>
 
 <div id="outline-container-orgb56d76e" class="outline-3">
-<h3 id="orgb56d76e"><span class="section-number-3">20.1.</span> Customization Group</h3>
-<div class="outline-text-3" id="text-20-1">
+<h3 id="orgb56d76e"><span class="section-number-3">21.1.</span> Customization Group</h3>
+<div class="outline-text-3" id="text-21-1">
 <p>
 I have not used customize in the past, but in addition to providing a
 user interface which may be more usable across devices it also seems
@@ -886,8 +955,8 @@ not actively looking).
 </div>
 
 <div id="outline-container-org388b67e" class="outline-3">
-<h3 id="org388b67e"><span class="section-number-3">20.2.</span> Expand Using Shell</h3>
-<div class="outline-text-3" id="text-20-2">
+<h3 id="org388b67e"><span class="section-number-3">21.2.</span> Expand Using Shell</h3>
+<div class="outline-text-3" id="text-21-2">
 <p>
 The underlying functionality revolves around evaluating expressions in
 a shell which is invoked with the login profile. Much of this <span class="underline">may</span> be
@@ -910,8 +979,8 @@ a shell parameter and then passing it through the fairly ubiquitous
 </div>
 
 <div id="outline-container-orgcfdcd07" class="outline-4">
-<h4 id="orgcfdcd07"><span class="section-number-4">20.2.1.</span> Enveloper</h4>
-<div class="outline-text-4" id="text-20-2-1">
+<h4 id="orgcfdcd07"><span class="section-number-4">21.2.1.</span> Enveloper</h4>
+<div class="outline-text-4" id="text-21-2-1">
 <p>
 The above uses an "enveloper" which wraps a string in the provided
 pair. There's some similar behavior that seems worth extracting
@@ -938,12 +1007,12 @@ programming behavior for me.
 </div>
 
 <div id="outline-container-org42f378a" class="outline-4">
-<h4 id="org42f378a"><span class="section-number-4">20.2.2.</span> Define the Called Commands</h4>
-<div class="outline-text-4" id="text-20-2-2">
+<h4 id="org42f378a"><span class="section-number-4">21.2.2.</span> Define the Called Commands</h4>
+<div class="outline-text-4" id="text-21-2-2">
 </div>
 <ol class="org-ol">
 <li><a id="orgf2e3b3b"></a>Shell Supplier<br />
-<div class="outline-text-5" id="text-20-2-2-1">
+<div class="outline-text-5" id="text-21-2-2-1">
 <p>
 The evaluation itself will be performed through a shell command which
 is defined here, defaulting to the Emacs standard.
@@ -962,7 +1031,7 @@ is defined here, defaulting to the Emacs standard.
 </li>
 
 <li><a id="orgb0190f7"></a>Shell Login Argument Supplier<br />
-<div class="outline-text-5" id="text-20-2-2-2">
+<div class="outline-text-5" id="text-21-2-2-2">
 <p>
 The shell command may also require some additional arguments to make
 sure that it is executed using the login profile.
@@ -981,7 +1050,7 @@ sure that it is executed using the login profile.
 </li>
 
 <li><a id="org4262e91"></a>Printf Command Supplier<br />
-<div class="outline-text-5" id="text-20-2-2-3">
+<div class="outline-text-5" id="text-21-2-2-3">
 <p>
 As previously mentioned this will expect to be evaluated using some
 form of printf&#x2026;how practically extensible this is given the current
@@ -1006,8 +1075,8 @@ define some of the magic values.
 </div>
 
 <div id="outline-container-org1b8eb3f" class="outline-4">
-<h4 id="org1b8eb3f"><span class="section-number-4">20.2.3.</span> Support Invoking the Commands</h4>
-<div class="outline-text-4" id="text-20-2-3">
+<h4 id="org1b8eb3f"><span class="section-number-4">21.2.3.</span> Support Invoking the Commands</h4>
+<div class="outline-text-4" id="text-21-2-3">
 <p>
 There's likely some better constructs for this floating around
 somewhere, but for now I'll start with what was inherited.
@@ -1016,7 +1085,7 @@ somewhere, but for now I'll start with what was inherited.
 
 <ol class="org-ol">
 <li><a id="orga877989"></a>Warn On Slow Evaluation<br />
-<div class="outline-text-5" id="text-20-2-3-1">
+<div class="outline-text-5" id="text-21-2-3-1">
 <p>
 Warning on a slow call is carried forward from exec-from-shell&#x2026;I'm
 not entirely sure of its value given that there's no timeout behavior
@@ -1040,7 +1109,7 @@ around for the time being.
 <li><a id="org123ac0a"></a>Support Timed Evaluation<br />
 <ol class="org-ol">
 <li><a id="org8ad35ba"></a><span class="todo TODO">TODO</span> Replace with <code>with-delayed-message</code><br />
-<div class="outline-text-6" id="text-20-2-3-2-1">
+<div class="outline-text-6" id="text-21-2-3-2-1">
 <p>
 There's nothing particularly specialized about timing a call so this
 will be implemented through providing a first class function which
@@ -1067,7 +1136,7 @@ attention with this code.
 </li>
 
 <li><a id="org3044a30"></a>Millisecond Duration<br />
-<div class="outline-text-6" id="text-20-2-3-2-2">
+<div class="outline-text-6" id="text-21-2-3-2-2">
 <p>
 The duration will be passed in milliseconds as that's what's inherited
 from the original logic. This also generally seems to be the most
@@ -1095,7 +1164,7 @@ date/time library floating around that could replace this later.
 </li>
 
 <li><a id="orgb12c927"></a>Implement Timer<br />
-<div class="outline-text-6" id="text-20-2-3-2-3">
+<div class="outline-text-6" id="text-21-2-3-2-3">
 <p>
 This function body is a fairly straightforward higher-order
 function. Currently the handler will be invoked with <code>funcall</code> (which
@@ -1118,7 +1187,7 @@ should be modified later).
 </li>
 
 <li><a id="org80f4bda"></a>Wire Warning<br />
-<div class="outline-text-6" id="text-20-2-3-2-4">
+<div class="outline-text-6" id="text-21-2-3-2-4">
 <p>
 The specific handler for the duration warning needs to be configured
 to be plugged into the general timer. This will be provided by a
@@ -1132,8 +1201,8 @@ closure over the setting which returns an appropriate handler.
 </div>
 
 <div id="outline-container-orgadb7876" class="outline-4">
-<h4 id="orgadb7876"><span class="section-number-4">20.2.4.</span> Transplants</h4>
-<div class="outline-text-4" id="text-20-2-4">
+<h4 id="orgadb7876"><span class="section-number-4">21.2.4.</span> Transplants</h4>
+<div class="outline-text-4" id="text-21-2-4">
 <p>
 The environment variables that should be carried across profiles will
 be called "transplants".
@@ -1150,9 +1219,417 @@ be called "transplants".
 </div>
 </div>
 </div>
+
+<div id="outline-container-org022c295" class="outline-2">
+<h2 id="org022c295"><span class="section-number-2">22.</span> Structurizr Mode</h2>
+<div class="outline-text-2" id="text-22">
+<p>
+The details of some of these should be covered. Why does
+font-lock-defaults require a nested list?
+</p>
+
+<p>
+For now there is no hook defined since it wouldn't be used
+(although it is likely to be standard).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(define-derived-mode structurizr-mode fundamental-mode "Structurizr"
+  "Major mode for editing Structurizr dsl"
+  (set-syntax-table structurizr-mode-syntax-table)
+  (make-local-variable 'structurizr-indent-offset)
+  (set (make-local-variable 'indent-line-function) 'structurizr-indent-line)
+  (setq font-lock-defaults (list (funcall structurizr-font-lock-default-collector))))
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org8285092" class="outline-3">
+<h3 id="org8285092"><span class="section-number-3">22.1.</span> Font Lock</h3>
+<div class="outline-text-3" id="text-22-1">
+<p>
+The definitions below are borrowed from the original mode, this should
+tied back more directly to the DSL reference with any resulting
+adjustment to naming or membership.
+</p>
+</div>
+
+<div id="outline-container-orgfbc5c31" class="outline-4">
+<h4 id="orgfbc5c31"><span class="section-number-4">22.1.1.</span> Words for Face</h4>
+<div class="outline-text-4" id="text-22-1-1">
+<p>
+The original code also defined and then operated on values whereas
+this will attempt to make more use of in-place definitions with
+supporting functions as warranted.
+</p>
+
+<p>
+This seems like something that likely already exists but to start this
+will make use of what was originally in place but wrap it up in a
+function for more direct use.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun ^-words-for-face (face words)
+  "Return a pair of a regexp matching &lt;words&gt; and the provided &lt;face&gt;."
+  (cons (regexp-opt words 'words) face))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdd8df78" class="outline-4">
+<h4 id="orgdd8df78"><span class="section-number-4">22.1.2.</span> List Collector</h4>
+<div class="outline-text-4" id="text-22-1-2">
+<p>
+There is likely something readily available somewhere else that does
+this. When defining keywords in this file it is nice to allow each
+block to be self-contained so that it can be evaluated easily, but
+when collecting all lists that invites some possibly fragile
+mutability. To make this slightly cleaner, at least according to my
+tastes, we'll use an accumulator closure over the list that appends an
+argument if provided and returns the contents if no argument is provided.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun ^-list-collector ()
+  "Produce a list collector."
+  (let ((l nil))
+    (lambda (&amp;optional arg)
+      (if arg (push arg l) l))))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9d445b5" class="outline-4">
+<h4 id="org9d445b5"><span class="section-number-4">22.1.3.</span> Collect Categories of Known Words</h4>
+<div class="outline-text-4" id="text-22-1-3">
+<p>
+Each block will push onto the list to keep the blocks self-contained.
+</p>
+
+<p>
+There's a note around ordering being significant&#x2026;ideally this can be
+avoided if it is substantiated but otherwise it should be very clearly
+laid out or ideally encoded within the logic.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(setq structurizr-font-lock-default-collector (^-list-collector))
+</pre>
+</div>
+</div>
+
+<ol class="org-ol">
+<li><a id="org6669aa6"></a>Keywords<br />
+<div class="outline-text-5" id="text-22-1-3-1">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(funcall structurizr-font-lock-default-collector
+         (^-words-for-face
+          'font-lock-keyword-face
+          '(
+            "enterprise"
+            "model"
+            "views"
+            "workspace"
+            )))
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgfebff3e"></a>Types<br />
+<div class="outline-text-5" id="text-22-1-3-2">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(funcall structurizr-font-lock-default-collector
+         (^-words-for-face
+          'font-lock-type-face
+          '(
+            "branding"
+            "component"
+            "container"
+            "containerInstance"
+            "deployment"
+            "deploymentEnvironment"
+            "deploymentGroup"
+            "deploymentNode"
+            "dynamic"
+            "element"
+            "filtered"
+            "group"
+            "infrastructureNode"
+            "person"
+            "perspectives"
+            "properties"
+            "relationship"
+            "softwareSystem"
+            "softwareSystemInstance"
+            "styles"
+            "systemContext"
+            "systemLandscape"
+            "themes"
+            )))
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org65b61e2"></a>Relationship<br />
+<div class="outline-text-5" id="text-22-1-3-3">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(funcall structurizr-font-lock-default-collector
+         (^-words-for-face
+          'font-lock-function-name-face
+          '("-&gt;")))
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org20370b0"></a>Properties<br />
+<div class="outline-text-5" id="text-22-1-3-4">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(funcall structurizr-font-lock-default-collector
+         (^-words-for-face
+          'font-lock-variable-name-face
+          '(
+            "autoLayout"
+            "background"
+            "border"
+            "color"
+            "colour"
+            "dashed"
+            "description"
+            "exclude"
+            "fontSize"
+            "height"
+            "icon"
+            "include"
+            "metadata"
+            "opacity"
+            "position"
+            "routing"
+            "shape"
+            "stroke"
+            "tags"
+            "technology"
+            "thickness"
+            "title"
+            "url"
+            "width")))
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org28e35a0" class="outline-3">
+<h3 id="org28e35a0"><span class="section-number-3">22.2.</span> Indentation</h3>
+<div class="outline-text-3" id="text-22-2">
+</div>
+<div id="outline-container-orgdbe88f6" class="outline-4">
+<h4 id="orgdbe88f6"><span class="section-number-4">22.2.1.</span> Configure Offset</h4>
+<div class="outline-text-4" id="text-22-2-1">
+<p>
+#+BEGIN<sub>SRC</sub> emacs-lisp :tangle init.el
+(defvar structurizr-indent-offset 4
+  "Deine the indendation offset for `structurizr-mode'.
+Lines will be indented this offset multiplied by the detected level.
+Currently only spaces are supported.")
+</p>
+</div>
+</div>
+
+<div id="outline-container-org15ab8a3" class="outline-4">
+<h4 id="org15ab8a3"><span class="section-number-4">22.2.2.</span> Determine Indentation Level</h4>
+<div class="outline-text-4" id="text-22-2-2">
+<p>
+The basic algorithm here will start from what was defined upstream.
+This will be broken up a bit and in the future any other standard
+algorithms will be explored.
+</p>
+
+<p>
+This currently adjusts the formatting after a newline rather than
+inserting the character itself so something more electric may be better.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun structurizr-indent-line ()
+  "Indent current line as Structurizr dsl."
+  (interactive)
+  (let* ((initial-level (^-opener-count-to-top "{"))
+         (closers (^-closers-on-line "}"))
+         (level (max 0 (- initial-level closers))))
+    (indent-line-to (* level structurizr-indent-offset))))
+
+</pre>
+</div>
+</div>
+
+<ol class="org-ol">
+<li><a id="orgc762c44"></a>Opener Count to Top<br />
+<div class="outline-text-5" id="text-22-2-2-1">
+<p>
+The current approach involves ascending lists until an ignored error
+is encountered, and then reporting the count of the number of a
+particlar opener that was encountered.
+</p>
+
+<p>
+This feels like it should be simpler in some way or another. This
+level should potentially be readily available and the ascenion
+behavior should be tied to the relevant grammar which would obviate
+the need for the additional check. At the moment I don't know what
+options are available and unused versus those that would need further
+support so I'll circle back to this over time (espeically as other
+modes are pulled in).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun ^-opener-count-to-top (opener)
+  "Ascend through levels and count the number of &lt;opener&gt;s seen."
+  (let ((level 0))
+    (save-excursion
+      (beginning-of-line)
+      (condition-case nil
+          (while t
+            (backward-up-list 1)
+            (when (looking-at opener)
+              (setq level (+ level 1))))
+        (error nil)))
+    level))
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org054d6be"></a>Closer Count<br />
+<div class="outline-text-5" id="text-22-2-2-2">
+<p>
+The current logic only decrements one if the first character is a
+closer. This may be nicer to just count all instances but that feels
+like a taste based on the resulting behavior. In any case it should
+likely support either.
+</p>
+
+<p>
+In the current form this will either return 0 or 1.
+</p>
+
+<p>
+There was also a separate test initially which seemed to look to
+prevent over-outdenting which can be addressed by a ramp function on
+ouside use.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun ^-closers-on-line (closer)
+  (save-excursion
+    (back-to-indentation)
+    (if (looking-at closer) 1 0)))
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org2351021" class="outline-3">
+<h3 id="org2351021"><span class="section-number-3">22.3.</span> Syntax Table</h3>
+<div class="outline-text-3" id="text-22-3">
+<p>
+The standard syntax table function NEWENTRY value is bit arcane so I'm going to
+try to define some more expressive functions to produce the values (and likely find
+something that exists elsewhere).
+</p>
+
+<p>
+This can be generalized a bit as needed by producing functions which
+produce the first character but in the short term the only interesting
+one I need is for punctuation so that will be written as
+specialized. The underlying logic can then be a function which accepts
+named flags as keywords each of which will map to the underlying terse flag.
+</p>
+
+<p>
+Initially I'll use a fairly clunky <code>cond</code> block though there is almost
+certainly something cleaner. This could be cleaned up through partial
+application but I'd imagine there's some better pattern matching stuff
+I need to stumble upon.
+</p>
+
+<p>
+This should all be significantly cleaned up into a nicer DSL (or
+ideally an existing one found) but right now I'm starting with the
+basics. In particular the relationships between some of the flags
+should be modeled in that DSL whereas the naive approach allows for
+seemingly invalid combinations. These should also operate on a closure
+over a comment table.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defun ^-syntax-table-punctuation (&amp;rest flags)
+  (apply #'concat (cons ". "
+          (mapcar (lambda (flag)
+                    (cond
+                     ((eq flag :start-2char-comment-open) "1")
+                     ((eq flag :end-2char-comment-open) "2")
+                     ((eq flag :start-2char-comment-close) "3")
+                     ((eq flag :end-2char-comment-close) "4")
+                     ((eq flag :for-comment-sequence-b) "b")
+                    (t (error "Unrecognized flag" flag))))
+                  flags))))
+(defun ^-syntax-table-comment-ender () "&gt;")
+
+</pre>
+</div>
+
+<p>
+#+BEGIN<sub>SRC</sub> emacs-lisp :tangle init.el
+(setq structurizr-mode-syntax-table
+  (let ((syntax-table (make-syntax-table)))
+    (modify-syntax-entry
+      ?/
+      (<sup>-syntax</sup>-table-punctuation
+        :start-2char-comment-open
+	:end-2char-comment-open
+	:end-2char-comment-close)
+      syntax-table)
+    (modify-syntax-entry
+      ?*
+      (<sup>-syntax</sup>-table-punctuation
+        :end-2char-comment-open
+	:start-2char-comment-close
+	:for-comment-sequence-b))
+    (modify-syntax-entry ?\n (<sup>-syntax</sup>-table-comment-ender) syntax-table)
+    syntax-table))
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1a69499" class="outline-3">
+<h3 id="org1a69499"><span class="section-number-3">22.4.</span> Associate with Extension</h3>
+<div class="outline-text-3" id="text-22-4">
+<p>
+<code>dsl</code> is certainly not unambiguously Strucutrizr files,
+but it's the only association I'm currently expecting.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '("\\.dsl\\'" . structurizr-mode))
+</pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2023-06-20 Tue 08:56</p>
+<p class="date">Created: 2023-06-30 Fri 17:10</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
