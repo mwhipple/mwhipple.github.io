@@ -14,4 +14,290 @@ forgotten sources but some will be tracked down again. Loading upon
 starting a shell will launch an agent if determined to be necessary
 and attempt to reuse the values from any already running agents.
 
-*** Start the Agent
+Currently this will assume the required commands exist on the path...
+this should likely be validated both through presence and some form of
+signature for security purposes.
+
+*** Define Where to Store Information
+
+The information for reusing an existing agent needs to be stored in a
+file chosen by convention so that it can discovered across sessions.
+
+#+BEGIN_SRC bash :tangle ssh.sh
+
+declare -r SSH_ENV="${HOME}/.ssh/environment"
+
+#+END_SRC
+
+*** Define Main Logic
+
+The focus of this script is to reuse the env from a running agent, or
+if no agent is running start one.
+
+#+BEGIN_SRC bash :tangle ssh.sh
+
+ssh::main() {
+	if ssh::agent_is_running; then
+		ssh::load_env
+	else
+		ssh::start_agent
+	fi
+}
+
+#+END_SRC
+
+*** Define How to Start and Populate the Agent
+
+The ssh agent will be started with the output stored for subsequent
+sourcing. Echo statements will be supressed through commenting in the
+produced file, and the file itself will have permissions restricted to
+the curent user only and subsequently loaded.
+
+Finally any keys will be loaded into the agent using ~ssh-add~.
+
+#+BEGIN_SRC bash :tangle ssh.sh
+
+ssh::start_agent() {
+	ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+	chmod 600 "${SSH_ENV}"
+	ssh::load_env
+	ssh-add
+}
+
+#+END_SRC
+
+*** Load Settings from an Existing File
+
+If the a file already exists load the values from it. At this point
+the values may not be valid but they are loaded for subsequent
+potential use.
+
+The output is redirected to the void...why this redirection exists
+should be documented.
+
+#+BEGIN_SRC bash :tangle ssh.sh
+
+ssh::load_env() {
+	if [[ -f "${SSH_ENV}" ]]; then
+		. "${SSH_ENV}" > /dev/null
+	fi
+}
+
+#+END_SRC
+
+*** Detect Whether Agent is Running
+
+When the file is loaded we can check to see whether the pid is defined
+in the ~SSH_AGENT_PID~ variable conventionally output by the agent
+and if such a process is deemed running pased on the ~/proc~
+filesystem. This is likely not 100% reliable across restarts or any
+type of namespacing that may result in pids being reused, but should
+be good enough.
+
+#+BEGIN_SRC bash :tangle ssh.sh
+
+ssh::agent_is_running() {
+	[[ -n "${SSH_AGENT_PID-}" ]] \
+	&& [[ -d "/proc/${SSH_AGENT_PID}" ]]
+}
+
+#+END_SRC
+
+*** Launch Main
+
+Kick off the main flow.
+
+#+BEGIN_SRC bash :tangle ssh.sh
+
+ssh::main
+
+#+END_SRC
+
+*** Installation
+
+Longer term this will likely all be managed by a Makefile, but at the
+moment I don't have make officially in the mix so I'll handle it a
+combination of emacs lisp and bash.
+
+A relatively simple route for installing this type of behavior I
+landed on the past is to produce some ~.sh~ files in a conventional
+directory and modify the bash initialization script to source all such
+files (where the separate files eases management of units of
+functionality).
+
+**** Output and Copy File
+
+Emacs will handle outputting/tangling the file and copying it to the
+defined directory (creating the directory as needed).
+
+The directory for now will be hardcoded across the two processes,
+org babel should be able to take care of this (as would moving this to
+make).
+
+#+BEGIN_SRC emacs-lisp
+  (let* ((bashlib-dir (expand-file-name "~/bash.d/"))
+	 (tangled-files (org-babel-tangle))
+	 (tangled-sh-files (--filter (string-match-p ".*\.sh$" it) tangled-files)))
+    (make-directory bashlib-dir t)
+    (dolist (file tangled-sh-files)
+	    (copy-file file bashlib-dir t)))
+#+END_SRC
+
+**** Source the Bashlib Directory Files
+
+The relevant file should be added to the bash initialization file if
+not already present - a bash function to handle that is present in the
+GNU bootstrap script so I'll start with shamelessly stealing that
+while doing some minor stylistic cleanup.
+
+Ideally this functionality should be provided an entirely portable
+form, but since I'm configuring bash it seems reasonable to start in bash.
+
+The orginial implementation seemed fairly focused on .gitignore files
+but still seems like a decent starting point.
+
+There are some ineteresting choices in this approach. Much of the
+underlying logic effectiely involves treating the significant lines in
+the file as a set, disallowing duplicates and testing for a change in
+cardinality of the new provisional set to determine whether the new
+line represents a new unique value that is worth writing.
+
+If the provided line is not significant (i.e. is a comment or a blank
+line) this will abort successfully. This should also match how the
+original implementation behaves though it was more implicitly done
+when trying to add to the set.
+
+The original implementation added the line to the beginning - here
+we'll append it while still first writing to a backup file for safety.
+
+This implementation is subject to race conditions if the file is
+modified while this running...don't do that. Checking the mtime may be
+a worthwhile improvement if this is used widely.
+
+Similarly any errors at the end could leave some debris that we may
+want to clean up...though that may be better handled by something like make.
+
+
+#+BEGIN_SRC bash :tangle iia
+
+mw::insert_if_absent() {
+	local -r file=${1}
+	local -r str=${2}
+	[[ -n $(echo "${str} | mw::select_significant_lines) ]] || return 0
+	mw::guarantee_file "${file}"
+	local -r lines=$(< ${file} | mw::select_significant_lines)
+	mw::guarantee_setfulness "${lines}"
+	! mw::lineset_contains_line "${lines}" "${str}" || return 0
+	{ echo -e "${lines}${str}" > "${file}.bak" && mv "${file}.bak" "${file}"; } \
+		|| die "insert_if_absent ${file} ${str}: failed"
+}
+
+#+END_SRC
+
+***** Return Only Significant Lines
+
+The logic does not care about logically insignificant lines such as
+blanks and comments. This should likely be a composed filter but since
+the constituent pieces aren't needed yet and it's used multiple times,
+I'll start with the whole enchilada.
+
+#+BEGIN_SRC bash :tangle iia
+
+mw::select_significant_lines() {
+	sed '/^#d; /^$/d' "${@}"
+}    
+
+#+END_SRC
+
+***** Guarantee That the File is Readable
+
+Verify that ~file~ is usable for content modification, creating as necessary.
+
+Bail out of this does not succeed.
+
+This is tailored to the specific use case so should be refined before
+any wider use.
+
+#+BEGIN_SRC bash :tangle iia
+
+mw::guarantee_file() {
+	[[ -r "${1}" ]] || touch "${1}"
+	[[ -r "${1}" ]] || mw::die "Error: failed to read ignore file: ${1}"
+}
+
+#+END_SRC
+
+***** Guarantee That the File Has No Duplicated Lines
+
+Fail if there are any duplicate lines present in ~lines~.
+
+This seems like a generally good idea and is also required for the
+subsequent set-style logic.
+The original implementation took the file name which could then also
+be used in the error message, as the contents are reused it seemed
+worth storing and operating on them at which point this function no
+longer needs the filename (and therefore loses access). This could
+become an issue if multiple files are dealt with at which point this
+could likely just become a test and the errors could be surfaced in
+the calling code.
+
+#+BEGIN_SRC bash :tangle iia
+
+mw::guarantee_setfulness() {
+	local -r dupes=$(echo ${1} | sort | uniq -d)
+	[[ -z "${dupes}" ]] || die "Error: duplicate entries in file: ", ${dupes}
+}
+
+#+END_SRC
+
+***** Check if Line is Already Present Within Lines
+
+Determine whether the =lineset= collection of unique lines contains
+=lines= by checking whether its addition would increase the set size.
+
+#+BEGIN_SRC bash :tangle iia
+
+mw::lineset_contains_line() {
+	[[ $(echo ${1} | wc -l) != $(echo -e ${1}${2} | sort -u | wc -l) ]]
+}
+
+#+END_SRC
+
+***** Feedback Functions
+
+I often define some form of die and warn when writing bash which takes
+care of providing some feedback to stderr and possibly exiting with a
+status. The implementations from bootstrap are very nice so I've
+started to borrow them elsewhere outside of this use.
+
+****** Die
+
+Die issues the arguments as a warning and exits with an unsuccessful status
+(here the status is hardcoded to 1).
+
+#+BEGIN_SRC bash :tangle iia
+
+mw::die() {
+	mw::warn "${@}"
+	exit 1
+}
+
+#+END_SRC
+
+****** Warn
+
+The warn implementation guards against a custom ~IFS~ wreaking havoc
+on the formatting by recursively calling itself with the desired value
+of space if that if it does not start with a space, and leaves the formatting to
+the warnf function.
+
+#+BEGIN_SRC bash :tangle iia
+
+mw::warn() {
+	case ${IFS} in
+		' '*) mw::warnf_ '%s\n' "${*}";;
+		*)  (IFS=' '; mw::warn "${@}");;
+	esac
+}
+
+#+END_SRC
