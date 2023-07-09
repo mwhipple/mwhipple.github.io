@@ -263,14 +263,14 @@ mw::lineset_contains_line() {
 
 #+END_SRC
 
-***** Feedback Functions
+**** Feedback Functions
 
 I often define some form of die and warn when writing bash which takes
 care of providing some feedback to stderr and possibly exiting with a
 status. The implementations from bootstrap are very nice so I've
 started to borrow them elsewhere outside of this use.
 
-****** Die
+***** Die
 
 Die issues the arguments as a warning and exits with an unsuccessful status
 (here the status is hardcoded to 1).
@@ -284,7 +284,7 @@ mw::die() {
 
 #+END_SRC
 
-****** Warn
+***** Warn
 
 The warn implementation guards against a custom ~IFS~ wreaking havoc
 on the formatting by recursively calling itself with the desired value
@@ -298,6 +298,32 @@ mw::warn() {
 		' '*) mw::warnf_ '%s\n' "${*}";;
 		*)  (IFS=' '; mw::warn "${@}");;
 	esac
+}
+
+#+END_SRC
+
+****** Warn Formatting
+
+Provide printf style behavior while prefixing each line with a
+sanitized representation of the current script name.
+The behavior varies based on whether there are multiple lines or a
+single. This may not be required but the single line path is simpler,
+less expensive due to avoiding calling the other programs, and is
+probably more common.
+
+
+#+BEGIN_SRC bash :tangle iia
+
+mw::warnf_() {
+	local -r warnf_format=${1}
+	shift
+	local -r nl='
+'
+	case "${*}" in
+		*${nl}*) local -r me_$(printf "${me}" | tr "${nl}|" '??')
+			printf "${warnf_format}" "${@}" | sed "s^|${me_}: |" ;;
+		*) printf "${me_}: ${warnf_foramt}" "${@}" ;;
+	esac >&2
 }
 
 #+END_SRC

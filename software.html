@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-06-30 Fri 17:10 -->
+<!-- 2023-07-09 Sun 07:29 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Software</title>
@@ -205,11 +205,33 @@
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
 <li><a href="#orga082242">1. Software Selection</a></li>
-<li><a href="#org7bd9451">2. Toolbox</a>
+<li><a href="#org0541975">2. My General Coding Style</a>
 <ul>
-<li><a href="#org6b2ac8c">2.1. Emacs</a></li>
+<li><a href="#org2db8c5b">2.1. Literate Programming and Commenting</a></li>
+<li><a href="#orgcb85dfc">2.2. Comment Block Style</a></li>
+<li><a href="#orge8ed242">2.3. Chekhov's Gun and Understandability</a>
+<ul>
+<li><a href="#org087d1ea">2.3.1. Restricting Unnecessary Paths</a></li>
+<li><a href="#org478f411">2.3.2. Avoidance of Unnecessary Statements</a></li>
 </ul>
 </li>
+<li><a href="#orgacd9dde">2.4. Simplicity and Composability</a>
+<ul>
+<li><a href="#org538bd5e">2.4.1. Polymorphism</a></li>
+<li><a href="#orgfe0cf71">2.4.2. Composition</a></li>
+<li><a href="#orgf053521">2.4.3. Narrow Design</a></li>
+</ul>
+</li>
+<li><a href="#orgeddf25d">2.5. Let Optimizers Do Their Thing</a></li>
+</ul>
+</li>
+<li><a href="#org7bd9451">3. Toolbox</a>
+<ul>
+<li><a href="#orge698f1f">3.1. Bash</a></li>
+<li><a href="#org6b2ac8c">3.2. Emacs</a></li>
+</ul>
+</li>
+<li><a href="#org1f997d2">4. <span class="todo TODO">TODO</span> Test Pyramid</a></li>
 </ul>
 </div>
 </div>
@@ -233,9 +255,407 @@ bottom-up parsing of the systems and back-filling of such information.
 </div>
 </div>
 
-<div id="outline-container-org7bd9451" class="outline-2">
-<h2 id="org7bd9451"><span class="section-number-2">2.</span> Toolbox</h2>
+<div id="outline-container-org0541975" class="outline-2">
+<h2 id="org0541975"><span class="section-number-2">2.</span> My General Coding Style</h2>
 <div class="outline-text-2" id="text-2">
+<p>
+I strive to mostly adopt practices which are idiomatic for particularly
+programming languages, but I also have preferences which cut across
+languages.
+</p>
+</div>
+
+<div id="outline-container-org2db8c5b" class="outline-3">
+<h3 id="org2db8c5b"><span class="section-number-3">2.1.</span> Literate Programming and Commenting</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Likely my most obvious tendency is that I am a proponent of some form
+of Literate Programming. This manifests as large blocks of comments
+which outline what the subsequent blocks of code are doing. The
+comments themselves will consist of complete sentences. Unless there
+are other conventions (such as with Go), such sentences are likely to
+be in the imperative mood as that lends itself to the tersest form of
+complete sentence within the surrounding context.
+</p>
+
+<p>
+This conflicts with the fantasy of "self-documenting code" which will
+be argued against separately <span class="underline">but</span> this should not be construed as an
+alternative to expressive code. The code itself should express what it
+doing with reasonable clarity and the comments should serve to
+contextualize what is defined and to capture supporting information
+such as factors driving particular decisions.
+</p>
+
+<p>
+Such comments are likely to be redundant with the implementation but
+this is not deemed to be an issue. The English version should
+hopefully be easier to read and repetition is likely to be beneficial
+given the challenge of reading code and understanding a system. There
+may be the assertion that such duplication invites confusing
+divergence but I find any assertion that this should dissuade the
+practice to be lacking. In my experience those code bases which are
+most inscrutable are those that are largely devoid of comments and any
+claim that fostering practices that pay attention to both code and its
+comments would lead to inconsistency seems dubious. That being said,
+the comments should not be trusted implicitly and in that vein the
+comments and the code should be treated as complementary channels
+whose readings reinforce each other rather than one supplanting the
+other (both of which can be further supported through additional
+information which may be external or stored elsewhere such as VCS
+logs). An argument of being led astray by poor documentation when
+code is available (as hopefully are tests) is a reflection of the
+wrong kind of laziness around understanding the system and carries the
+implicit assertion that somehow the correct behavior would have been
+inferred without the distraction whereas attention should yield the
+realization that documentation is incorrect but potentially still
+elucidating some of the steps along the history of the system whereas
+a void is likely to just leave mystery.  In the words of Dick Brandon
+"Documentation is like sex: when it is good, it is very, very good;
+and when it is bad, it is better than nothing."
+</p>
+
+<p>
+Very often the comment blocks will be followed by a blank space. This
+is a practice that was picked up for portability - I believe both from
+some basic tanlging utility that I'd written and also for ReST.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgcb85dfc" class="outline-3">
+<h3 id="orgcb85dfc"><span class="section-number-3">2.2.</span> Comment Block Style</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+I now tend to write fairly narrative comment blocks with conventions
+to indicate information such as what the parameters are. For quite a
+while I tried to follow a more structured format with my reference
+baseline (for reasons of portability) being Doxygen, but the
+combination of Literate Programming, Go conventions, and the constant
+battle to make such information meaningful and not painfully redundant
+led me away from that form. In many languages such structures are
+unlikely to provide any additional information from what is expressed
+directly in the code, so avoiding that approach can hopefully
+encourage complementary information that is not swamped by redundant
+boilerplate.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge8ed242" class="outline-3">
+<h3 id="orge8ed242"><span class="section-number-3">2.3.</span> Chekhov's Gun and Understandability</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+I tend to differentiate between code that is <b>readable</b> and that
+which is <b>understandable</b> (the suitability of the terms themselves
+warrants deeper vetting). One of the more insidious challenges when
+writing software is the siren song of confirmation bias - it is very
+easy to get seduced by code that may suggest and seem to do what is
+desired but may in fact be slightly but significantly askew. The code
+may be telling you the story you want to hear but acting on a slightly
+different variation. To some extent this also reinforces the previous
+point around commenting in that there could easily be three sides to
+this story: what you want the code to do, what you expect the code to
+do, and what the code actually does. The last two of course <b>should</b>
+match but it may be wise to embrace that as an ongoing effort rather
+than expecting it to be realized out of the gate.
+</p>
+
+<p>
+That challenge is where the goal of <b>understandability</b> comes in.
+A common risk with <b>readable</b> code (in addition to it being deceptive)
+is that what is desired is a subset of what the code could do, and
+therefore there is a corresponding implicit expectation that the code
+will only be used in certain ways and only certain paths through it
+will be utilized. Such dangers arise not only when code is written,
+but also as it changes over time which can easily inject entropy as
+loose fitting pieces may be used in unplanned and inconsistent
+ways. In such cases the code may be <b>readable</b> in that it is telling
+you a relevant story but it may not be <b>understandable</b> in that the
+entirety of the what the code may be doing is not surfaced. Such a gap
+may be standard and acceptable as a user of a system, but as a
+maintainer or owner of such a system it is a recipe for trouble, and
+depending on the system such trouble could be disastrous.
+</p>
+
+<p>
+A means to counter such issues is to avoid paths and constructs which
+are unnecessary. This extends beyond the typical avoidance of dead
+code to include practices such as (cyclomatic) simplicity (which
+will be covered later), restricting usable paths, and
+avoidance of distracting assignments/statements/lvalues.
+</p>
+</div>
+
+<div id="outline-container-org087d1ea" class="outline-4">
+<h4 id="org087d1ea"><span class="section-number-4">2.3.1.</span> Restricting Unnecessary Paths</h4>
+<div class="outline-text-4" id="text-2-3-1">
+<p>
+One means to prevent code behaving in unexpected ways is to
+guard against any paths which are not anticipated to be used. More
+ideal is to design out any such paths which will be discussed further
+in the simplicity section, but sometimes such an approach is not
+visible or feasible. The logic should eagerly protect against cases
+which are not anticipated. This guidance is effectively defensive
+programming with the follow-up advice to make sure that any such cases
+are not simply handled but contained. Any urge to support cases
+outside of those that are necessary should be resisted if they
+increase the complexity of the system as a whole. Such guards may
+include signaling some kind of error or (where appropriate) returning
+some form of zero or limited value. Restricting such paths is
+enormously valuable to reduce the overall system complexity
+particularly in light of the impacts that may ripple from more naive
+or half-baked measures.
+</p>
+
+<p>
+An extension of this idea that is not directly related to my style but
+is an element in the backing philosophy is to negotiate requirements
+based on the incurred complexity (and concomitant risk). There is
+often a long tail of possible functionality with varying accompanying
+levels of speculation and imposed overhead in both development and
+maintenance. There can be a temptation to pursue a complete solution,
+but supporting any such behaviors should be subjected to some form of
+cost/benefit analysis particularly in terms of likely impacts on the
+evolvability of the system. This echoes a talk by Greg Young (to link)
+and likely others.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org478f411" class="outline-4">
+<h4 id="org478f411"><span class="section-number-4">2.3.2.</span> Avoidance of Unnecessary Statements</h4>
+<div class="outline-text-4" id="text-2-3-2">
+<p>
+The avoidance of unnecessary statements may seemingly conflict directly
+with a practice often used in the name of making code more readable -
+using assignment as a means to provide a more meaningful identifier
+for a given value. Such lvalues however also imply that the values may
+be accessed multiple times, and in cases where this is not the case
+the assignments can be misleading and direct use of the
+expression/rvalue when relevant not only avoids that implication but
+also directly associates the value with its point of use. This mirrors
+the dramatic principle of Chekhov's Gun where anything that is implied
+by given code should be realized and if it is not realized any such
+implication should be avoided.
+</p>
+
+<p>
+Unnecessary identifiers increase the cognitive overhead in
+understanding a block of code in that they introduce additional items
+which needs to be mentally tracked. This can be pernicious
+as code evolves (and the number of references may shift) particularly
+when mutability is in play (which can massively increase the cognitive
+load for tracking sequencing and control flow). All too often the use
+of such assignments can be counter-productive in that they are
+band-aids on sprawling function bodies with many such identifiers with
+relatively ambiguous names (which then magnifies the mentioned
+headaches as the code changes).
+</p>
+
+<p>
+As a counterpoint, I do tend to make use of such identifiers in more
+expression based contexts that serve to both improve legibility and
+narrow the scope and life of the introduced identifier. This typically
+takes the form of something analogous to a function where the name of
+the function and parameters may be more descriptive but the restricted
+binding environment serves to provide a self-contained chunk rather
+than polluting a larger context.
+</p>
+
+<p>
+I therefore prefer code which remains focused on a particular task and
+does not include any constructs which are unnecessary for that
+task. This can result in relatively dense code but the focus should
+result in easily digestible chunks and the corresponding comments
+should provide the context to understand and verify the code.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgacd9dde" class="outline-3">
+<h3 id="orgacd9dde"><span class="section-number-3">2.4.</span> Simplicity and Composability</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+As touch on several times above I strive to keep code <b>cyclomatically</b>
+simple which is a (potentially incorrect) way of saying that branching
+is avoided. There are three employed mechanisms that spring to mind to
+aid in this goal (some of the names may need further attention):
+polymorphism, composition, and narrow design.
+</p>
+</div>
+
+<div id="outline-container-org538bd5e" class="outline-4">
+<h4 id="org538bd5e"><span class="section-number-4">2.4.1.</span> Polymorphism</h4>
+<div class="outline-text-4" id="text-2-4-1">
+<p>
+Polymorphism is one of the most evangelized means to
+reduce branching. I will therefore avoid parroting information that is
+readily available elsewhere around avoiding if statements. In the
+interest of being concise this can be extended to include the range of
+strategies that allow dispatching to any particular implementation of
+an interface which may extend to additional behaviors such as
+overloading with various forms of dispatching and multimethods.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgfe0cf71" class="outline-4">
+<h4 id="orgfe0cf71"><span class="section-number-4">2.4.2.</span> Composition</h4>
+<div class="outline-text-4" id="text-2-4-2">
+<p>
+By composition here I'm referring to composition of subroutine calls
+rather than composition of objects (over inheritance&#x2026;which is also
+good advice and may be covered in a larger thread around OOP). When
+looking toward reuse of code there are two common approaches: either
+create relatively centralized functions which perform a range of
+behavior or call out to other functions or build out a catalog of
+relatively simpler functions which can then be composed in different
+ways to cover the range of needs. The former is often gravitated
+towards which unfortunately produces systems which tend to be more
+complex and more difficult and more dangerous to change. Such pieces
+of code tend to become centralized and the mentioned drawbacks tend to
+compound over time. The alternative is to make use of individual
+smaller functions, composing them as need while keeping the
+invocations focused on specific behavior rather than trying to push
+what may be multiple behaviors through a single function.
+</p>
+
+<p>
+In the most glaring cases such centralized code involves the client
+passing arguments which indicate a desired variation but are passed
+through a single function which is expected to coordinate all such
+variations. There is no evident benefit to such an approach when
+compared to having the calling code invoke multiple simpler methods as
+anything along the lines of decoupling is destroyed by the
+expectations attached to the arguments, but there are severe drawbacks
+in terms of complexity, flexibility, and maintainability. 
+</p>
+
+<p>
+The end result resembles an hourglass which is an image I've used in
+the past to describe it but have recently learned about the Hourglass
+Theorem in respect to the reduced cost of providing a narrow waist
+upon which a wide range of upper bells can rest. Perhaps more
+appropriate is something along the lines of an <code>X</code> as a distinguishing
+property from the hourglass of the theorem is that there's a
+correspondence of the rays on one side or the other, so perhaps a
+better image is that of a yarn doll where a given thread continues but
+is contorted through choke points such that it becomes difficult to
+follow or change.
+</p>
+
+<p>
+It should also be noted that this is very much focused on code that
+does <b>different</b> things and therefore does not conflict with the
+previous section around polymorphism nor supporting constructs such as
+registries and routers that can aid in abstraction and decoupling and
+perhaps most significantly do not pose the risk of rigidity and bloat
+described herein.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf053521" class="outline-4">
+<h4 id="orgf053521"><span class="section-number-4">2.4.3.</span> Narrow Design</h4>
+<div class="outline-text-4" id="text-2-4-3">
+<p>
+"Narrow design" is certainly the most quickly contrived name of those
+attached to these practices; it is being used to describe the practice
+of designing systems such that they are structured to only provide
+intended behaviors.. This may <b>seem</b> as though it is a given, but all
+too often such structural alignment does not exist and additional
+constraints are added by logic. This often manifests in APIs which may
+be modeled as relatively flat operations and objects where particular
+calls or combinations of parameters may be invalid. Where
+opportunities exist to model the API more richly such that it maps
+more directly to operations that are supported the resulting local
+logic can be significantly reduced and the experience for clients is
+likely to improve given the resultant natural expressiveness of the
+interface (where typically the flatter structure would require picking
+through textual descriptions).
+</p>
+
+<p>
+In terms of defining objects/structs this ties in with larger goals
+around guaranteeing such objects are sound, and preferring practices
+such as sum types over product types when the latter could contain
+properties that may be spurious and expected to be ignored based on
+the state of a particular instance.
+</p>
+
+<p>
+In all such cases the underlying goal is to leverage the mechanisms
+that are already in place to prevent invalid states or paths from
+coming into existence and therefore avoiding the need for custom logic
+to detect and deal with such states.
+</p>
+
+<p>
+There <b>may</b> be thoughts that a flatter approach may lend itself to
+more rapid extension in that validation rules could simply be
+relaxed. A clear counter-argument to the above is that it is typically
+much easier to safely evolve pieces that are more focused and
+independent. This is particularly the case in APIs where more focused
+endpoints more clearly convey intent and therefore provide some more
+protection from Hyrum's Law and also contain the friction that may
+arise when trying to shift how a given call is handled. This is a
+manifestation of many of the points covered in the previous
+Composition section.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgeddf25d" class="outline-3">
+<h3 id="orgeddf25d"><span class="section-number-3">2.5.</span> Let Optimizers Do Their Thing</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+There are some good quotes to drop in this section, certainly
+Don Knuth's "Premature optimization is the root of all evil" is
+relevant along with one by Grace Hopper around the importance of
+moving to more declarative programming. There's also a lot of more
+recent articles related to the limitations of serial and RAM model
+development which largely presumes largely homogeneous architectures
+pushed along by Moore's Law.
+</p>
+
+<p>
+Knuth's quote is particularly poignant given that it was originally
+presented in a paper that predates but discusses concepts that exist
+within optimizing compilers, and the overall sentiment is one that
+I've come across in numerous places including being touched upon by
+Jeffrey Ullman in his Turing Award talk with Alfred Aho and is also
+covered by <a href="sources.html#ddia">Martin Kleppmann</a> in regards to SQL and how optimization of
+declarative languages wins in the long run.
+</p>
+
+<p>
+Code should focus as much as possible on <b>what</b> is being done rather
+than seeking to micromanage <b>how</b> it is done for the sake of
+optimization. The definition and use of declarative constructs should
+be relied upon as much as possible and as necessary means to optimize
+how they are executed should be performed by a distinct phase which is
+more aware of the runtime.
+</p>
+
+<p>
+My code will therefore make liberal use of practices that are intended
+to make code more declarative or economical but that may incur
+performance penalties. A straightforward example would be calls to
+subroutines. If performance issues are noticed and profiling suggests
+that code should be optimized then such optimization should seek to
+preserve the above goal or if pragmatically it cannot then it should
+be accompanied by assessing how any used optimizers may be improved.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7bd9451" class="outline-2">
+<h2 id="org7bd9451"><span class="section-number-2">3.</span> Toolbox</h2>
+<div class="outline-text-2" id="text-3">
 <p>
 Here I'll catalog some of the software that I've currently adopted for
 personal use. Many of these I'll also use where appropriate
@@ -248,9 +668,63 @@ widely palatable or organizationally prudent.
 </p>
 </div>
 
+<div id="outline-container-orge698f1f" class="outline-3">
+<h3 id="orge698f1f"><span class="section-number-3">3.1.</span> Bash</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+There are newer cleaner shells around now, but bash still seems to be
+the most widely available alternative to the Bourne shell. I tend to
+think bash is often derided due to lack of understanding of some of
+the choices that lurk within it. I've personally used it for some
+cases that may have warranted an alternative, but I've also seen
+people apply other languages inappropriately (in my opinion) where
+bash could be used (most clearly in cases where additional hurdles or
+limitations are introduced such as by needing to communicate
+information back to the shell or when an inconsistent or restricted
+interaction model is imposed. On the other hand I am keeping an eye on
+the prospect of abandoning bash in one of two fairly opposite
+directions.
+</p>
+
+<p>
+Bash contains a bit more implementation noise than I'd like - the code
+could be significantly streamlined if it made heavier use of reused
+code and concepts and dropped some redundant functionality. Perhaps
+more significantly it also has some quirks that it has acquired over
+the years that could be simplified and made more consistent (such as
+its initialization process). These factors leave me interested in a
+leaner implementation of a subset of the existing implementation.
+</p>
+
+<p>
+On the other hand I'm interested in a more ambitious shift in how to
+interact with a machine. Bash and POSIX shells generally reflect a
+very elegant model of uniform pipes and filters atop supporting ideas
+such as software tools and treating everything as a file. Such
+concepts tend to seemingly be not particularly well understood and
+correspondingly underutilized by most developers in the industry.
+I don't have a particularly clear picture of how to realize an
+improvement (so this is a nebulous interest), but it seems as though
+there may be some avenues to explore. Managing of multiple streams in
+a shell can be awkward, though the prospect of providing more
+sophisticated behavior seems dangerous in that it could complicate the
+more standard and simple use cases. Another possible wrinkle is the
+division between orchestrating commands and defining logic directly.
+This is likely often a source of consternation for those that may not
+recognize that serving both roles is a source for many of bash's
+quirks, but generally it would be ideal if the provided REPL was able
+to satisfy both needs with a more uniform interface. More
+significantly the split also potentially ties in with grander
+perspectives around boundaries imposed around which logic will be
+executed where. This overall concern ties in with thoughts
+expressed <a href="programming_languages_are_harmful.html">elsewhere</a> which may be explored over as long period.
+</p>
+</div>
+</div>
+
 <div id="outline-container-org6b2ac8c" class="outline-3">
-<h3 id="org6b2ac8c"><span class="section-number-3">2.1.</span> Emacs</h3>
-<div class="outline-text-3" id="text-2-1">
+<h3 id="org6b2ac8c"><span class="section-number-3">3.2.</span> Emacs</h3>
+<div class="outline-text-3" id="text-3-2">
 <p>
 <a href="sources.html#emacs">Emacs</a> is a piece of software that I periodically swear off and then
 return to with my tail between my legs. I've adopted it for several
@@ -259,7 +733,7 @@ something smaller and more in-line with the ideology of software
 tools. Currently it appeals to me as starting position for some larger
 ideas around how I may want my use of computers to evolve which will
 be elaborated upon as they are explored, this somewhat ties in with
-tongue-in-cheek perspective of emacs being more of an operating system
+tongue-in-cheek perspective of Emacs being more of an operating system
 than an editor.
 </p>
 
@@ -269,9 +743,14 @@ than an editor.
 </div>
 </div>
 </div>
+
+
+<div id="outline-container-org1f997d2" class="outline-2">
+<h2 id="org1f997d2"><span class="section-number-2">4.</span> <span class="todo TODO">TODO</span> Test Pyramid</h2>
+</div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2023-06-30 Fri 17:10</p>
+<p class="date">Created: 2023-07-09 Sun 07:29</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

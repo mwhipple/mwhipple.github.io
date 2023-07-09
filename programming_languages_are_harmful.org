@@ -192,8 +192,10 @@ potentially arbitrary boundary.
 
 I'll be exploring some of the options with some of the ideas above,
 much of this circles around the notion of relying upon an established
-low level interface to avoid some of the translation boundaries, where
-the clearest initial such interface would be the SysV ABI. Particular
+low level interface to avoid some of the translation boundaries.  The
+clearest initial such interface would be the SysV ABI, but this is
+also may amount to doubling down on a model that has led to the
+current state due to [[file:sources.org::#cacm-elephant][leaving too much plumbing exposed]].  Particular
 features of given languages would be implemented independently of the
 language itself, and the means of expression which often seem to
 dominate current languages would be a layer on top of all of these

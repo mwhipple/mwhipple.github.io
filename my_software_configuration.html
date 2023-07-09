@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-06-30 Fri 17:10 -->
+<!-- 2023-07-09 Sun 07:29 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>My Software Configuration</title>
@@ -206,7 +206,19 @@
 <ul>
 <li><a href="#org80531e6">1. SSH</a>
 <ul>
-<li><a href="#orgb212e6b">1.1. Start the Agent</a></li>
+<li><a href="#org49d7a4c">1.1. Define Where to Store Information</a></li>
+<li><a href="#org66e4403">1.2. Define Main Logic</a></li>
+<li><a href="#org0534573">1.3. Define How to Start and Populate the Agent</a></li>
+<li><a href="#org97dce87">1.4. Load Settings from an Existing File</a></li>
+<li><a href="#org7abc616">1.5. Detect Whether Agent is Running</a></li>
+<li><a href="#orgc36cf95">1.6. Launch Main</a></li>
+<li><a href="#org5244236">1.7. Installation</a>
+<ul>
+<li><a href="#orgbe08b9b">1.7.1. Output and Copy File</a></li>
+<li><a href="#org7f96049">1.7.2. Source the Bashlib Directory Files</a></li>
+<li><a href="#org67c1202">1.7.3. Feedback Functions</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -229,15 +241,454 @@ forgotten sources but some will be tracked down again. Loading upon
 starting a shell will launch an agent if determined to be necessary
 and attempt to reuse the values from any already running agents.
 </p>
+
+<p>
+Currently this will assume the required commands exist on the path&#x2026;
+this should likely be validated both through presence and some form of
+signature for security purposes.
+</p>
 </div>
 
-<div id="outline-container-orgb212e6b" class="outline-3">
-<h3 id="orgb212e6b"><span class="section-number-3">1.1.</span> Start the Agent</h3>
+<div id="outline-container-org49d7a4c" class="outline-3">
+<h3 id="org49d7a4c"><span class="section-number-3">1.1.</span> Define Where to Store Information</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+The information for reusing an existing agent needs to be stored in a
+file chosen by convention so that it can discovered across sessions.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">
+declare -r SSH_ENV="${HOME}/.ssh/environment"
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org66e4403" class="outline-3">
+<h3 id="org66e4403"><span class="section-number-3">1.2.</span> Define Main Logic</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+The focus of this script is to reuse the env from a running agent, or
+if no agent is running start one.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">
+ssh::main() {
+        if ssh::agent_is_running; then
+                ssh::load_env
+        else
+                ssh::start_agent
+        fi
+}
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0534573" class="outline-3">
+<h3 id="org0534573"><span class="section-number-3">1.3.</span> Define How to Start and Populate the Agent</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+The ssh agent will be started with the output stored for subsequent
+sourcing. Echo statements will be supressed through commenting in the
+produced file, and the file itself will have permissions restricted to
+the curent user only and subsequently loaded.
+</p>
+
+<p>
+Finally any keys will be loaded into the agent using <code>ssh-add</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">
+ssh::start_agent() {
+        ssh-agent | sed 's/^echo/#echo/' &gt; "${SSH_ENV}"
+        chmod 600 "${SSH_ENV}"
+        ssh::load_env
+        ssh-add
+}
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org97dce87" class="outline-3">
+<h3 id="org97dce87"><span class="section-number-3">1.4.</span> Load Settings from an Existing File</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+If the a file already exists load the values from it. At this point
+the values may not be valid but they are loaded for subsequent
+potential use.
+</p>
+
+<p>
+The output is redirected to the void&#x2026;why this redirection exists
+should be documented.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">
+ssh::load_env() {
+        if [[ -f "${SSH_ENV}" ]]; then
+                . "${SSH_ENV}" &gt; /dev/null
+        fi
+}
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7abc616" class="outline-3">
+<h3 id="org7abc616"><span class="section-number-3">1.5.</span> Detect Whether Agent is Running</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+When the file is loaded we can check to see whether the pid is defined
+in the <code>SSH_AGENT_PID</code> variable conventionally output by the agent
+and if such a process is deemed running pased on the <code>/proc</code>
+filesystem. This is likely not 100% reliable across restarts or any
+type of namespacing that may result in pids being reused, but should
+be good enough.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">
+ssh::agent_is_running() {
+        [[ -n "${SSH_AGENT_PID-}" ]] \
+        &amp;&amp; [[ -d "/proc/${SSH_AGENT_PID}" ]]
+}
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc36cf95" class="outline-3">
+<h3 id="orgc36cf95"><span class="section-number-3">1.6.</span> Launch Main</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+Kick off the main flow.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">
+ssh::main
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5244236" class="outline-3">
+<h3 id="org5244236"><span class="section-number-3">1.7.</span> Installation</h3>
+<div class="outline-text-3" id="text-1-7">
+<p>
+Longer term this will likely all be managed by a Makefile, but at the
+moment I don't have make officially in the mix so I'll handle it a
+combination of emacs lisp and bash.
+</p>
+
+<p>
+A relatively simple route for installing this type of behavior I
+landed on the past is to produce some <code>.sh</code> files in a conventional
+directory and modify the bash initialization script to source all such
+files (where the separate files eases management of units of
+functionality).
+</p>
+</div>
+
+<div id="outline-container-orgbe08b9b" class="outline-4">
+<h4 id="orgbe08b9b"><span class="section-number-4">1.7.1.</span> Output and Copy File</h4>
+<div class="outline-text-4" id="text-1-7-1">
+<p>
+Emacs will handle outputting/tangling the file and copying it to the
+defined directory (creating the directory as needed).
+</p>
+
+<p>
+The directory for now will be hardcoded across the two processes,
+org babel should be able to take care of this (as would moving this to
+make).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(let* ((bashlib-dir (expand-file-name "~/bash.d/"))
+       (tangled-files (org-babel-tangle))
+       (tangled-sh-files (--filter (string-match-p ".*\.sh$" it) tangled-files)))
+  (make-directory bashlib-dir t)
+  (dolist (file tangled-sh-files)
+          (copy-file file bashlib-dir t)))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7f96049" class="outline-4">
+<h4 id="org7f96049"><span class="section-number-4">1.7.2.</span> Source the Bashlib Directory Files</h4>
+<div class="outline-text-4" id="text-1-7-2">
+<p>
+The relevant file should be added to the bash initialization file if
+not already present - a bash function to handle that is present in the
+GNU bootstrap script so I'll start with shamelessly stealing that
+while doing some minor stylistic cleanup.
+</p>
+
+<p>
+Ideally this functionality should be provided an entirely portable
+form, but since I'm configuring bash it seems reasonable to start in bash.
+</p>
+
+<p>
+The orginial implementation seemed fairly focused on .gitignore files
+but still seems like a decent starting point.
+</p>
+
+<p>
+There are some ineteresting choices in this approach. Much of the
+underlying logic effectiely involves treating the significant lines in
+the file as a set, disallowing duplicates and testing for a change in
+cardinality of the new provisional set to determine whether the new
+line represents a new unique value that is worth writing.
+</p>
+
+<p>
+If the provided line is not significant (i.e. is a comment or a blank
+line) this will abort successfully. This should also match how the
+original implementation behaves though it was more implicitly done
+when trying to add to the set.
+</p>
+
+<p>
+The original implementation added the line to the beginning - here
+we'll append it while still first writing to a backup file for safety.
+</p>
+
+<p>
+This implementation is subject to race conditions if the file is
+modified while this running&#x2026;don't do that. Checking the mtime may be
+a worthwhile improvement if this is used widely.
+</p>
+
+<p>
+Similarly any errors at the end could leave some debris that we may
+want to clean up&#x2026;though that may be better handled by something like make.
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-bash">
+mw::insert_if_absent() {
+        local -r file=${1}
+        local -r str=${2}
+        [[ -n $(echo "${str} | mw::select_significant_lines) ]] || return 0
+        mw::guarantee_file "${file}"
+        local -r lines=$(&lt; ${file} | mw::select_significant_lines)
+        mw::guarantee_setfulness "${lines}"
+        ! mw::lineset_contains_line "${lines}" "${str}" || return 0
+        { echo -e "${lines}${str}" &gt; "${file}.bak" &amp;&amp; mv "${file}.bak" "${file}"; } \
+                || die "insert_if_absent ${file} ${str}: failed"
+}
+
+</pre>
+</div>
+</div>
+
+<ol class="org-ol">
+<li><a id="org1520920"></a>Return Only Significant Lines<br />
+<div class="outline-text-5" id="text-1-7-2-1">
+<p>
+The logic does not care about logically insignificant lines such as
+blanks and comments. This should likely be a composed filter but since
+the constituent pieces aren't needed yet and it's used multiple times,
+I'll start with the whole enchilada.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">
+mw::select_significant_lines() {
+        sed '/^#d; /^$/d' "${@}"
+}    
+
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org5840af4"></a>Guarantee That the File is Readable<br />
+<div class="outline-text-5" id="text-1-7-2-2">
+<p>
+Verify that <code>file</code> is usable for content modification, creating as necessary.
+</p>
+
+<p>
+Bail out of this does not succeed.
+</p>
+
+<p>
+This is tailored to the specific use case so should be refined before
+any wider use.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">
+mw::guarantee_file() {
+        [[ -r "${1}" ]] || touch "${1}"
+        [[ -r "${1}" ]] || mw::die "Error: failed to read ignore file: ${1}"
+}
+
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgc9d8b68"></a>Guarantee That the File Has No Duplicated Lines<br />
+<div class="outline-text-5" id="text-1-7-2-3">
+<p>
+Fail if there are any duplicate lines present in <code>lines</code>.
+</p>
+
+<p>
+This seems like a generally good idea and is also required for the
+subsequent set-style logic.
+The original implementation took the file name which could then also
+be used in the error message, as the contents are reused it seemed
+worth storing and operating on them at which point this function no
+longer needs the filename (and therefore loses access). This could
+become an issue if multiple files are dealt with at which point this
+could likely just become a test and the errors could be surfaced in
+the calling code.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">
+mw::guarantee_setfulness() {
+        local -r dupes=$(echo ${1} | sort | uniq -d)
+        [[ -z "${dupes}" ]] || die "Error: duplicate entries in file: ", ${dupes}
+}
+
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org1b6b45b"></a>Check if Line is Already Present Within Lines<br />
+<div class="outline-text-5" id="text-1-7-2-4">
+<p>
+Determine whether the <code>lineset</code> collection of unique lines contains
+<code>lines</code> by checking whether its addition would increase the set size.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">
+mw::lineset_contains_line() {
+        [[ $(echo ${1} | wc -l) != $(echo -e ${1}${2} | sort -u | wc -l) ]]
+}
+
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-org67c1202" class="outline-4">
+<h4 id="org67c1202"><span class="section-number-4">1.7.3.</span> Feedback Functions</h4>
+<div class="outline-text-4" id="text-1-7-3">
+<p>
+I often define some form of die and warn when writing bash which takes
+care of providing some feedback to stderr and possibly exiting with a
+status. The implementations from bootstrap are very nice so I've
+started to borrow them elsewhere outside of this use.
+</p>
+</div>
+
+<ol class="org-ol">
+<li><a id="org446d585"></a>Die<br />
+<div class="outline-text-5" id="text-1-7-3-1">
+<p>
+Die issues the arguments as a warning and exits with an unsuccessful status
+(here the status is hardcoded to 1).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">
+mw::die() {
+        mw::warn "${@}"
+        exit 1
+}
+
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org31bfcf9"></a>Warn<br />
+<div class="outline-text-5" id="text-1-7-3-2">
+<p>
+The warn implementation guards against a custom <code>IFS</code> wreaking havoc
+on the formatting by recursively calling itself with the desired value
+of space if that if it does not start with a space, and leaves the formatting to
+the warnf function.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">
+mw::warn() {
+        case ${IFS} in
+                ' '*) mw::warnf_ '%s\n' "${*}";;
+                *)  (IFS=' '; mw::warn "${@}");;
+        esac
+}
+
+</pre>
+</div>
+</div>
+
+<ol class="org-ol">
+<li><a id="org72fe3a1"></a>Warn Formatting<br />
+<div class="outline-text-6" id="text-1-7-3-2-1">
+<p>
+Provide printf style behavior while prefixing each line with a
+sanitized representation of the current script name.
+The behavior varies based on whether there are multiple lines or a
+single. This may not be required but the single line path is simpler,
+less expensive due to avoiding calling the other programs, and is
+probably more common.
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-bash">
+mw::warnf_() {
+        local -r warnf_format=${1}
+        shift
+        local -r nl='
+'
+        case "${*}" in
+                *${nl}*) local -r me_$(printf "${me}" | tr "${nl}|" '??')
+                        printf "${warnf_format}" "${@}" | sed "s^|${me_}: |" ;;
+                *) printf "${me_}: ${warnf_foramt}" "${@}" ;;
+        esac &gt;&amp;2
+}
+
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2023-06-30 Fri 17:10</p>
+<p class="date">Created: 2023-07-09 Sun 07:29</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
