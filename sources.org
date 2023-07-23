@@ -22,7 +22,7 @@
 :CUSTOM_ID: gae
 :IN:       github_blog_rebase_9
 :END:
-** TODO [[https://cloud.google.com/appengine/docs/flexible/custom-runtimes/create-app][Quickstart: Create a custom runtime app in the App Engine flexible environment  |  Google App Engine flexible environment docs  |  Google Cloud]]
+** [[https://cloud.google.com/appengine/docs/flexible/custom-runtimes/create-app][Quickstart: Create a custom runtime app in the App Engine flexible environment  |  Google App Engine flexible environment docs  |  Google Cloud]]
 :PROPERTIES:
 :CUSTOM_ID: gae-custom-quickstart
 :IN:       gae-flexible
@@ -47,10 +47,19 @@
 :CUSTOM_ID: github_blog_pages
 :IN:       github_blog
 :END:
+** [[https://www.gnu.org/software/artanis][GNU Artanis]]
+:PROPERTIES:
+:CUSTOM_ID: gnuartanis
+:IN:       gnumanuals
+:END:
 ** [[https://www.gnu.org/manual][GNU Manuals Online]]
 :PROPERTIES:
 :CUSTOM_ID: gnumanuals
 :IN: [[#gnucoreutils_manual]]
+:END:
+** Hands-On Reactive Programming with Reactor
+:PROPERTIES:
+:CUSTOM_ID: hands-on-reactor
 :END:
 ** [[https://www.nginx.com/][Advanced Load Balancer, Web Server, & Reverse Proxy - NGINX]]
 :PROPERTIES:

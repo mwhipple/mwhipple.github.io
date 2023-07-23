@@ -13,10 +13,10 @@ hopefully address a concern I've had with Emacs in particular in the
 past where it felt as though there was both too much code floating
 around the ecosystem and too little readily composable functionality.
 
-I'm currently using `^-` as a prefix for my local definitions.
+I'm currently using ~^-~ as a prefix for my local definitions.
 This is inherited from a past project where I started to create a lot
 of macros and since the "macs" in Emacs is for macros I was thinking
-of it as macros squared...so `^-` is in the spirit of that while also
+of it as macros squared...so ~^-~ is in the spirit of that while also
 being nice and short.
 
 Over time I'll likely also look to evolve the configuration so that it
@@ -86,6 +86,23 @@ This is required for EAF stuff and seems generally useful.
     (warn "Emacs does not have JSON support!"))
 #+END_SRC
 
+** Configure Package Management
+
+I'm currently ideally being cautious about pulling in packages due to
+the more ambitious goal of building out a more unified platform, but
+some packages will be embraced and others will be used out of
+pragmatism (particularly for professional work).
+
+Here I'll configure some of the standard repositories.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+
+  (require 'package)
+  (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+			   ("melpa" . "https://melpa.org/packages/")))
+
+#+END_SRC
+
 ** Enable Desktop Preservation
 
 Use desktop mode to save and restore desktops across invocations.
@@ -104,7 +121,7 @@ time related.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (display-battery-mode)
-  (display-time)
+  (display-time-mode)
   (setq display-time-day-and-date t)
 #+END_SRC
 
@@ -145,6 +162,20 @@ think frame.el...I should link it when I come across it again).
   (dark-mode)
 #+END_SRC
 
+*** Tweak Mode Line
+
+I don't remember what this setting does specifically, but I had it
+sitting around in an old configuration and figured it was worth
+pulling in to figure out later.
+
+#+BEGIN_SRC emacs-lisp tangle: init.el
+
+  (setq-default
+    mode-line-format
+    (list "%b L%l %p " mode-line-misc-info))
+
+#+END_SRC
+
 ** Define Self Inserting Characters
 
 Define and bind chose keys that result in the associated character
@@ -154,14 +185,14 @@ defined in a variable for subsequent specialization (there is likely a
 more idiomatic way to do that such as using remap but I haven't gotten
 that far yet.
 
-This makes use of the relatively new `keymap-set` function which
-replaces `define-key`. Elsewhere will primarily use the `bind-key`
+This makes use of the relatively new ~keymap-set~ function which
+replaces ~define-key~. Elsewhere will primarily use the `bind-key`
 family of macros but this make more direct use of the core
 functionality as it lends itself more readily to composition (and
 there's no clear value in using anything fancier). I'd generally be on
-the fence about using `bind-key` but since it's now included in Emacs
+the fence about using ~bind-key~ but since it's now included in Emacs
 it's hard to resist. I'm fairly likely to switch that out later in
-favor of something simpler like ~define-keymap~ as I build out my emacs knowledge.
+favor of something simpler like ~define-keymap~ as I build out my Emacs knowledge.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (setq self-insert-keys
@@ -205,19 +236,24 @@ commands in general.
 *** Remove Content
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
+
   (bind-keys :map global-map
 	     ("DEL"  . backward-delete-char-untabify)
 	     ("M-DEL" . backward-kill-word)
+	     ;; Chrome OS support
+	     ("<deletechar>" . backward-kill-word)
 	     ("C-d" .  delete-char)
 	     ("M-d" . kill-word)
 	     ("C-k" . kill-line)
 	     ("M-\\" . delete-horizontal-space)
 	     ("M-z" . zap-up-to-char))
+
 #+END_SRC
 
-*** Support Moving Point Around Within a Buffer
+** Support Moving Point Around Within a Buffer
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
+
   (bind-keys :map global-map
 	     ("C-f" . forward-char)
 	     ("C-b" . backward-char)
@@ -227,22 +263,25 @@ commands in general.
 	     ("C-a" . move-beginning-of-line)
 	     ("M-f" . forward-word)
 	     ("M-b" . backward-word)
+	     ("M-n" . forward-list)
+	     ("M-p" . backward-list)
 	     ("M->" . end-of-buffer)
 	     ("M-<" . beginning-of-buffer)
 	     ("M-}" . forward-paragraph)
 	     ("M-{" . backward-paragraph)
 	     ("C-v" . scroll-up-command)
 	     ("M-v" . scroll-down-command))
+
 #+END_SRC
 
-*** Change View of Buffer
+** Change View of Buffer
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (bind-keys :map global-map
 	     ("C-l" . recenter-top-bottom))
 #+END_SRC
 
-*** Play With Mark
+** Play With Mark
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (bind-keys :map global-map
@@ -250,28 +289,49 @@ commands in general.
 	     ("C-x h" . mark-whole-buffer))
 #+END_SRC
 
-*** Work with Kill Ring
+** Work with Kill Ring
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
+
   (bind-keys :map global-map
 	     ("C-y" . yank)
 	     ("M-w" . kill-ring-save))
 #+END_SRC
 
+** Provide Some Contextual Editing
+
+While much editing is fairly indifferent to the underlying content,
+some may vary behavior slightly based on its context. This does not
+extend to include more sophisticated behaviors that require deeper
+knowledge of syntactical elements.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+
+  (bind-keys :map global-map
+	     ("M-;" . comment-dwim))
+
+#+END_SRC
+
 ** Generate Content
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  (bind-keys :map global-map
-	     ("M-/" . dabbrev-expand))
+
+    (bind-keys :map global-map
+	       ("M-/" . dabbrev-expand)
+	       ("M-SPC" . complete-symbol))
+
 #+END_SRC
 
 ** Searching and Potentially Replacing
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
+
   (bind-keys :map global-map
 	     ("C-s" . isearch-forward)
+	     ("C-r" . isearch-backward)
 	     ("M-%" . query-replace)
 	     ("M-." . xref-find-definitions))
+
 #+END_SRC
 
 ** Support Some Inter-Process Communication
@@ -280,6 +340,20 @@ commands in general.
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (bind-keys :map global-map
 	     ("M-!" . shell-command))
+#+END_SRC
+
+** Provide Some Global Dispatching
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+
+    (bind-keys :prefix "C-x C-z"
+	       :prefix-map dispatch-map
+	       ("a" . org-agenda)
+	       ("g" . gnus)
+	       ("m" . gnus-summary-mail-other-window)
+	       ("s" . shell)
+	       ("w" . eww))
+
 #+END_SRC
 
 *** Handle Escape Sequences from External Commands
@@ -323,6 +397,7 @@ are forced using `bind-keys*` to stick them in the override map.
 ** Help Me!
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
+
     (bind-keys :prefix "C-h"
 	       :prefix-map help-map
 	       :prefix-docstring "Help me!"
@@ -334,6 +409,21 @@ are forced using `bind-keys*` to stick them in the override map.
 	       ("m" . describe-mode)
 	       ("v" . describe-variable)
 	       ("w" . where-is))
+
+#+END_SRC
+
+** Bookmark Management
+
+Bookmarks are a feature I'm not actively using at the moment but this
+configuration has been carried forward from previous configuration.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+
+  (bind-keys :prefix "C-x C-r"
+	     :prefix-map bookmark-map
+	     ("m" . bookmark-set))
+  (setq bookmark-save-flag 1)
+
 #+END_SRC
 
 ** Define Some Minibuffer Bindings
@@ -349,13 +439,37 @@ are forced using `bind-keys*` to stick them in the override map.
 ** Define Some Navigation Through a Project
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
+
   (bind-keys :map global-map
+	     ("C-x C-f" . ffap)
 	     ("C-x `" . next-error))
+
+#+END_SRC
+
+** Interact With Source Control
+
+Initially this section is just going to contain some bindings that I
+copied from a previous incarnation of my Emacs configuration.
+
+#+BEGIN_SRC emacs-lisp :Tangle init.el
+
+      (bind-keys :map global-map
+		 ("C-x v v" . vc-next-action)
+		 ("C-x v d" . vc-dir))
+
+      (use-package vc
+	:bind (:map vc-dir-mode-map
+		    ("M-m" . vc-dir-mark)
+		    ("M-u" . vc-dir-unmark)
+		    ("M-=" . vc-diff)))
+
 #+END_SRC
 
 ** Configure Org Mode
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
+  (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+
    (use-package org
      :bind (:map org-mode-map
      ("DEL" . org-delete-backward-char)
@@ -363,11 +477,17 @@ are forced using `bind-keys*` to stick them in the override map.
      ("M-RET" . org-meta-return)
      ("M-<right>" . org-metaright)
      ("M-<left>" . org-metaleft)
+     ("M-<down>" . org-metadown)
+     ;; Chrombook
+     ("<next>" . org-metadown)
+     ("M-<up>" . org-metaup)
      ("C-a" . org-beginning-of-line)
      ("C-k" . org-kill-line)
      ("C-c C-w" . org-refile)
      ("C-c C-q" . org-set-tags-command)
-     ("C-x RET" . org-open-at-point)))
+     ("C-c C-t" . org-todo)
+     ("C-x RET" . org-open-at-point)
+     ("C-M-_" . org-cycle)))
 #+END_SRC
 
 ** Configure Dired Mode
@@ -383,6 +503,7 @@ are forced using `bind-keys*` to stick them in the override map.
 ** Configure Org Agenda
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
+
   (use-package org-agenda
     :bind (:map org-agenda-mode-map
     ("C-n" . org-agenda-next-line)
@@ -417,11 +538,18 @@ are forced using `bind-keys*` to stick them in the override map.
     ("SPC" . Info-scroll-up)))
 #+END_SRC
 
-** Configure Elisp
-(global-dash-fontify-mode)
-(with-eval-after-load 'info-look
-(dash-register-info-lookup))
+** Configure Emacs Lisp
 
+#+BEGIN_SRC emacs-lisp :tangle init.el
+
+  (add-to-list 'auto-mode-alist '("\\.el\\'" . emacs-lisp-mode))
+  (global-dash-fontify-mode)
+  (with-eval-after-load 'info-look
+    (dash-register-info-lookup))
+  (bind-keys :map global-map
+	     ("C-x C-e" . eval-last-sexp))
+
+#+END_SRC
 
 ** Manage Environment for Called Commands
 
@@ -434,8 +562,8 @@ but the code itself is a bit dumber and is more oriented towards
 building out a larger code base rather than providing drop-in
 functionality.
 
-Most of the constructs here will be prefixed with `^-env` but those
-that are more general will omit the `env` segment.
+Most of the constructs here will be prefixed with ~^-env~ but those
+that are more general will omit the ~env~ segment.
 
 *** Customization Group
 
@@ -450,7 +578,7 @@ for consistency. The large possible drawback is that this pushes more
 power and required expertise to the user (but additional protections
 and conveniences could be layered off if desired).
 
-Initially funcall will be used fairly liberally until I stumble across
+Initially ~funcall~ will be used fairly liberally until I stumble across
 a means to identify variables as functions and push Emacs lisp closer
 to a lisp 1 (I know such mechanisms are readily available but I'm just
 not actively looking).
@@ -473,12 +601,14 @@ reason to do so.
 
 At the high level such expansion will be done by wrapping the name as
 a shell parameter and then passing it through the fairly ubiquitous
-`printf` function.
+~printf~ function.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
+
   (defun ^-shell-expand (name)
     (let ((shell-variable (^-enveloper '("${" . "}"))))
       (^-shell-printf "%s" (funcall shell-variable name))))
+
 #+END_SRC
 
 **** Enveloper
@@ -813,10 +943,13 @@ laid out or ideally encoded within the logic.
 **** Configure Offset
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
+
 (defvar structurizr-indent-offset 4
-  "Deine the indendation offset for `structurizr-mode'.
+  "Define the indentation offset for `structurizr-mode'.
 Lines will be indented this offset multiplied by the detected level.
 Currently only spaces are supported.")
+
+#+END_SRC
 
 **** Determine Indentation Level
 
@@ -842,14 +975,14 @@ inserting the character itself so something more electric may be better.
 
 The current approach involves ascending lists until an ignored error
 is encountered, and then reporting the count of the number of a
-particlar opener that was encountered.
+particular opener that was encountered.
 
 This feels like it should be simpler in some way or another. This
-level should potentially be readily available and the ascenion
+level should potentially be readily available and the ascension
 behavior should be tied to the relevant grammar which would obviate
 the need for the additional check. At the moment I don't know what
 options are available and unused versus those that would need further
-support so I'll circle back to this over time (espeically as other
+support so I'll circle back to this over time (especially as other
 modes are pulled in).
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
@@ -878,7 +1011,7 @@ In the current form this will either return 0 or 1.
 
 There was also a separate test initially which seemed to look to
 prevent over-outdenting which can be addressed by a ramp function on
-ouside use.
+outside use.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (defun ^-closers-on-line (closer)
@@ -889,9 +1022,9 @@ ouside use.
 
 *** Syntax Table
 
-The standard syntax table function NEWENTRY value is bit arcane so I'm going to
-try to define some more expressive functions to produce the values (and likely find
-something that exists elsewhere).
+The standard syntax table function ~newentry~ value is bit arcane so
+I'm going to try to define some more expressive functions to produce
+the values (and likely find something that exists elsewhere).
 
 This can be generalized a bit as needed by producing functions which
 produce the first character but in the short term the only interesting
@@ -928,6 +1061,7 @@ over a comment table.
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
+
 (setq structurizr-mode-syntax-table
   (let ((syntax-table (make-syntax-table)))
     (modify-syntax-entry
@@ -946,13 +1080,115 @@ over a comment table.
     (modify-syntax-entry ?\n (^-syntax-table-comment-ender) syntax-table)
     syntax-table))
 
+#+END_SRC
+
 *** Associate with Extension
 
 ~dsl~ is certainly not unambiguously Strucutrizr files,
 but it's the only association I'm currently expecting.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
+
 (add-to-list 'auto-mode-alist '("\\.dsl\\'" . structurizr-mode))
+
 #+END_SRC
 
-#  LocalWords:  Minibuffer Dired hexl
+** Programming Support
+
+This is currently copied forward but past configurations but not
+revisited. It looks as though this is the beginning of seeking to
+support code collapsing.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+
+  (add-hook 'prog-mode-hook hs-minor-mode)
+  (bind-keys :map prog-mode-map
+	     ("C-M-_". hs-toggle-hiding))
+
+#+END_SRC
+
+*** C
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+
+  (add-to-list 'auto-mode-alist '("\\.c\\'" . c-mode))
+
+#+END_SRC
+
+** Configure Lilypond
+
+This is the very beginning of support for Lilypond mode, which I think
+I started to copy from the Lilypond source code years ago. This is
+unlikely to provide any valuable in its current form and so will
+either be built upon further later or removed.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+
+    (defvar LilyPond-mode-map ()
+      "Keymap used in `LilyPond-mode' buffers.")
+
+    (defun LilyPond-mode ()
+      "Major mode for editing LilyPond music files.
+
+  This mode knows about LilyPond keywords and line comments, not abou
+  indentation or block comments.  It features easy compilation, error
+  finding and viewing of a LilyPond source buffer or region.
+
+  COMMANDS
+  \\{LilyPond-mode-map}
+  VARIABLES
+
+  LilyPond-command-alist\t\talist from name to command"
+      (interactive)
+      ;; set up local variables
+      (kill-all-local-variables))
+
+  (add-to-list 'auto-mode-alist '("\\.ly$" . LilyPond-mode))
+  (add-to-list 'auto-mode-alist '("\\.ily$" . LilyPond-mode)))
+
+#+END_SRC
+
+** Configure Gnus
+
+I'm currently using Gnus to read my mail but have not yet dug into it
+again - this like many others reflect inherited previous configuration options.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+
+  ;; This should be cleaned up a bit but was just implemented in the most
+  ;; obvious way for now.
+  (defun gnus-group-read-50 ()
+    (interactive)
+    (gnus-group-read-group 50))
+
+  (use-package gnus
+    :bind (:map gnus-group-mode-map
+	   ("M-g" . gnus-group-get-new-news-this-group)
+	   ("M-<down>" . gnus-group-read-50)
+           :map gnus-summary-mode-map
+	   ("M-<down>" . gnus-summary-next-page)
+	   ("C-c m" . gnus-summary-move-article)))
+
+#+END_SRC
+
+** Configure EWW
+
+On Linux I may explore whatever the fancier new browser integration is
+but for now I'll be using EWW since that feature is currently Linux
+only and isn't working particularly well as configured on my Sway
+installation.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+
+  (use-package eww
+    :bind (:map eww-mode-map
+		("C-c w" . eww-copy-page-url)))
+  (setq browse-url-browser-function 'eww-browse-url)
+
+#+END_SRC
+
+** Queue
+*** TODO Find or define more expressive mode-alist registration
+
+#  LocalWords:  Minibuffer Dired hexl Structutrizr Structurizr EWW
+

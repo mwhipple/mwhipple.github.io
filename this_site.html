@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-06-16 Fri 09:07 -->
+<!-- 2023-07-23 Sun 13:25 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>This Site</title>
@@ -194,7 +194,11 @@
 </style>
 </head>
 <body>
-<div id="content" class="content">
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="./index.html"> HOME </a>
+</div><div id="content" class="content">
 <h1 class="title">This Site</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
@@ -253,7 +257,7 @@ pieces of information will be sought over time.
 <p>
 The markup for this site will initially start as what is exported by
 Org mode, and then some practices and tricks may be borrowed from
-selected sources below which will be listed here.
+selected sources which will be listed here.
 </p>
 </div>
 </div>
@@ -302,37 +306,35 @@ likely to use it again if I were looking to develop an appropriate
 app. While I'm currently looking to use the flexible model for
 containerized deployment I've generally been of the mindset that
 adapting designs to fit within the constraints of systems like GAE can
-provide significant upfront benefits. Typically the aversion to such
-technologies that I've seen seems to be a fixed mindset where people
-are turned off that they can't use their preferred hammers, which
-isn't to say that that isn't often a compelling reason, particularly
-for an organization. Similarly there may be some cases for which a
-particular type of technology is most appropriate but an awkward
-fit. Additionally I haven't run the numbers for GAE in particular but
-in most similar systems there's a break-even point after which it is
-likely to be far more cost effective to use something closer to the
-metal even after accounting for the operational overhead. But&#x2026;as
-mentioned the <span class="underline">upfront</span> benefits can be substantial and other than
-cultural resistance (which isn't a concern for my personal projects)
-many of the other concerns are initially aspirational.
+provide significant upfront benefits. Often such technologies seem to
+turn people off as they preclude use or preferred hammers (which may
+or may not be a valid reason particularly within an organization).
+Similarly there may be some cases for which a particular type of
+technology is most appropriate but an awkward fit. Additionally I
+haven't run the numbers for GAE in particular but in most similar
+systems there's a break-even point after which it is likely to be far
+more cost effective to use something closer to the metal even after
+accounting for the operational overhead. But&#x2026;as mentioned the
+<span class="underline">upfront</span> benefits can be substantial and other than cultural
+resistance (which isn't a concern for my personal projects) many of
+the other concerns are initially aspirational.
 </p>
 
 <p>
 For this particular project I'll be looking to make use of the
 <a href="sources.html#gae-flexible">flexible environment</a> as I'm very comfortable with dealing with
-containers and I'll be starting to use a non-supported runtime and
-likely evolving into making use of a relatively standard container
-which is also not directly supported, so in both cases relying on a
-<a href="sources.html#gae-custom">custom runtime</a>. An enticing longer term plan may be to switch to
-<a href="sources.html#gae-cloud-run">Cloud Run</a> as it is likely to
-be lower cost at low volume, but in the immediate term it seems like a
-distraction and I may also want to look at more static-centric
-alternatives in the future.
+containers and I'll be starting to use a non-supported runtime.
+This is likely to evolve into making use of a relatively standard container
+which is also not directly supported, so in both cases I'll be relying on a
+<a href="sources.html#gae-custom">custom runtime</a>. An enticing longer term plan may be to switch to <a href="sources.html#gae-cloud-run">Cloud
+Run</a> as it is likely to be lower cost at low volume, but in the
+immediate term it seems like a distraction and I may also want to look
+at more static alternatives in the future.
 </p>
 
 <p>
 I'm also coincidentally looking at Cloud Run for a work related
-project so that seems likely to slide it in front of GAE.
+project so that seems likely to slide it in place sooner.
 </p>
 </div>
 </div>
@@ -362,7 +364,7 @@ dissuade me).
 <h2 id="org2f1253b"><span class="section-number-2">7.</span> Artanis (Old)</h2>
 <div class="outline-text-2" id="text-7">
 <p>
-This site was going to will looking to be running on top of <a href="sources.html#src-gnuartanis">GNU
+This site was going to look to be running on top of <a href="sources.html#gnuartanis">GNU
 Artanis</a>. This is largely a consequence of the approach to
 Information Collection, although the project may potentially align
 with some longer term goals. I'm more likely to ultimately land on a
@@ -423,9 +425,9 @@ presently have no reason to think this site fits that criterion).  The
 standard upstream image also seems to fall into a fairly common trap
 of using root rather than a less-privileged user. I think this is
 covered as part of Dockerfile best practices that I'll need to chase
-down.  Another fairly general note is that the guidance on the post
+down. Another fairly general note is that the guidance on the post
 suggests using <a href="sources.html#src-docker-get">docker</a> but I'd probably gravitate towards an
-alternative like `nerdctl`. This is relatively insignificant as it can
+alternative like <code>nerdctl</code>. This is relatively insignificant as it can
 be abstracted by the Makefile but seems worth mentioning given the
 strong sentiment in the Artanis documentation and the GNU community as
 a whole towards free software against which the licensing for Docker
@@ -455,7 +457,7 @@ forms.
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2023-06-16 Fri 09:07</p>
+<p class="date">Created: 2023-07-23 Sun 13:25</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

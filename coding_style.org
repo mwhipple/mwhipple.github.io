@@ -1,0 +1,309 @@
+#+TITLE: My General Coding Style
+#+HTML_LINK_HOME: ./index.html
+#+HTML_LINK_UP: ./software.html
+
+I strive to mostly adopt practices which are idiomatic for particularly
+programming languages, but I also have preferences which cut across
+languages.
+
+*** Literate Programming and Commenting
+
+Likely my most obvious tendency is that I am a proponent of some form
+of Literate Programming. This manifests as large blocks of comments
+which outline what the subsequent blocks of code are doing. The
+comments themselves will consist of complete sentences. Unless there
+are other conventions (such as with Go), such sentences are likely to
+be in the imperative mood as that lends itself to the tersest form of
+complete sentence within the surrounding context.
+
+This conflicts with the fantasy of "self-documenting code" which will
+be argued against separately _but_ this should not be construed as an
+alternative to expressive code. The code itself should express what it
+doing with reasonable clarity and the comments should serve to
+contextualize what is defined and to capture supporting information
+such as factors driving particular decisions.
+
+Such comments are likely to be redundant with the implementation but
+this is not deemed to be an issue. The English version should
+hopefully be easier to read and repetition is likely to be beneficial
+given the challenge of reading code and understanding a system. There
+may be the assertion that such duplication invites confusing
+divergence but I find any assertion that this should dissuade the
+practice to be lacking. In my experience those code bases which are
+most inscrutable are those that are largely devoid of comments and any
+claim that fostering practices that pay attention to both code and its
+comments would lead to inconsistency seems dubious. That being said,
+the comments should not be trusted implicitly and in that vein the
+comments and the code should be treated as complementary channels
+whose readings reinforce each other rather than one supplanting the
+other (both of which can be further supported through additional
+information which may be external or stored elsewhere such as VCS
+logs). An argument of being led astray by poor documentation when
+code is available (as hopefully are tests) is a reflection of the
+wrong kind of laziness around understanding the system and carries the
+implicit assertion that somehow the correct behavior would have been
+inferred without the distraction whereas attention should yield the
+realization that documentation is incorrect but potentially still
+elucidating some of the steps along the history of the system whereas
+a void is likely to just leave mystery.  In the words of Dick Brandon
+"Documentation is like sex: when it is good, it is very, very good;
+and when it is bad, it is better than nothing."
+
+Very often the comment blocks will be followed by a blank space. This
+is a practice that was picked up for portability - I believe both from
+some basic tanlging utility that I'd written and also for ReST.
+
+*** Comment Block Style
+
+I now tend to write fairly narrative comment blocks with conventions
+to indicate information such as what the parameters are. For quite a
+while I tried to follow a more structured format with my reference
+baseline (for reasons of portability) being Doxygen, but the
+combination of Literate Programming, Go conventions, and the constant
+battle to make such information meaningful and not painfully redundant
+led me away from that form. In many languages such structures are
+unlikely to provide any additional information from what is expressed
+directly in the code, so avoiding that approach can hopefully
+encourage complementary information that is not swamped by redundant
+boilerplate.
+
+*** Chekhov's Gun and Understandability
+
+I tend to differentiate between code that is *readable* and that
+which is *understandable* (the suitability of the terms themselves
+warrants deeper vetting). One of the more insidious challenges when
+writing software is the siren song of confirmation bias - it is very
+easy to get seduced by code that may suggest and seem to do what is
+desired but may in fact be slightly but significantly askew. The code
+may be telling you the story you want to hear but acting on a slightly
+different variation. To some extent this also reinforces the previous
+point around commenting in that there could easily be three sides to
+this story: what you want the code to do, what you expect the code to
+do, and what the code actually does. The last two of course *should*
+match but it may be wise to embrace that as an ongoing effort rather
+than expecting it to be realized out of the gate.
+
+That challenge is where the goal of *understandability* comes in.
+A common risk with *readable* code (in addition to it being deceptive)
+is that what is desired is a subset of what the code could do, and
+therefore there is a corresponding implicit expectation that the code
+will only be used in certain ways and only certain paths through it
+will be utilized. Such dangers arise not only when code is written,
+but also as it changes over time which can easily inject entropy as
+loose fitting pieces may be used in unplanned and inconsistent
+ways. In such cases the code may be *readable* in that it is telling
+you a relevant story but it may not be *understandable* in that the
+entirety of the what the code may be doing is not surfaced. Such a gap
+may be standard and acceptable as a user of a system, but as a
+maintainer or owner of such a system it is a recipe for trouble, and
+depending on the system such trouble could be disastrous.
+
+A means to counter such issues is to avoid paths and constructs which
+are unnecessary. This extends beyond the typical avoidance of dead
+code to include practices such as (cyclomatic) simplicity (which
+will be covered later), restricting usable paths, and
+avoidance of distracting assignments/statements/lvalues.
+
+**** Restricting Unnecessary Paths
+
+One means to prevent code behaving in unexpected ways is to
+guard against any paths which are not anticipated to be used. More
+ideal is to design out any such paths which will be discussed further
+in the simplicity section, but sometimes such an approach is not
+visible or feasible. The logic should eagerly protect against cases
+which are not anticipated. This guidance is effectively defensive
+programming with the follow-up advice to make sure that any such cases
+are not simply handled but contained. Any urge to support cases
+outside of those that are necessary should be resisted if they
+increase the complexity of the system as a whole. Such guards may
+include signaling some kind of error or (where appropriate) returning
+some form of zero or limited value. Restricting such paths is
+enormously valuable to reduce the overall system complexity
+particularly in light of the impacts that may ripple from more naive
+or half-baked measures.
+
+An extension of this idea that is not directly related to my style but
+is an element in the backing philosophy is to negotiate requirements
+based on the incurred complexity (and concomitant risk). There is
+often a long tail of possible functionality with varying accompanying
+levels of speculation and imposed overhead in both development and
+maintenance. There can be a temptation to pursue a complete solution,
+but supporting any such behaviors should be subjected to some form of
+cost/benefit analysis particularly in terms of likely impacts on the
+evolvability of the system. This echoes a talk by Greg Young (to link)
+and likely others.
+
+**** Avoidance of Unnecessary Statements
+
+The avoidance of unnecessary statements may seemingly conflict directly
+with a practice often used in the name of making code more readable -
+using assignment as a means to provide a more meaningful identifier
+for a given value. Such lvalues however also imply that the values may
+be accessed multiple times, and in cases where this is not the case
+the assignments can be misleading and direct use of the
+expression/rvalue when relevant not only avoids that implication but
+also directly associates the value with its point of use. This mirrors
+the dramatic principle of Chekhov's Gun where anything that is implied
+by given code should be realized and if it is not realized any such
+implication should be avoided.
+
+Unnecessary identifiers increase the cognitive overhead in
+understanding a block of code in that they introduce additional items
+which needs to be mentally tracked. This can be pernicious
+as code evolves (and the number of references may shift) particularly
+when mutability is in play (which can massively increase the cognitive
+load for tracking sequencing and control flow). All too often the use
+of such assignments can be counter-productive in that they are
+band-aids on sprawling function bodies with many such identifiers with
+relatively ambiguous names (which then magnifies the mentioned
+headaches as the code changes).
+
+As a counterpoint, I do tend to make use of such identifiers in more
+expression based contexts that serve to both improve legibility and
+narrow the scope and life of the introduced identifier. This typically
+takes the form of something analogous to a function where the name of
+the function and parameters may be more descriptive but the restricted
+binding environment serves to provide a self-contained chunk rather
+than polluting a larger context.
+
+I therefore prefer code which remains focused on a particular task and
+does not include any constructs which are unnecessary for that
+task. This can result in relatively dense code but the focus should
+result in easily digestible chunks and the corresponding comments
+should provide the context to understand and verify the code.
+
+*** Simplicity and Composability
+
+As touch on several times above I strive to keep code *cyclomatically*
+simple which is a (potentially incorrect) way of saying that branching
+is avoided. There are three employed mechanisms that spring to mind to
+aid in this goal (some of the names may need further attention):
+polymorphism, composition, and narrow design.
+
+**** Polymorphism
+
+Polymorphism is one of the most evangelized means to
+reduce branching. I will therefore avoid parroting information that is
+readily available elsewhere around avoiding if statements. In the
+interest of being concise this can be extended to include the range of
+strategies that allow dispatching to any particular implementation of
+an interface which may extend to additional behaviors such as
+overloading with various forms of dispatching and multimethods.
+
+**** Composition
+
+By composition here I'm referring to composition of subroutine calls
+rather than composition of objects (over inheritance...which is also
+good advice and may be covered in a larger thread around OOP). When
+looking toward reuse of code there are two common approaches: either
+create relatively centralized functions which perform a range of
+behavior or call out to other functions or build out a catalog of
+relatively simpler functions which can then be composed in different
+ways to cover the range of needs. The former is often gravitated
+towards which unfortunately produces systems which tend to be more
+complex and more difficult and more dangerous to change. Such pieces
+of code tend to become centralized and the mentioned drawbacks tend to
+compound over time. The alternative is to make use of individual
+smaller functions, composing them as need while keeping the
+invocations focused on specific behavior rather than trying to push
+what may be multiple behaviors through a single function.
+
+In the most glaring cases such centralized code involves the client
+passing arguments which indicate a desired variation but are passed
+through a single function which is expected to coordinate all such
+variations. There is no evident benefit to such an approach when
+compared to having the calling code invoke multiple simpler methods as
+anything along the lines of decoupling is destroyed by the
+expectations attached to the arguments, but there are severe drawbacks
+in terms of complexity, flexibility, and maintainability. 
+
+The end result resembles an hourglass which is an image I've used in
+the past to describe it but have recently learned about the Hourglass
+Theorem in respect to the reduced cost of providing a narrow waist
+upon which a wide range of upper bells can rest. Perhaps more
+appropriate is something along the lines of an ~X~ as a distinguishing
+property from the hourglass of the theorem is that there's a
+correspondence of the rays on one side or the other, so perhaps a
+better image is that of a yarn doll where a given thread continues but
+is contorted through choke points such that it becomes difficult to
+follow or change.
+
+It should also be noted that this is very much focused on code that
+does *different* things and therefore does not conflict with the
+previous section around polymorphism nor supporting constructs such as
+registries and routers that can aid in abstraction and decoupling and
+perhaps most significantly do not pose the risk of rigidity and bloat
+described herein.
+
+**** Narrow Design
+
+"Narrow design" is certainly the most quickly contrived name of those
+attached to these practices; it is being used to describe the practice
+of designing systems such that they are structured to only provide
+intended behaviors.. This may *seem* as though it is a given, but all
+too often such structural alignment does not exist and additional
+constraints are added by logic. This often manifests in APIs which may
+be modeled as relatively flat operations and objects where particular
+calls or combinations of parameters may be invalid. Where
+opportunities exist to model the API more richly such that it maps
+more directly to operations that are supported the resulting local
+logic can be significantly reduced and the experience for clients is
+likely to improve given the resultant natural expressiveness of the
+interface (where typically the flatter structure would require picking
+through textual descriptions).
+
+In terms of defining objects/structs this ties in with larger goals
+around guaranteeing such objects are sound, and preferring practices
+such as sum types over product types when the latter could contain
+properties that may be spurious and expected to be ignored based on
+the state of a particular instance.
+
+In all such cases the underlying goal is to leverage the mechanisms
+that are already in place to prevent invalid states or paths from
+coming into existence and therefore avoiding the need for custom logic
+to detect and deal with such states.
+
+There *may* be thoughts that a flatter approach may lend itself to
+more rapid extension in that validation rules could simply be
+relaxed. A clear counter-argument to the above is that it is typically
+much easier to safely evolve pieces that are more focused and
+independent. This is particularly the case in APIs where more focused
+endpoints more clearly convey intent and therefore provide some more
+protection from Hyrum's Law and also contain the friction that may
+arise when trying to shift how a given call is handled. This is a
+manifestation of many of the points covered in the previous
+Composition section.
+
+*** Let Optimizers Do Their Thing
+
+There are some good quotes to drop in this section, certainly
+Don Knuth's "Premature optimization is the root of all evil" is
+relevant along with one by Grace Hopper around the importance of
+moving to more declarative programming. There's also a lot of more
+recent articles related to the limitations of serial and RAM model
+development which largely presumes largely homogeneous architectures
+pushed along by Moore's Law.
+
+Knuth's quote is particularly poignant given that it was originally
+presented in a paper that predates but discusses concepts that exist
+within optimizing compilers, and the overall sentiment is one that
+I've come across in numerous places including being touched upon by
+Jeffrey Ullman in his Turing Award talk with Alfred Aho and is also
+covered by [[file:sources.org::#ddia][Martin Kleppmann]] in regards to SQL and how optimization of
+declarative languages wins in the long run.
+
+Code should focus as much as possible on *what* is being done rather
+than seeking to micromanage *how* it is done for the sake of
+optimization. The definition and use of declarative constructs should
+be relied upon as much as possible and as necessary means to optimize
+how they are executed should be performed by a distinct phase which is
+more aware of the runtime.
+
+My code will therefore make liberal use of practices that are intended
+to make code more declarative or economical but that may incur
+performance penalties. A straightforward example would be calls to
+subroutines. If performance issues are noticed and profiling suggests
+that code should be optimized then such optimization should seek to
+preserve the above goal or if pragmatically it cannot then it should
+be accompanied by assessing how any used optimizers may be improved.
+
