@@ -45,7 +45,7 @@ implicit assertion that somehow the correct behavior would have been
 inferred without the distraction whereas attention should yield the
 realization that documentation is incorrect but potentially still
 unearthing some of the steps along the history of the system whereas
-a void is likely to just leave mystery.  In the words of Dick Brandon
+a void is likely to just leave mystery.  In the [[file:sources.org::#brandon-quote][words of Dick Brandon]]
 "Documentation is like sex: when it is good, it is very, very good;
 and when it is bad, it is better than nothing."
 
