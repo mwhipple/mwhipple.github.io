@@ -65,6 +65,10 @@
 :PROPERTIES:
 :CUSTOM_ID: hands-on-reactor
 :END:
+** [[https://jamstack.org/][For fast and secure sites | Jamstack]]
+:PROPERTIES:
+:CUSTOM_ID: jamstack
+:END:
 ** [[https://www.nginx.com/][Advanced Load Balancer, Web Server, & Reverse Proxy - NGINX]]
 :PROPERTIES:
 :CUSTOM_ID: nginx

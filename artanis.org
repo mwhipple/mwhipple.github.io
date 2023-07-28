@@ -1,19 +1,24 @@
 #+TITLE: Artanis
+#+HTML_LINK_HOME: ./index.html
 
-** Artanis (Old)
+This site was originally looking to be running on top of [[file:sources.org::#gnuartanis][GNU
+Artanis]]. This was fairly quickly abandoned in favor of nginx as
+Artanis seems like to be overkill for what is likely to be more of a
+Web site than a Web application (this was predicted as mentioned
+below but was done sooner than expected). This information is therefore
+historical.
 
-This site was going to look to be running on top of [[file:sources.org::#gnuartanis][GNU
-Artanis]]. This is largely a consequence of the approach to
-Information Collection, although the project may potentially align
-with some longer term goals. I'm more likely to ultimately land on a
-solution that is more closely aligned with a static Web site/JAM
-stack, but I think I also want the site to have some basic support for
-concepts such as content negotiation which many static solutions don't
-lend themselves naturally to and therefore I'll probably ultimately
-move to something like nginx (which is also recommended in front of
-Artanis but I haven't navigated my way over there yet). I enjoy Scheme
-but am likely to gravitate more towards Python, I'll elaborate upon
-some of my larger thoughts around languages in an upcoming update.
+This is largely a consequence of the approach to Information
+Collection, although the project may potentially align with some
+longer term goals. I'm more likely to ultimately land on a solution
+that is more closely aligned with a static Web site/Jamstack, but I
+think I also want the site to have some basic support for concepts
+such as content negotiation which many static solutions don't lend
+themselves naturally to and therefore I'll probably ultimately move to
+something like nginx (which is also recommended in front of Artanis
+but I haven't navigated my way over there yet). I enjoy Scheme but am
+likely to gravitate more towards Python, I'll elaborate upon some of
+my larger thoughts around languages in an upcoming update.
 
 Relatively up-to-date information on Artanis seems to be provided on
 its [[file:sources.org::#src-artanis_github][GitLab page]] (including containerized execution which I'll be

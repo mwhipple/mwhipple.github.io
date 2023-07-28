@@ -6,7 +6,7 @@
 <!-- 2023-07-28 Fri 15:16 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sources</title>
+<title>Artanis</title>
 <meta name="generator" content="Org Mode" />
 <style>
   #content { max-width: 60em; margin: auto; }
@@ -194,128 +194,117 @@
 </style>
 </head>
 <body>
-<div id="content" class="content">
-<h1 class="title">Sources</h1>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="./index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Artanis</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#brandon-quote">1. Quote Details: Dick Brandon: Documentation is like sex:&#x2026; - The Quotations Page</a></li>
-<li><a href="#cacm-elephant">2. CACM - The Elephant in the Room</a></li>
-<li><a href="#ddia">3. Designing Data-Intensive Applications</a></li>
-<li><a href="#ddia-references">4. <span class="todo TODO">TODO</span> ddia-references</a></li>
-<li><a href="#emacs">5. GNU Emacs - GNU Project</a></li>
-<li><a href="#gae">6. App Engine Application Platform | Google Cloud</a></li>
-<li><a href="#gae-custom-quickstart">7. Quickstart: Create a custom runtime app in the App Engine flexible environment  |  Google App Engine flexible environment docs  |  Google Cloud</a></li>
-<li><a href="#gae-custom">8. About Custom runtimes | Google Cloud</a></li>
-<li><a href="#gae-flexible">9. Google App Engine flexible environment docs | Google Cloud</a></li>
-<li><a href="#gae-cloud-run">10. Cloud Run for App Engine customers | Google App Engine flexible environment docs | Google Cloud</a></li>
-<li><a href="#github_blog_pages">11. GitHub Pages | The GitHub Blog</a></li>
-<li><a href="#gnuartanis">12. GNU Artanis</a></li>
-<li><a href="#gnumanuals">13. GNU Manuals Online</a></li>
-<li><a href="#hands-on-reactor">14. Hands-On Reactive Programming with Reactor</a></li>
-<li><a href="#jamstack">15. For fast and secure sites | Jamstack</a></li>
-<li><a href="#nginx">16. Advanced Load Balancer, Web Server, &amp; Reverse Proxy - NGINX</a></li>
-<li><a href="#nginx-github">17. NGINX, Inc. · GitHub</a></li>
-<li><a href="#nginx-oss">18. nginx news</a></li>
-<li><a href="#with-editor-info">19. With-Editor Users Manual</a></li>
+<li><a href="#orgfe6f606">1. Containerized Execution</a></li>
+<li><a href="#org7cd7cd7">2. Details</a></li>
 </ul>
 </div>
 </div>
+<p>
+This site was originally looking to be running on top of <a href="sources.html#gnuartanis">GNU
+Artanis</a>. This was fairly quickly abandoned in favor of nginx as
+Artanis seems like to be overkill for what is likely to be more of a
+Web site than a Web application (this was predicted as mentioned
+below but was done sooner than expected). This information is therefore
+historical.
+</p>
 
-<div id="outline-container-brandon-quote" class="outline-2">
-<h2 id="brandon-quote"><span class="section-number-2">1.</span> <a href="http://www.quotationspage.com/quote/22731.html">Quote Details: Dick Brandon: Documentation is like sex:&#x2026; - The Quotations Page</a></h2>
-<div class="outline-text-2" id="text-brandon-quote">
+<p>
+This is largely a consequence of the approach to Information
+Collection, although the project may potentially align with some
+longer term goals. I'm more likely to ultimately land on a solution
+that is more closely aligned with a static Web site/<a href="sources.html#jamstack">Jamstack</a>, but I
+think I also want the site to have some basic support for concepts
+such as content negotiation which many static solutions don't lend
+themselves naturally to and therefore I'll probably ultimately move to
+something like nginx (which is also recommended in front of Artanis
+but I haven't navigated my way over there yet). I enjoy Scheme but am
+likely to gravitate more towards Python, I'll elaborate upon some of
+my larger thoughts around languages in an upcoming update.
+</p>
+
+<p>
+Relatively up-to-date information on Artanis seems to be provided on
+its <a href="sources.html#src-artanis_github">GitLab page</a> (including containerized execution which I'll be
+looking to build on top of). Artanis itself is built on top of <a href="sources.html#src-gnuguile">GNU
+Guile</a> which was installed but not detected on my system (it is
+potentially outdated), so I may also dig into that project though I'll
+likely start with seeing about containerized Artanis.
+</p>
+
+<div id="outline-container-orgfe6f606" class="outline-2">
+<h2 id="orgfe6f606"><span class="section-number-2">1.</span> Containerized Execution</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+I'll be looking to run Artanis in a container, and accordingly the
+initially desired development environment is also using containers to
+most closely align with the deployment (installing anything on my host
+is effectively more of a workflow optimization). There are <a href="sources.html#src-nalaginrut-artanis-docker">some
+instructions</a> provided for running Artanis in a container, but those
+instructions need to be tuned a bit. Most significantly the tag for
+the image is outdated and should instead be more of the form
+`registry.gitlab.com/hardenedlinux/artanis` to reflect the project
+being transferred. Updated guidance is provided with the <a href="sources.html#src-nalaginrut-artanis_0.5_docker">instructions
+for Artanis 0.5</a>. Beyond that there are a few adjustments for the
+sake of usability and reproducibility: the image should have an
+appropriate entrypoint so that it can be launched directly and an
+ostensibly immutable tag should be used (where the latter concern
+transcends the scope of the blog post). The entrypoint decision is
+somewhat a matter of preference or perspective where the instructions
+seem to be more oriented towards using the container to provide an
+interactive contained environment which takes care of dependencies
+whereas my preference would be more of a directly invokable utility
+container which is more targeted towards providing a service to the
+host (where the entrypoint can always be overridden if needed). I'll
+therefore likely create an image for local development which adjusts
+the entrypoint whereas I'd typically look to just use the upstream
+image for that purpose (along with expected tweaks to the command.
+There's also a decent chance the image could be slimmed down a bit if
+it's not expected to be interactive, but it doesn't seem <span class="underline">overly</span>
+large given the use case and so that feels like premature optimization
+for the time being (it seems unnecessarily large given the
+functionality for a deployment that is expected to scale but I
+presently have no reason to think this site fits that criterion).  The
+standard upstream image also seems to fall into a fairly common trap
+of using root rather than a less-privileged user. I think this is
+covered as part of Dockerfile best practices that I'll need to chase
+down. Another fairly general note is that the guidance on the post
+suggests using <a href="sources.html#src-docker-get">docker</a> but I'd probably gravitate towards an
+alternative like <code>nerdctl</code>. This is relatively insignificant as it can
+be abstracted by the Makefile but seems worth mentioning given the
+strong sentiment in the Artanis documentation and the GNU community as
+a whole towards free software against which the licensing for Docker
+Desktop <span class="underline">may</span> run afoul.
+</p>
 </div>
 </div>
-<div id="outline-container-cacm-elephant" class="outline-2">
-<h2 id="cacm-elephant"><span class="section-number-2">2.</span> <a href="https://cacm.acm.org/magazines/2023/2/268948-the-elephant-in-the-room/abstract">CACM - The Elephant in the Room</a></h2>
-<div class="outline-text-2" id="text-cacm-elephant">
-</div>
-</div>
-<div id="outline-container-ddia" class="outline-2">
-<h2 id="ddia"><span class="section-number-2">3.</span> Designing Data-Intensive Applications</h2>
-<div class="outline-text-2" id="text-ddia">
-</div>
-</div>
-<div id="outline-container-ddia-references" class="outline-2">
-<h2 id="ddia-references"><span class="section-number-2">4.</span> <span class="todo TODO">TODO</span> <a href="https://github.com/ept/ddia-references">ddia-references</a></h2>
-<div class="outline-text-2" id="text-ddia-references">
-</div>
-</div>
-<div id="outline-container-emacs" class="outline-2">
-<h2 id="emacs"><span class="section-number-2">5.</span> <a href="https://www.gnu.org/software/emacs/#Manuals">GNU Emacs - GNU Project</a></h2>
-<div class="outline-text-2" id="text-emacs">
-</div>
-</div>
-<div id="outline-container-gae" class="outline-2">
-<h2 id="gae"><span class="section-number-2">6.</span> <a href="https://cloud.google.com/appengine">App Engine Application Platform | Google Cloud</a></h2>
-<div class="outline-text-2" id="text-gae">
-</div>
-</div>
-<div id="outline-container-gae-custom-quickstart" class="outline-2">
-<h2 id="gae-custom-quickstart"><span class="section-number-2">7.</span> <a href="https://cloud.google.com/appengine/docs/flexible/custom-runtimes/create-app">Quickstart: Create a custom runtime app in the App Engine flexible environment  |  Google App Engine flexible environment docs  |  Google Cloud</a></h2>
-<div class="outline-text-2" id="text-gae-custom-quickstart">
-</div>
-</div>
-<div id="outline-container-gae-custom" class="outline-2">
-<h2 id="gae-custom"><span class="section-number-2">8.</span> <a href="https://cloud.google.com/appengine/docs/flexible/custom-runtimes/about-custom-runtimes">About Custom runtimes | Google Cloud</a></h2>
-<div class="outline-text-2" id="text-gae-custom">
-</div>
-</div>
-<div id="outline-container-gae-flexible" class="outline-2">
-<h2 id="gae-flexible"><span class="section-number-2">9.</span> <a href="https://cloud.google.com/appengine/docs/flexible">Google App Engine flexible environment docs | Google Cloud</a></h2>
-<div class="outline-text-2" id="text-gae-flexible">
-</div>
-</div>
-<div id="outline-container-gae-cloud-run" class="outline-2">
-<h2 id="gae-cloud-run"><span class="section-number-2">10.</span> <a href="https://cloud.google.com/appengine/docs/flexible/cloud-run-for-gae-customers">Cloud Run for App Engine customers | Google App Engine flexible environment docs | Google Cloud</a></h2>
-<div class="outline-text-2" id="text-gae-cloud-run">
-</div>
-</div>
-<div id="outline-container-github_blog_pages" class="outline-2">
-<h2 id="github_blog_pages"><span class="section-number-2">11.</span> <a href="https://github.blog/2008-12-18-github-pages">GitHub Pages | The GitHub Blog</a></h2>
-<div class="outline-text-2" id="text-github_blog_pages">
-</div>
-</div>
-<div id="outline-container-gnuartanis" class="outline-2">
-<h2 id="gnuartanis"><span class="section-number-2">12.</span> <a href="https://www.gnu.org/software/artanis">GNU Artanis</a></h2>
-<div class="outline-text-2" id="text-gnuartanis">
-</div>
-</div>
-<div id="outline-container-gnumanuals" class="outline-2">
-<h2 id="gnumanuals"><span class="section-number-2">13.</span> <a href="https://www.gnu.org/manual">GNU Manuals Online</a></h2>
-<div class="outline-text-2" id="text-gnumanuals">
-</div>
-</div>
-<div id="outline-container-hands-on-reactor" class="outline-2">
-<h2 id="hands-on-reactor"><span class="section-number-2">14.</span> Hands-On Reactive Programming with Reactor</h2>
-<div class="outline-text-2" id="text-hands-on-reactor">
-</div>
-</div>
-<div id="outline-container-jamstack" class="outline-2">
-<h2 id="jamstack"><span class="section-number-2">15.</span> <a href="https://jamstack.org/">For fast and secure sites | Jamstack</a></h2>
-<div class="outline-text-2" id="text-jamstack">
-</div>
-</div>
-<div id="outline-container-nginx" class="outline-2">
-<h2 id="nginx"><span class="section-number-2">16.</span> <a href="https://www.nginx.com/">Advanced Load Balancer, Web Server, &amp; Reverse Proxy - NGINX</a></h2>
-<div class="outline-text-2" id="text-nginx">
-</div>
-</div>
-<div id="outline-container-nginx-github" class="outline-2">
-<h2 id="nginx-github"><span class="section-number-2">17.</span> <a href="https://github.com/nginxinc/">NGINX, Inc. · GitHub</a></h2>
-<div class="outline-text-2" id="text-nginx-github">
-</div>
-</div>
-<div id="outline-container-nginx-oss" class="outline-2">
-<h2 id="nginx-oss"><span class="section-number-2">18.</span> <a href="https://nginx.org/">nginx news</a></h2>
-<div class="outline-text-2" id="text-nginx-oss">
-</div>
-</div>
-<div id="outline-container-with-editor-info" class="outline-2">
-<h2 id="with-editor-info"><span class="section-number-2">19.</span> <a href="with-editor.html#Top">With-Editor Users Manual</a></h2>
-<div class="outline-text-2" id="text-with-editor-info">
+
+<div id="outline-container-org7cd7cd7" class="outline-2">
+<h2 id="org7cd7cd7"><span class="section-number-2">2.</span> Details</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+My starting point is to use the provided image and access a locally
+running site&#x2026;unfortunately some of my quick tweaks didn't quite land
+so I'll need to quickly retrieve specifics from the <a href="sources.html#docker-reference">Docker reference
+documentation</a> since I typically can remember what options there are
+but not quite how they look. While I (as mentioned) am looking to move
+away from Docker it has good documentation and remains the de facto
+standard at the moment so starting with what is documented for Docker
+is certainly a safe point while pursuing what is currently
+Docker-compatible invocations.  To get the ball rolling I just fiddled
+with the command to get it to work, but I'll adjust them based on the
+<a href="sources.html#docker-run">docker run documentation</a> and replace the short options with the longer
+forms.
+</p>
 </div>
 </div>
 </div>

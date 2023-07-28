@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-07-28 Fri 07:02 -->
+<!-- 2023-07-28 Fri 15:16 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>My Emacs Configuration</title>
@@ -950,7 +950,15 @@ copied from a previous incarnation of my Emacs configuration.
 <pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
  (use-package org
-   :bind (:map org-mode-map
+   :bind
+   (:prefix "C-x C-o"
+    :prefix-map global-org-map
+    :prefix-docstring "Globally used org mode keys"
+    ("a" . org-agenda)
+    ("c" . org-capture)
+    ("C-&lt;SPC&gt;" . org-store-link))
+
+   (:map org-mode-map
    ("DEL" . org-delete-backward-char)
    ("TAB" . org-cycle)
    ("M-RET" . org-meta-return)
@@ -962,9 +970,11 @@ copied from a previous incarnation of my Emacs configuration.
    ("M-&lt;up&gt;" . org-metaup)
    ("C-a" . org-beginning-of-line)
    ("C-k" . org-kill-line)
-   ("C-c C-w" . org-refile)
-   ("C-c C-q" . org-set-tags-command)
-   ("C-c C-t" . org-todo)
+   ("C-c d" . org-deadline)
+   ("C-c q" . org-set-tags-command)
+   ("C-c s" . org-schedule)
+   ("C-c t" . org-todo)
+   ("C-c w" . org-refile)
    ("C-x RET" . org-open-at-point)
    ("C-M-_" . org-cycle)))
 </pre>
@@ -1927,7 +1937,7 @@ on my Sway installation.
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2023-07-28 Fri 07:02</p>
+<p class="date">Created: 2023-07-28 Fri 15:16</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
