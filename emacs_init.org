@@ -227,6 +227,7 @@ commands in general.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (bind-keys :map global-map
+	     ("C-q" . quoted-insert)
 	     ("RET" . newline)
 	     ("C-j" . electric-newline-and-maybe-indent)
 	     ("TAB" . indent-for-tab-command)
@@ -243,6 +244,7 @@ commands in general.
 	     ;; Chrome OS support
 	     ("<deletechar>" . backward-kill-word)
 	     ("C-d" .  delete-char)
+	     ("C-w" . kill-region)
 	     ("M-d" . kill-word)
 	     ("C-k" . kill-line)
 	     ("M-\\" . delete-horizontal-space)
@@ -295,6 +297,7 @@ commands in general.
 
   (bind-keys :map global-map
 	     ("C-y" . yank)
+	     ("M-y" . yank-pop)
 	     ("M-w" . kill-ring-save))
 #+END_SRC
 
@@ -308,6 +311,7 @@ knowledge of syntactical elements.
 #+BEGIN_SRC emacs-lisp :tangle init.el
 
   (bind-keys :map global-map
+	     ("M-u" . upcase-word)
 	     ("M-;" . comment-dwim))
 
 #+END_SRC
@@ -346,13 +350,14 @@ knowledge of syntactical elements.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
 
-    (bind-keys :prefix "C-x C-z"
-	       :prefix-map dispatch-map
-	       ("a" . org-agenda)
-	       ("g" . gnus)
-	       ("m" . gnus-summary-mail-other-window)
-	       ("s" . shell)
-	       ("w" . eww))
+  (bind-keys :prefix "C-x C-z"
+	     :prefix-map dispatch-map
+	     ("a" . org-agenda)
+	     ("g" . gnus)
+	     ("m" . gnus-summary-mail-other-window)
+	     ("s" . shell)
+	     ("v" . view-mode)
+	     ("w" . eww))
 
 #+END_SRC
 
@@ -398,17 +403,18 @@ are forced using `bind-keys*` to stick them in the override map.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
 
-    (bind-keys :prefix "C-h"
-	       :prefix-map help-map
-	       :prefix-docstring "Help me!"
-	       ("b" . describe-bindings)
-	       ("f" . describe-function)
-	       ("i" . info)
-	       ("k" . describe-key)
-	       ("l" . view-lossage)
-	       ("m" . describe-mode)
-	       ("v" . describe-variable)
-	       ("w" . where-is))
+  (bind-keys :prefix "C-h"
+	     :prefix-map help-map
+	     :prefix-docstring "Help me!"
+	     ("b" . describe-bindings)
+	     ("f" . describe-function)
+	     ("i" . info)
+	     ("k" . describe-key)
+	     ("l" . view-lossage)
+	     ("m" . describe-mode)
+	     ("p" . describe-package)
+	     ("v" . describe-variable)
+	     ("w" . where-is))
 
 #+END_SRC
 
@@ -1173,10 +1179,9 @@ again - this like many others reflect inherited previous configuration options.
 
 ** Configure EWW
 
-On Linux I may explore whatever the fancier new browser integration is
-but for now I'll be using EWW since that feature is currently Linux
-only and isn't working particularly well as configured on my Sway
-installation.
+On Linux I may explore EAF but for now I'll be using EWW since EAF is
+currently Linux only and isn't working particularly well as configured
+on my Sway installation.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
 

@@ -1,5 +1,9 @@
 #+TITLE: Sources
 
+** [[http://www.quotationspage.com/quote/22731.html][Quote Details: Dick Brandon: Documentation is like sex:... - The Quotations Page]]
+:PROPERTIES:
+:CUSTOM_ID: brandon-quote
+:END:
 ** [[https://cacm.acm.org/magazines/2023/2/268948-the-elephant-in-the-room/abstract][CACM - The Elephant in the Room]]
 :PROPERTIES:
 :CUSTOM_ID: cacm-elephant

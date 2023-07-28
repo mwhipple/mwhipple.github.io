@@ -1,0 +1,82 @@
+#+TITLE: Artanis
+
+** Artanis (Old)
+
+This site was going to look to be running on top of [[file:sources.org::#gnuartanis][GNU
+Artanis]]. This is largely a consequence of the approach to
+Information Collection, although the project may potentially align
+with some longer term goals. I'm more likely to ultimately land on a
+solution that is more closely aligned with a static Web site/JAM
+stack, but I think I also want the site to have some basic support for
+concepts such as content negotiation which many static solutions don't
+lend themselves naturally to and therefore I'll probably ultimately
+move to something like nginx (which is also recommended in front of
+Artanis but I haven't navigated my way over there yet). I enjoy Scheme
+but am likely to gravitate more towards Python, I'll elaborate upon
+some of my larger thoughts around languages in an upcoming update.
+
+Relatively up-to-date information on Artanis seems to be provided on
+its [[file:sources.org::#src-artanis_github][GitLab page]] (including containerized execution which I'll be
+looking to build on top of). Artanis itself is built on top of [[file:sources.org::#src-gnuguile][GNU
+Guile]] which was installed but not detected on my system (it is
+potentially outdated), so I may also dig into that project though I'll
+likely start with seeing about containerized Artanis.
+
+*** Containerized Execution
+
+I'll be looking to run Artanis in a container, and accordingly the
+initially desired development environment is also using containers to
+most closely align with the deployment (installing anything on my host
+is effectively more of a workflow optimization). There are [[file:sources.org::#src-nalaginrut-artanis-docker][some
+instructions]] provided for running Artanis in a container, but those
+instructions need to be tuned a bit. Most significantly the tag for
+the image is outdated and should instead be more of the form
+`registry.gitlab.com/hardenedlinux/artanis` to reflect the project
+being transferred. Updated guidance is provided with the [[file:sources.org::#src-nalaginrut-artanis_0.5_docker][instructions
+for Artanis 0.5]]. Beyond that there are a few adjustments for the
+sake of usability and reproducibility: the image should have an
+appropriate entrypoint so that it can be launched directly and an
+ostensibly immutable tag should be used (where the latter concern
+transcends the scope of the blog post). The entrypoint decision is
+somewhat a matter of preference or perspective where the instructions
+seem to be more oriented towards using the container to provide an
+interactive contained environment which takes care of dependencies
+whereas my preference would be more of a directly invokable utility
+container which is more targeted towards providing a service to the
+host (where the entrypoint can always be overridden if needed). I'll
+therefore likely create an image for local development which adjusts
+the entrypoint whereas I'd typically look to just use the upstream
+image for that purpose (along with expected tweaks to the command.
+There's also a decent chance the image could be slimmed down a bit if
+it's not expected to be interactive, but it doesn't seem _overly_
+large given the use case and so that feels like premature optimization
+for the time being (it seems unnecessarily large given the
+functionality for a deployment that is expected to scale but I
+presently have no reason to think this site fits that criterion).  The
+standard upstream image also seems to fall into a fairly common trap
+of using root rather than a less-privileged user. I think this is
+covered as part of Dockerfile best practices that I'll need to chase
+down. Another fairly general note is that the guidance on the post
+suggests using [[file:sources.org::#src-docker-get][docker]] but I'd probably gravitate towards an
+alternative like ~nerdctl~. This is relatively insignificant as it can
+be abstracted by the Makefile but seems worth mentioning given the
+strong sentiment in the Artanis documentation and the GNU community as
+a whole towards free software against which the licensing for Docker
+Desktop _may_ run afoul.
+
+*** Details
+
+My starting point is to use the provided image and access a locally
+running site...unfortunately some of my quick tweaks didn't quite land
+so I'll need to quickly retrieve specifics from the [[file:sources.org::#docker-reference][Docker reference
+documentation]] since I typically can remember what options there are
+but not quite how they look. While I (as mentioned) am looking to move
+away from Docker it has good documentation and remains the de facto
+standard at the moment so starting with what is documented for Docker
+is certainly a safe point while pursuing what is currently
+Docker-compatible invocations.  To get the ball rolling I just fiddled
+with the command to get it to work, but I'll adjust them based on the
+[[file:sources.org::#docker-run][docker run documentation]] and replace the short options with the longer
+forms.
+
+#  LocalWords:  DOTy GAE
