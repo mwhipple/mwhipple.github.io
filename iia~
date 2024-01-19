@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+declare -r iia_me="${0}"
+
+mw::insert_if_absent() {
+	local -r file=${1}
+	local -r str=${2}
+	[[ -n $(echo "${str}" | mw::select_significant_lines) ]] || return 0
+	mw::guarantee_file "${file}"
+	local -r lines=$(cat ${file} | mw::select_significant_lines)
+	mw::guarantee_setfulness "${lines}"
+	! mw::lineset_contains_line "${lines}" "${str}" || return 0
+	{ echo -e "${lines}\n${str}" > "${file}.bak" && mv "${file}.bak" "${file}"; } \
+		|| die "insert_if_absent ${file} ${str}: failed"
+}
+
+mw::select_significant_lines() {
+	sed '/^#/d; /^$/d' "${@}"
+}
+
+mw::guarantee_file() {
+	[[ -r "${1}" ]] || touch "${1}"
+	[[ -r "${1}" ]] || mw::die "Error: failed to read ignore file: ${1}"
+}
+
+mw::guarantee_setfulness() {
+	local -r dupes=$(echo "${1}" | sort | uniq -d)
+	[[ -z "${dupes}" ]] || mw::die "Error: duplicate entries in file: ", ${dupes}
+}
+
+mw::lineset_contains_line() {
+	[[ $(echo "${1}" | wc -l) != $(echo -e "${1}\n${2}" | sort -u | wc -l) ]]
+}
+
+mw::die() {
+	mw::warn "${@}"
+	exit 1
+}
+
+mw::warn() {
+	case ${IFS} in
+		' '*) mw::warnf_ '%s\n' "${*}";;
+		*)  (IFS=' '; mw::warn "${@}");;
+	esac
+}
+
+mw::warnf_() {
+	local -r warnf_format=${1}
+	shift
+	local -r nl='
+'
+	case "${*}" in
+		*${nl}*) local -r me_$(printf "${iia_me}" | tr "${nl}|" '??')
+			printf "${warnf_format}" "${@}" | sed "s^|${me_}: |" ;;
+		*) printf "${iia_me}: ${warnf_format}" "${@}" ;;
+	esac >&2
+}
+
+mw::insert_if_absent "${@}"

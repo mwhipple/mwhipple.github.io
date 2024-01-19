@@ -1,0 +1,44 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /home/mwhipple/Documents/mweb/demystifying_processes_and_processors.org
+
+
+* A Process is Acted Upon
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-06-18 Sun 05:27
+:ARCHIVE_FILE: ~/Documents/mweb/demystifying_processes_and_processors.org
+:ARCHIVE_CATEGORY: demystifying_processes_and_processors
+:END:
+
+A process is essentially dormant - it is an instance of executing a
+stored program which amounts to a struct that points to the relevant
+memory addresses. It is _not_ something that has a life of its own.
+On the lowest level the processor itself is what activates your
+process as it performs the operations of the program and advances the
+address of the instruction pointer. This distinction may seem nebulous
+but even in the case where the process is directly loaded onto a
+processor it can be useful in understanding how other pieces of the
+puzzle fit together. For many years I silently wondered how processes
+could do nothing - what were my programs doing when they were waiting
+for something to happen but not spinlocking? The perspective that
+process are actively in control leads to some anthropomorphizing 
+
+
+* Context/Assumptions
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-06-18 Sun 05:27
+:ARCHIVE_FILE: ~/Documents/mweb/demystifying_processes_and_processors.org
+:ARCHIVE_CATEGORY: demystifying_processes_and_processors
+:END:
+
+First it is worth framing some of the assertions that will be
+made. This will be written with the assumption that the system
+involved is one which provides preemptive multitasking with a
+scheduler which is furnished by a well designed delineation between
+kernel-space and user-space which protects such preemption. I will be
+drawing largely from some familiarity with how Linux handles this
+concern and while I'm sure there are some variations on some other
+platforms (particularly with different multi-tasking models) I _believe_
+most tend to follow a similar model.
+

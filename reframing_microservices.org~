@@ -1,0 +1,64 @@
+#+TITLE: Reframing Microservices
+
+Microservice architectures (MSAs) are a widely pursued
+buzzword. Although most of the guidance seems to be "try anything else
+first", many organizations eagerly dive in the hopes that MSAs
+offer some kind of solution in terms of scale, or cost, or
+organizational friction. Any of these ideas are valid...with a few
+pages worth of criteria.
+
+** Popping Some Bubbles
+
+In terms of both scale and cost some of the major considerations are
+in terms of higher initial overhead and the Pareto Principle.  MSAs
+out of the gate have higher costs (in all forms) and likely lower
+performance due to more expensive communication across nodes which has
+adverse impacts on being able to scale cost effectively. The Pareto
+Principle is likely the more significant consideration as the
+assertion that the ability to scale pieces of your infrastructure
+independently is undermined by the notion that there are likely to be
+relatively few hot spots. This counterargument is furthered by the
+notion that latency sensitive apps also have bursty traffic patterns
+and therefore a cluster of those hot spots is likely to have
+sufficient spare cycles at any given time to handle the ~20% of lower
+volume traffic. This mirrors some of the benefits espoused by
+co-locating containers which are often wrapped in misconceptions around
+how such work will be isolated and resources will be shared - while
+attention should be paid to concerns such as process scheduling such
+behavior can be configured at the level of the OS (which is where it
+is handled in containers) or the relevant VM. In terms of
+organizational structure, MSAs can be a useful _tool_ but are not a
+solution. A naive adoption of microservices will not deliver the
+desired autonomy and agility but simply obscure the inherited friction
+and the overall system is likely to amount to a "distributed
+monolith".  Conway's Law can be a useful guiding framework for these
+types of decisions but too often it seems to be given lip service
+without deeper inspection with the idea that independent teams will
+somehow bestow independence on the systems that they own, rather than
+the two needing to be defined together; tactics like the Reverse
+Conway Maneuver should be driven by data and design rather than
+optimism otherwise any existing drag will simply be amplified as it
+passes through both systems and people. This manifests in both
+development time (coordinating on what to build) and runtime (tracking
+the successful delivery of value to users).  There are clear benefits
+_iff_ there is independence which microservices can help
+reinforce but not enable.
+
+Another quick and hopefully obvious concern to track is around
+simplicity. The cognitive overhead of designing and operating
+microservices tends to be notably higher. There can be benefits in
+constraining the amount of logic and concepts present in a given
+context, but the benefits of such chunking does not naturally
+translate to distributing the systems themselves.
+
+** A Saner Perspective
+
+One of the main contributing factors to the prospect of Microservices
+is the simple feasibility of the approach. Launching an arbitrary
+number of instances of free open source software does not raise
+licensing costs, and many of the concerns around orchestrating and
+running such an architecture have been worked out at this
+point. Unfortunately the initial adoption of Microservices seems to
+have jumped
+
+#  LocalWords:  MSAs VM

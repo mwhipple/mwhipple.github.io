@@ -1,0 +1,139 @@
+;; -*- mode: emacs-lisp; lexical-binding:t; coding: utf-8-emacs; -*-
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Mon Sep 18 09:58:35 2023
+;; Desktop file format version 208
+;; Emacs version 30.0.50
+
+;; Global section:
+(setq desktop-saved-frameset [frameset 1 (25864 22411 938705 306000) (desktop . "208") "mwhipple@godel" nil nil ((((minibuffer . t) (undecorated) (override-redirect) (font . "-SRC-Hack-regular-normal-normal-*-14-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 0) (child-frame-border-width) (right-divider-width . 0) (bottom-divider-width . 0) (vertical-scroll-bars . right) (horizontal-scroll-bars) (foreground-color . "white") (background-color . "black") (mouse-color . "black") (border-color . "black") (screen-gamma) (line-spacing) (left-fringe . 8) (right-fringe . 8) (no-special-glyphs) (scroll-bar-foreground) (scroll-bar-background) (menu-bar-lines . 0) (tab-bar-lines . 0) (tool-bar-lines . 0) (title) (wait-for-wm . t) (tool-bar-position . top) (inhibit-double-buffering) (icon-type . t) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 16) (scroll-bar-height . 16) (alpha) (alpha-background) (no-focus-on-map) (no-accept-focus) (fullscreen . maximized) (visibility . t) (use-frame-synchronization) (skip-taskbar) (z-group) (display-type . color) (background-mode . dark) (cursor-color . "white") (font-parameter) (sticky) (shaded) (environment) (last-focus-update . t) (dnd-root-window-position) (frameset--id . "C10B-76DD-A82E-3C4D") (frameset--mini t . t) (height . 61) (width . 211) (modeline . t) (unsplittable) (left . 2) (top . 25) (icon-name) (display . ":0") (explicit-name)) ((min-height . 4) (min-width . 10) (min-height-ignore . 2) (min-width-ignore . 6) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 68) (min-pixel-width . 80) (min-pixel-height-ignore . 34) (min-pixel-width-ignore . 48) (min-pixel-height-safe . 17) (min-pixel-width-safe . 16)) leaf (pixel-width . 1724) (pixel-height . 1036) (total-width . 216) (total-height . 61) (normal-height . 1.0) (normal-width . 1.0) (buffer "emacs_init.org" (selected . t) (hscroll . 0) (fringes 8 8 nil nil) (margins nil) (scroll-bars nil 2 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 10798) (start . 10551)) (prev-buffers ("emacs_init.org" 10551 10798) ("ChangeLog" 1480 1480) ("am.c" 2359 2359) ("expf128-inputs" 25059 25059) ("*info*" 289978 290061) ("ledger.1" 1033 1033) ("output.1" 2026 2026) ("core_mcpcia.c" 455 455) ("*Messages*" 1 860) ("*Org Agenda*" 1 1) ("main.org" 1 7168) ("lsp-idris.el" 672 672))))])
+(setq desktop-missing-file-warning nil)
+(setq tags-file-name nil)
+(setq tags-table-list nil)
+(setq search-ring '(#("scroll-le" 0 9 (isearch-case-fold-search t isearch-regexp-function nil)) #("Wealth" 0 6 (isearch-case-fold-search nil isearch-regexp-function nil)) #("map" 0 3 (isearch-case-fold-search t isearch-regexp-function nil)) #("narrow" 0 6 (isearch-case-fold-search t isearch-regexp-function nil)) #("Narr" 0 4 (isearch-case-fold-search nil isearch-regexp-function nil)) #("scroll" 0 6 (isearch-case-fold-search t isearch-regexp-function nil)) #("imap" 0 4 (isearch-case-fold-search t isearch-regexp-function nil)) #("Horiz" 0 5 (isearch-case-fold-search nil isearch-regexp-function #[513 "\300\301\302\300\303\304\300\305\306\307!###\207" [replace-regexp-in-string "\"" "[\"“”]" "'" "['’]" "`" "[`‘]" regexp-quote] 13 "\n\n(fn STRING &optional LAX)"]))))
+(setq regexp-search-ring nil)
+(setq register-alist nil)
+(setq file-name-history '("~/Documents/mweb/" #("/sudo:root@godel:/etc/portage/make.conf" 6 10 (tramp-default t) 11 16 (tramp-default t)) "~/Documents/lsp-mode/clients/lsp-idris.el" "~/Documents/linux/arch/alpha/kernel/core_mcpcia.c" "~/Documents/lilypond/autom4te.cache/output.1" "~/Documents/ledger/doc/ledger.1" "~/Documents/glibc/benchtests/expf128-inputs" "~/Documents/git/builtin/am.c" "~/Documents/gcc/ChangeLog" "~/Documents/pod/fin.ledger" "~/Documents/pod/camping.org" "~/" "~/Documents/mweb/emacs_init.org" "~/Documents/etc/init.el" "~/Documents/mweb/init.el" "~/Documents/com-mattwhipple-www/"))
+
+;; Buffer section -- buffers listed in same order as in buffer list:
+(desktop-create-buffer 208
+  "/home/mwhipple/Documents/mweb/emacs_init.org"
+  "emacs_init.org"
+  'org-mode
+  '(font-lock-mode)
+  10798
+  '(11549 nil)
+  nil
+  nil
+  '((buffer-display-time 25864 22410 957827 607000) (buffer-file-coding-system . undecided-unix) (truncate-lines . t))
+  '((mark-ring (11537 11381 10859 10828 10834 10798 1))))
+
+(desktop-create-buffer 208
+  nil
+  "*info*"
+  'Info-mode
+  '(font-lock-mode isearch-fold-quotes-mode)
+  290061
+  '(3718 nil)
+  t
+  '("/usr/share/info/emacs-28/emacs" "Colors" ((history ("/usr/share/info/emacs-28/emacs" "Faces" 289698) ("/usr/share/info/emacs-28/emacs" "Follow Mode" 287248) ("/usr/share/info/emacs-28/emacs" "View Mode" 286512) ("/usr/share/info/emacs-28/emacs" "Follow Mode" 286597) ("/usr/share/info/emacs-28/emacs" "View Mode" 286338) ("/usr/share/info/emacs-28/emacs" "Narrowing" 285649) ("/usr/share/info/emacs-28/emacs" "Horizontal Scrolling" 283192) ("/usr/share/info/emacs-28/emacs" "Top" 12533) ("dir" "Top" 756) ("*History*" "Top" 107) ("dir" "Top" 227))))
+  '((tab-width . 8) (buffer-display-time 25864 22399 703315 733000) (buffer-file-coding-system . utf-8-unix) (case-fold-search . t))
+  '((mark-ring (1))))
+
+(desktop-create-buffer 208
+  "/home/mwhipple/Documents/pod/main.org"
+  "main.org"
+  'org-mode
+  '(font-lock-mode)
+  7168
+  '(7227 nil)
+  nil
+  nil
+  '((buffer-display-time 25863 33879 490019 319000) (buffer-file-coding-system . utf-8-unix) (truncate-lines . t))
+  '((mark-ring (15780 15707 15695 15628 15616 15543 15531 15462 15165 15110 12718 12155 12088 12076 12013 12001))))
+
+(desktop-create-buffer 208
+  "/home/mwhipple/Documents/lsp-mode/clients/lsp-idris.el"
+  "lsp-idris.el"
+  'emacs-lisp-mode
+  '(font-lock-mode eldoc-mode dash-fontify-mode hs-minor-mode)
+  672
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-display-time 25863 33874 134679 134000) (buffer-file-coding-system . prefer-utf-8-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/mwhipple/Documents/linux/arch/alpha/kernel/core_mcpcia.c"
+  "core_mcpcia.c"
+  'c-mode
+  '(font-lock-mode hs-minor-mode)
+  455
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time 25864 22387 669914 99000) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/mwhipple/Documents/lilypond/autom4te.cache/output.1"
+  "output.1"
+  'nroff-mode
+  '(font-lock-mode)
+  2026
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-display-time 25864 22388 325372 783000) (buffer-file-coding-system . undecided-unix) (fill-column . 80))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/mwhipple/Documents/ledger/doc/ledger.1"
+  "ledger.1"
+  'nroff-mode
+  '(font-lock-mode)
+  1033
+  '(nil nil)
+  nil
+  nil
+  '((tab-width . 2) (buffer-display-time 25864 22388 785568 802000) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/mwhipple/Documents/glibc/benchtests/expf128-inputs"
+  "expf128-inputs"
+  'fundamental-mode
+  '(font-lock-mode)
+  25059
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time 25864 22402 758961 282000) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/mwhipple/Documents/git/builtin/am.c"
+  "am.c"
+  'c-mode
+  '(font-lock-mode hs-minor-mode)
+  2359
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time 25864 22403 147916 264000) (buffer-file-coding-system . undecided-unix))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/mwhipple/Documents/gcc/ChangeLog"
+  "ChangeLog"
+  'change-log-mode
+  '(font-lock-mode)
+  1480
+  '(1 nil)
+  nil
+  nil
+  '((show-trailing-whitespace . t) (tab-width . 8) (indent-tabs-mode . t) (buffer-display-time 25864 22403 344186 124000) (buffer-file-coding-system . utf-8-unix) (fill-column . 76))
+  '((mark-ring nil)))
+

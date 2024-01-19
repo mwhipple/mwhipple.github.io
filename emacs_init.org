@@ -86,6 +86,12 @@ This is required for EAF stuff and seems generally useful.
     (warn "Emacs does not have JSON support!"))
 #+END_SRC
 
+** Configure Startup
+
+#+BEGIN_SRC elisp :tangle init.el
+(setq inhibit-startup-screen t)
+#+END_SRC
+
 ** Configure Package Management
 
 I'm currently ideally being cautious about pulling in packages due to
@@ -213,13 +219,16 @@ favor of something simpler like ~define-keymap~ as I build out my Emacs knowledg
 ** Bind Some Low-Level Commands
 
 Define some functions that seem relatively fundamental to dealing with
-commands in general.
+commands and emacs in general.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (bind-keys :map global-map
 	     ("C-g" . keyboard-quit)
 	     ("M-x" . execute-extended-command)
-	     ("M-:" . eval-expression))
+	     ("M-:" . eval-expression)
+	     ("C-x C-c" . save-buffers-kill-terminal)
+	     ("C-z" . suspend-frame))
+  (setq read-extended-command-predicate nil)
 #+END_SRC
 
 ** Provide Some Basic Editing
@@ -228,27 +237,47 @@ commands in general.
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (bind-keys :map global-map
 	     ("C-q" . quoted-insert)
+	     ("C-x 8 <RET>" . insert-char)
 	     ("RET" . newline)
 	     ("C-j" . electric-newline-and-maybe-indent)
 	     ("TAB" . indent-for-tab-command)
 	     ("C-o" . open-line))
 #+END_SRC
 
+**** Enable Insertion Using Hex Codes
+
+I don't use this much, but since I'm on a modern system rather than a
+DEC or whatever popularized octal I want to use hex when I do.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (setq read-quoted-char-radix 16)
+#+END_SRC
+ 
 *** Remove Content
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
 
   (bind-keys :map global-map
 	     ("DEL"  . backward-delete-char-untabify)
-	     ("M-DEL" . backward-kill-word)
+	     ("M-<DEL>" . backward-kill-word)
 	     ;; Chrome OS support
 	     ("<deletechar>" . backward-kill-word)
+	     ("C-x <DEL>" . backward-kill-sentence)
+	     ("M-k" . kill-sentence)
 	     ("C-d" .  delete-char)
 	     ("C-w" . kill-region)
 	     ("M-d" . kill-word)
 	     ("C-k" . kill-line)
-	     ("M-\\" . delete-horizontal-space)
+	     ("C-M-k" . kill-sexp)
+	     ("C-S-<backspace>" . kill-whole-line)
+	     ("M-^" . delete-indentation)
+	     ("M-\\" . cycle-spacing)
+	     ;; This needs a new binding.
+	     ("C-x C-o" . delete-blank-lines)
 	     ("M-z" . zap-up-to-char))
+  (setq kill-whole-line nil)
+  ;; Preserve dupes for yanking.
+  (setq kill-do-not-save-duplicates nil)
 
 #+END_SRC
 
@@ -258,13 +287,22 @@ commands in general.
 
   (bind-keys :map global-map
 	     ("C-f" . forward-char)
+	     ("<RIGHT>" . right-char)
 	     ("C-b" . backward-char)
+	     ("<LEFT>" . left-char)
 	     ("C-n" . next-line)
+	     ("<DOWN>" . next-line)
 	     ("C-p" . previous-line)
-	     ("C-e" . move-end-of-line)
+	     ("<UP>" . previous-line)
 	     ("C-a" . move-beginning-of-line)
+	     ("<Home>" . move-beginning-of-line)
+	     ("C-e" . move-end-of-line)
+	     ("<End>" . move-end-of-line)
 	     ("M-f" . forward-word)
+	     ("M-<RIGHT>" . right-word)
 	     ("M-b" . backward-word)
+	     ("M-<LEFT>" . left-word)
+	     ("M-r" . move-to-window-line-top-bottom)
 	     ("M-n" . forward-list)
 	     ("M-p" . backward-list)
 	     ("M->" . end-of-buffer)
@@ -272,7 +310,26 @@ commands in general.
 	     ("M-}" . forward-paragraph)
 	     ("M-{" . backward-paragraph)
 	     ("C-v" . scroll-up-command)
-	     ("M-v" . scroll-down-command))
+	     ("<PageDown>" . scroll-up-command)
+	     ("M-v" . scroll-down-command)
+	     ("<PageUp>" . scroll-down-command)
+	     ("M-g c" . goto-char)
+	     ("M-g <TAB>" . move-to-column)
+	     ("M-g g" . goto-line)
+	     ("C-x C-n" . set-goal-column)
+	     ("C-x <" . scroll-left)
+	     ("C-x >" . scroll-right))
+
+#+END_SRC
+
+** Display Information About Buffer Contents
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+
+  (bind-keys :map global-map
+	     ("M-=" . count-words-region)
+	     ("C-x = " . what-cursor-position))
+  (setq what-cursor-show-names t)
 
 #+END_SRC
 
@@ -280,25 +337,70 @@ commands in general.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (bind-keys :map global-map
-	     ("C-l" . recenter-top-bottom))
+	     ("C-l" . recenter-top-bottom)
+	     ("C-M-l" .reposition-window)
+	     ("C-M-S-l" . recenter-other-window))
 #+END_SRC
 
-** Play With Mark
+** Narrowing
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (bind-keys :prefix "C-x n"
+	     :prefix-map narrow-map
+	     ("d" . narrow-to-defun)
+	     ("n" . narrow-to-region)
+	     ("p" . narrow-to-page)
+	     ("w" . widen))
+#+END_SRC
+
+** Play With Mark and the Region
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (bind-keys :map global-map
 	     ("C-SPC" . set-mark-command)
-	     ("C-x h" . mark-whole-buffer))
+	     ("C-@" . set-mark-command)
+	     ("M-@" . mark-word)
+	     ("M-h" . mark-paragraph)
+	     ("C-M-h" . mark-defun)
+	     ("C-M-@" . mark-sexp)
+	     ("C-x C-p" . mark-page)
+	     ("C-x h" . mark-whole-buffer)
+	     ("C-x C-<SPC>" . pop-global-mark)
+	     ("C-x C-x" . exchange-point-and-mark))
+
+  (setq highlight-nonselected-windows nil)
 #+END_SRC
 
-** Work with Kill Ring
+** Work with Kill Ring and History
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
 
   (bind-keys :map global-map
+	     ("C-/" . undo)
+	     ("C-_" . undo)
 	     ("C-y" . yank)
 	     ("M-y" . yank-pop)
+	     ("C-M-w" . append-next-kill)
 	     ("M-w" . kill-ring-save))
+#+END_SRC
+
+** Work With Rectangles
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (bind-keys :prefix "C-x C-r"
+	     :prefix-map rectangle-map
+	     ("c" . clear-rectangle)
+	     ("d" . delete-rectangle)
+	     ("k" . kill-rectangle)
+	     ("i" . string-insert-rectangle)
+	     ("m" . rectangle-mark-mode)
+	     ("N" . rectangle-number-lines)
+	     ("o" . open-rectangle)
+	     ("r" . copy-rectangle-to-register)
+	     ("t" . string-rectangle)
+	     ("y" . yank-rectangle)
+	     ("\\" . delete-whitespace-rectangle)
+	     ("M-w" . copy-rectangle-as-kill))
 #+END_SRC
 
 ** Provide Some Contextual Editing
@@ -335,7 +437,18 @@ knowledge of syntactical elements.
 	     ("C-r" . isearch-backward)
 	     ("M-%" . query-replace)
 	     ("M-." . xref-find-definitions))
+  (setq isearch-resume-in-command-history t)
+#+END_SRC
 
+** Repeat Commands
+
+and maybe some macro/automation later...
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+
+  (bind-keys :map global-map
+	     ("C-x z" . repeat)
+	     ("C-x <ESC> <ESC>" . repeat-complex-command))
 #+END_SRC
 
 ** Support Some Inter-Process Communication
@@ -403,31 +516,84 @@ are forced using `bind-keys*` to stick them in the override map.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
 
-  (bind-keys :prefix "C-h"
-	     :prefix-map help-map
-	     :prefix-docstring "Help me!"
-	     ("b" . describe-bindings)
-	     ("f" . describe-function)
-	     ("i" . info)
-	     ("k" . describe-key)
-	     ("l" . view-lossage)
-	     ("m" . describe-mode)
-	     ("p" . describe-package)
-	     ("v" . describe-variable)
-	     ("w" . where-is))
+	      (bind-keys :prefix "C-h"
+			 :prefix-map help-map
+			 :prefix-docstring "Help me!"
+			 ("a" . apropos-command)
+			 ("b" . describe-bindings)
+			 ("c" . describe-key-briefly)
+			 ("C" . describe-coding-system)
+			 ("d" . apropos-documentation)
+			 ("e" . view-echo-area-messages)
+			 ("f" . describe-function)
+			 ("F" . Info-goto-emacs-command-node)
+			 ("g" . describe-gnu-project)
+			 ("h" . help-for-help)
+			 ("H" . view-hello-file)
+			 ("i" . info)
+			 ("I" . describe-input-method)
+			 ("k" . describe-key)
+			 ("K" . Info-goto-emacs-key-ommand-node)
+			 ("l" . view-lossage)
+			 ("L" . describe-language-environment)
+			 ("m" . describe-mode)
+			 ("n" . view-emacs-news)
+			 ("o" . describe-symbol)
+			 ("p" . finder-by-keyword)
+			 ("P" . describe-package)
+			 ("r" . info-emacs-manual)
+			 ("s" . describe-syntax)
+			 ("S" . Info-lookup-symbol)
+			 ("t" . help-with-tutorial)
+			 ("v" . describe-variable)
+			 ("w" . where-is)
+			 ("x" . describe-command)
+			 ("." . display-local-help)
+			 ("C-c" . describe-copying)
+			 ("C-d" . view-emacs-debugging)
+			 ("C-e" . view-external-packages)
+			 ("C-f" . view-emacs-FAQ)
+			 ("C-m" . view-order-manuals)
+			 ("C-n" . view-emacs-news)
+			 ("C-o" . describe-distribution)
+			 ("C-p" . view-emacs-problems)
+			 ("C-t" . view-emacs-todo)
+			 ("C-w" . describe-no-warranty))
+
+	      (bind-keys :map help-mode-map
+			 ("<RET>" . help-follow)
+			 ("<TAB>" . forward-button)
+			 ("S-<TAB>" . backward-button)
+			 ("C-c C-c" . help-follow-symbol)
+			 ("C-c C-f" . help-go-forward)
+			 ("C-c C-b" . help-go-back)
+			 ("s" . help-view-source)
+			 ("r" . help-goto-info)
+			 ("c" . help-customize))
 
 #+END_SRC
 
-** Bookmark Management
+** Bookmark and Register Management
 
 Bookmarks are a feature I'm not actively using at the moment but this
 configuration has been carried forward from previous configuration.
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
 
-  (bind-keys :prefix "C-x C-r"
+  (bind-keys :prefix "C-x C-b"
 	     :prefix-map bookmark-map
-	     ("m" . bookmark-set))
+	     ("b" . bookmark-jump)
+	     ("f" . frameset-to-register)
+	     ("i" . insert-register)
+	     ("j" . jump-to-register)
+	     ("l" . list-bookmarks)
+	     ("m" . bookmark-set)
+	     ("M" . bookmark-set-no-overwrite)
+	     ("n" . number-to-register)
+	     ("s" . copy-to-register)
+	     ("w" . window-configuration-to-register)
+	     ("+" . increment-register)
+	     ("<SPC>" . point-to-register))
   (setq bookmark-save-flag 1)
 
 #+END_SRC
@@ -435,11 +601,37 @@ configuration has been carried forward from previous configuration.
 ** Define Some Minibuffer Bindings
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  (bind-keys :map minibuffer-mode-map
-	     ("TAB" . minibuffer-complete)
-	     ("RET" . exit-minibuffer)
-	     ("M-n" . next-history-element)
-	     ("M-p" . previous-history-element))
+      (bind-keys :map minibuffer-mode-map
+		 ("<TAB>" . minibuffer-complete)
+		 ("<SPC>" . minibuffer-complete-word)
+		 ("<RET>" . minibuffer-complete-and-exit)
+		 ("?" . minibuffer-completion-help)
+		 ("M-v" . switch-to-completions)
+		 ("M-n" . next-history-element)
+		 ("M-p" . previous-history-element)
+		 ("<UP>" . previous-line-or-history-element)
+		 ("<DOWN>" . next-line-or-history-element)
+		 ("M-r" . previous-matching-history-element)
+		 ("M-s" . next-matching-history-element))
+      (minibuffer-electric-default-mode)
+      (setq history-delete-duplicates t)
+      (setq resize-mini-windows t)
+
+#+END_SRC
+
+** Completion List Mode
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+
+	  (bind-keys :map completion-list-mode-map
+		     ("<RET>" . choose-completion)
+		     ("mouse-1" . choose-completion)
+		     ("<TAB>" . next-completion)
+		     ("<S-TAB>" . previous-completion)
+		     ("q" . quit-window)
+		     ("z" . kill-current-buffer))
+
+
 #+END_SRC
 
 ** Define Some Navigation Through a Project
@@ -447,7 +639,7 @@ configuration has been carried forward from previous configuration.
 #+BEGIN_SRC emacs-lisp :tangle init.el
 
   (bind-keys :map global-map
-	     ("C-x C-f" . ffap)
+	     ("C-x C-f" . find-file)
 	     ("C-x `" . next-error))
 
 #+END_SRC
@@ -471,39 +663,51 @@ copied from a previous incarnation of my Emacs configuration.
 
 #+END_SRC
 
+** Configure Some Shared Behaviors
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (setq-default require-final-newline t)
+#+END_SRC
+
 ** Configure Org Mode
 
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+      (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
-   (use-package org
-     :bind
-     (:prefix "C-x C-o"
-      :prefix-map global-org-map
-      :prefix-docstring "Globally used org mode keys"
-      ("a" . org-agenda)
-      ("c" . org-capture)
-      ("C-<SPC>" . org-store-link))
+       (use-package org
+	 :bind
+	 (:prefix "C-x C-o"
+	  :prefix-map global-org-map
+	  :prefix-docstring "Globally used org mode keys"
+	  ("a" . org-agenda)
+	  ("c" . org-capture)
+	  ("C-<SPC>" . org-store-link))
 
-     (:map org-mode-map
-     ("DEL" . org-delete-backward-char)
-     ("TAB" . org-cycle)
-     ("M-RET" . org-meta-return)
-     ("M-<right>" . org-metaright)
-     ("M-<left>" . org-metaleft)
-     ("M-<down>" . org-metadown)
-     ;; Chrombook
-     ("<next>" . org-metadown)
-     ("M-<up>" . org-metaup)
-     ("C-a" . org-beginning-of-line)
-     ("C-k" . org-kill-line)
-     ("C-c d" . org-deadline)
-     ("C-c q" . org-set-tags-command)
-     ("C-c s" . org-schedule)
-     ("C-c t" . org-todo)
-     ("C-c w" . org-refile)
-     ("C-x RET" . org-open-at-point)
-     ("C-M-_" . org-cycle)))
+	 (:map org-mode-map
+	 ("DEL" . org-delete-backward-char)
+	 ("TAB" . org-cycle)
+	 ("C-M-_"    . org-cycle)
+	 ("M-RET" . org-meta-return)
+	 ("M-<right>" . org-metaright)
+	 ("M-<left>" . org-metaleft)
+	 ("M-<down>" . org-metadown)
+	 ; Chromebook
+	 ("<next>" . org-metadown)
+	 ("M-<up>" . org-metaup)
+	 ; Chromebook
+	 ("<prior>"   . org-metaup)
+	 ("C-a" . org-beginning-of-line)
+	 ("C-k" . org-kill-line)
+	 ("C-c d" . org-deadline)
+	 ("C-c k" . outline-show-branches)
+	 ("C-c q" . org-set-tags-command)
+	 ("C-c r" . org-reveal)
+	 ("C-c s" . org-schedule)
+	 ("C-c t" . org-todo)
+	 ("C-c w" . org-refile)
+	 ("C-x RET" . org-open-at-point))
+	 :custom
+	 (org-cycle-global-at-bob t))
 #+END_SRC
 
 ** Configure Dired Mode
@@ -568,86 +772,6 @@ copied from a previous incarnation of my Emacs configuration.
 #+END_SRC
 
 ** Manage Environment for Called Commands
-
-Some operating systems (such as OS X) will invoke Emacs with a
-separate profile that may not include configuration that has been
-defined for login sessions such as environment variables.
-
-This basically steals the logic from exec-path-from-shell (to link)
-but the code itself is a bit dumber and is more oriented towards
-building out a larger code base rather than providing drop-in
-functionality.
-
-Most of the constructs here will be prefixed with ~^-env~ but those
-that are more general will omit the ~env~ segment.
-
-*** Customization Group
-
-I have not used customize in the past, but in addition to providing a
-user interface which may be more usable across devices it also seems
-to offer a natural means to locally specialize behavior without
-worrying about what goes into which file.
-
-These will be functions which in some places helps reduce the overall
-complexity while retaining flexibility, and others are done largely
-for consistency. The large possible drawback is that this pushes more
-power and required expertise to the user (but additional protections
-and conveniences could be layered off if desired).
-
-Initially ~funcall~ will be used fairly liberally until I stumble across
-a means to identify variables as functions and push Emacs lisp closer
-to a lisp 1 (I know such mechanisms are readily available but I'm just
-not actively looking).
-
-#+BEGIN_SRC emacs-lisp :tangle init.el
-
-  (defgroup ^-env
-    nil
-    "Tune the environment."
-    :prefix "^-env"
-    :group 'environment)
-#+END_SRC
-
-*** Expand Using Shell
-
-The underlying functionality revolves around evaluating expressions in
-a shell which is invoked with the login profile. Much of this _may_ be
-able to be further generalized but there's currently no clear path or
-reason to do so.
-
-At the high level such expansion will be done by wrapping the name as
-a shell parameter and then passing it through the fairly ubiquitous
-~printf~ function.
-
-#+BEGIN_SRC emacs-lisp :tangle init.el
-
-  (defun ^-shell-expand (name)
-    (let ((shell-variable (^-enveloper '("${" . "}"))))
-      (^-shell-printf "%s" (funcall shell-variable name))))
-
-#+END_SRC
-
-**** Enveloper
-
-The above uses an "enveloper" which wraps a string in the provided
-pair. There's some similar behavior that seems worth extracting
-into an object when I get to reading about some of the object
-libraries in Emacs (it doesn't seem worth going the manual route of
-routing messages).
-
-This makes use of currying since...I like currying. More specifically
-I think use of partial applications in local variables can provide
-tidy invocations of general blocks. Later on I'll probably make use of
-some library or other (dash?) to provide a range of functional
-programming behavior for me.
-
-#+BEGIN_SRC emacs-lisp :tangle init.el
-  (defun ^-enveloper (pair)
-    "Produce a function which will wrap a string within pair."
-    (lambda (s) (concat (car pair) s (cdr pair))))
-#+END_SRC
-
-**** Define the Called Commands
 
 ***** Shell Supplier
 
@@ -1160,7 +1284,7 @@ either be built upon further later or removed.
       (kill-all-local-variables))
 
   (add-to-list 'auto-mode-alist '("\\.ly$" . LilyPond-mode))
-  (add-to-list 'auto-mode-alist '("\\.ily$" . LilyPond-mode)))
+  (add-to-list 'auto-mode-alist '("\\.ily$" . LilyPond-mode))
 
 #+END_SRC
 
@@ -1181,9 +1305,12 @@ again - this like many others reflect inherited previous configuration options.
     :bind (:map gnus-group-mode-map
 	   ("M-g" . gnus-group-get-new-news-this-group)
 	   ("M-<down>" . gnus-group-read-50)
-           :map gnus-summary-mode-map
+	   :map gnus-summary-mode-map
 	   ("M-<down>" . gnus-summary-next-page)
-	   ("C-c m" . gnus-summary-move-article)))
+	   ("C-c m" . gnus-summary-move-article))
+    :custom (setq gnus-select-method
+		  '(nnimap "imap.gmail.com")
+		  (nnimap-server-port "imaps")))
 
 #+END_SRC
 

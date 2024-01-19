@@ -1,0 +1,82 @@
+#+TITLE: Emacs Shell Environment
+
+Some operating systems (such as OS X) will invoke Emacs with a
+separate profile that may not include configuration that has been
+defined for login sessions such as environment variables.
+
+This basically steals the logic from exec-path-from-shell (to link)
+but the code itself is a bit dumber and is more oriented towards
+building out a larger code base rather than providing drop-in
+functionality.
+
+Most of the constructs here will be prefixed with ~^-env~ but those
+that are more general will omit the ~env~ segment.
+
+** Customization Group
+
+I have not used customize in the past, but in addition to providing a
+user interface which may be more usable across devices it also seems
+to offer a natural means to locally specialize behavior without
+worrying about what goes into which file.
+
+These will be functions which in some places helps reduce the overall
+complexity while retaining flexibility, and others are done largely
+for consistency. The large possible drawback is that this pushes more
+power and required expertise to the user (but additional protections
+and conveniences could be layered off if desired).
+
+Initially ~funcall~ will be used fairly liberally until I stumble across
+a means to identify variables as functions and push Emacs lisp close
+to a lisp 1 (I know such mechanisms are readily available but I'm just
+not actively looking).
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+
+  (defgroup ^-env
+    nil
+    "Tune the environment."
+    :prefix "^-env"
+    :group 'environment)
+
+#+END_SRC
+
+** Expand Using Shell
+
+The underlying functionality revolves around evaluating expressions in
+a shell which is invoked with the login profile. Much of this _may_ be
+able to be further generalized but there's currently no clear path or
+reason to do so.
+
+At the high level such expansion will be done by wrapping the name as
+a shell parameter and then passing it through the fairly ubiquitous
+~printf~ function.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+
+  (defun ^-shell-expand (name)
+    (let ((shell-variable (^-enveloper '("${" . "}"))))
+      (^-shell-printf "%s" (funcall shell-variable name))))
+
+#+END_SRC
+
+** Enveloper
+
+The above uses an "enveloper" which wraps a string in the provided
+pair. There's some similar behavior that seems worth extracting
+into an object when I get to reading about some of the object
+libraries in Emacs (it doesn't seem worth going the manual route of
+routing messages).
+
+This makes use of currying since...I like currying. More specifically
+I think use of partial applications in local variables can provide
+tidy invocations of general blocks. Later on I'll probably make use of
+some library or other (dash?) to provide a range of functional
+programming behavior for me.
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (defun ^-enveloper (pair)
+    "Produce a function which will wrap a string within pair."
+    (lambda (s) (concat (car pair) s (cdr pair))))
+#+END_SRC
+
+** Define the Called Commands

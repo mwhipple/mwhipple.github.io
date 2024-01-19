@@ -1,0 +1,26 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /home/mwhipple/Documents/mweb/demystifying_processes_and_processors.org
+
+
+* A Process is Acted Upon
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-06-18 Sun 05:27
+:ARCHIVE_FILE: ~/Documents/mweb/demystifying_processes_and_processors.org
+:ARCHIVE_CATEGORY: demystifying_processes_and_processors
+:END:
+
+A process is essentially dormant - it is an instance of executing a
+stored program which amounts to a struct that points to the relevant
+memory addresses. It is _not_ something that has a life of its own.
+On the lowest level the processor itself is what activates your
+process as it performs the operations of the program and advances the
+address of the instruction pointer. This distinction may seem nebulous
+but even in the case where the process is directly loaded onto a
+processor it can be useful in understanding how other pieces of the
+puzzle fit together. For many years I silently wondered how processes
+could do nothing - what were my programs doing when they were waiting
+for something to happen but not spinlocking? The perspective that
+process are actively in control leads to some anthropomorphizing 
+
