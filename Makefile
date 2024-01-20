@@ -57,3 +57,9 @@ push-image: ; $(MAKE) $(BUILD_DIR)/pushed-$(IMAGE)
 ##
 
 
+$(BUILD_DIR)/deployed-%: $(BUILD_DIR)/pushed-%
+	$(GCLOUD) $(GCP_AUTH) --project=$(GCP_PROJECT) \
+	run deploy $(GCP_COMPONENT) \
+	--image=$(PUSH_REPO_PATH)/$(*) --region=$(REGION)
+deploy: ; $(MAKE) $(BUILD_DIR)/deployed-$(IMAGE)
+.PHONY: deploy
