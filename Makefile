@@ -87,7 +87,7 @@ push-image: ; $(MAKE) $(BUILD_DIR)/pushed-$(IMAGE)
 # Added Cloud Run Admin
 # 
 
-$(BUILD_DIR)/deployed-%: # $(BUILD_DIR)/pushed-%
+$(BUILD_DIR)/deployed-%: $(BUILD_DIR)/pushed-%
 	$(GCLOUD) $(GCP_AUTH) --project=$(GCP_PROJECT) \
 	run deploy $(GCP_SERVICE) \
 	--image=$(PUSH_REPO_PATH)/$(*) --region=$(REGION)
