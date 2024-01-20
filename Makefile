@@ -1,3 +1,30 @@
+##
+# <p>This site is deployed to
+# <a href="https://cloud.google.com/run"
+#    title="Cloud Run | Google Cloud"
+#    data-date="2024-01-20">Google Cloud Run</a>
+# using an nginx image
+# with overlaid content and configuration.</p>
+#
+# <p>Cloud Run was adopted since it is a technology I use for some
+# professional projects and was therefore able to reuse some experience.</p>
+#
+# <p>Additionally nginx is a technology which fits in to some of my other goals,
+# and while alternatives such as publishing static files only may seem simpler
+# they are also less transparent and more limiting in terms of some basic
+# functionality such as content negotiation.</p>
+##
+
+##
+# <p>The build requires docker (or compatible) to produce the images,
+# and the gcloud CLI to autenticate with the artifact registry and
+# trigger updates.</p>
+#
+# <p>Those dependencies are defined here for possible overriding
+# or extensibility such as more sophisticated feedback.</p>
+# <pre>
+##
+
 DOCKER      := docker
 GCLOUD      := gcloud
 
@@ -26,6 +53,7 @@ image: ; $(MAKE) $(BUILD_DIR)/$(IMAGE).iid
 REGION        := us-central1
 PUSH_REGISTRY := $(REGION)-docker.pkg.dev
 GCP_PROJECT   := mweb-411216
+GCP_SERVICE   := mweb
 GCP_COMPONENT := www
 
 ##
@@ -40,9 +68,9 @@ PUSH_SA := mweb-569@mweb-411216.iam.gserviceaccount.com
 
 GCP_AUTH := --impersonate-service-account=$(PUSH_SA)
 
-logged-in: ; #$(GCLOUD) auth login
+#logged-in: ; #$(GCLOUD) auth login
 
-$(BUILD_DIR)/pushed-%: $(BUILD_DIR)/%.iid logged-in | $(BUILD_DIR)
+$(BUILD_DIR)/pushed-%: $(BUILD_DIR)/%.iid | $(BUILD_DIR)
 	$(DOCKER) tag $(*) $(PUSH_REPO_PATH)/$(*)
 	$(GCLOUD) auth print-access-token $(GCP_AUTH) \
 		| $(DOCKER) login -u oauth2accesstoken --password-stdin $(PUSH_REGISTRY)
@@ -56,10 +84,12 @@ push-image: ; $(MAKE) $(BUILD_DIR)/pushed-$(IMAGE)
 # Using beta cloud run domain mappings tucked away in the console a bit.
 ##
 
+# Added Cloud Run Admin
+# 
 
-$(BUILD_DIR)/deployed-%: $(BUILD_DIR)/pushed-%
+$(BUILD_DIR)/deployed-%: # $(BUILD_DIR)/pushed-%
 	$(GCLOUD) $(GCP_AUTH) --project=$(GCP_PROJECT) \
-	run deploy $(GCP_COMPONENT) \
+	run deploy $(GCP_SERVICE) \
 	--image=$(PUSH_REPO_PATH)/$(*) --region=$(REGION)
 deploy: ; $(MAKE) $(BUILD_DIR)/deployed-$(IMAGE)
 .PHONY: deploy
