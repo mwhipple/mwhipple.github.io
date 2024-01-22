@@ -4,7 +4,7 @@
 #    title="Cloud Run | Google Cloud"
 #    data-date="2024-01-20">Google Cloud Run</a>
 # using an
-# <a href="https://hub.docker.com/_/nginx">
+# <a href="https://hub.docker.com/_/nginx"
 #    title="nginx - Official Image | Docker Hub"
 #    data-date="2024-01-22">nginx docker image</a>
 # with overlaid content and configuration.</p>
