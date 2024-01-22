@@ -1,342 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<head>
-<!-- 2023-07-23 Sun 13:25 -->
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Software</title>
-<meta name="generator" content="Org Mode" />
-<style>
-  #content { max-width: 60em; margin: auto; }
-  .title  { text-align: center;
-             margin-bottom: .2em; }
-  .subtitle { text-align: center;
-              font-size: medium;
-              font-weight: bold;
-              margin-top:0; }
-  .todo   { font-family: monospace; color: red; }
-  .done   { font-family: monospace; color: green; }
-  .priority { font-family: monospace; color: orange; }
-  .tag    { background-color: #eee; font-family: monospace;
-            padding: 2px; font-size: 80%; font-weight: normal; }
-  .timestamp { color: #bebebe; }
-  .timestamp-kwd { color: #5f9ea0; }
-  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
-  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
-  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
-  .underline { text-decoration: underline; }
-  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
-  p.verse { margin-left: 3%; }
-  pre {
-    border: 1px solid #e6e6e6;
-    border-radius: 3px;
-    background-color: #f2f2f2;
-    padding: 8pt;
-    font-family: monospace;
-    overflow: auto;
-    margin: 1.2em;
-  }
-  pre.src {
-    position: relative;
-    overflow: auto;
-  }
-  pre.src:before {
-    display: none;
-    position: absolute;
-    top: -8px;
-    right: 12px;
-    padding: 3px;
-    color: #555;
-    background-color: #f2f2f299;
-  }
-  pre.src:hover:before { display: inline; margin-top: 14px;}
-  /* Languages per Org manual */
-  pre.src-asymptote:before { content: 'Asymptote'; }
-  pre.src-awk:before { content: 'Awk'; }
-  pre.src-authinfo::before { content: 'Authinfo'; }
-  pre.src-C:before { content: 'C'; }
-  /* pre.src-C++ doesn't work in CSS */
-  pre.src-clojure:before { content: 'Clojure'; }
-  pre.src-css:before { content: 'CSS'; }
-  pre.src-D:before { content: 'D'; }
-  pre.src-ditaa:before { content: 'ditaa'; }
-  pre.src-dot:before { content: 'Graphviz'; }
-  pre.src-calc:before { content: 'Emacs Calc'; }
-  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-fortran:before { content: 'Fortran'; }
-  pre.src-gnuplot:before { content: 'gnuplot'; }
-  pre.src-haskell:before { content: 'Haskell'; }
-  pre.src-hledger:before { content: 'hledger'; }
-  pre.src-java:before { content: 'Java'; }
-  pre.src-js:before { content: 'Javascript'; }
-  pre.src-latex:before { content: 'LaTeX'; }
-  pre.src-ledger:before { content: 'Ledger'; }
-  pre.src-lisp:before { content: 'Lisp'; }
-  pre.src-lilypond:before { content: 'Lilypond'; }
-  pre.src-lua:before { content: 'Lua'; }
-  pre.src-matlab:before { content: 'MATLAB'; }
-  pre.src-mscgen:before { content: 'Mscgen'; }
-  pre.src-ocaml:before { content: 'Objective Caml'; }
-  pre.src-octave:before { content: 'Octave'; }
-  pre.src-org:before { content: 'Org mode'; }
-  pre.src-oz:before { content: 'OZ'; }
-  pre.src-plantuml:before { content: 'Plantuml'; }
-  pre.src-processing:before { content: 'Processing.js'; }
-  pre.src-python:before { content: 'Python'; }
-  pre.src-R:before { content: 'R'; }
-  pre.src-ruby:before { content: 'Ruby'; }
-  pre.src-sass:before { content: 'Sass'; }
-  pre.src-scheme:before { content: 'Scheme'; }
-  pre.src-screen:before { content: 'Gnu Screen'; }
-  pre.src-sed:before { content: 'Sed'; }
-  pre.src-sh:before { content: 'shell'; }
-  pre.src-sql:before { content: 'SQL'; }
-  pre.src-sqlite:before { content: 'SQLite'; }
-  /* additional languages in org.el's org-babel-load-languages alist */
-  pre.src-forth:before { content: 'Forth'; }
-  pre.src-io:before { content: 'IO'; }
-  pre.src-J:before { content: 'J'; }
-  pre.src-makefile:before { content: 'Makefile'; }
-  pre.src-maxima:before { content: 'Maxima'; }
-  pre.src-perl:before { content: 'Perl'; }
-  pre.src-picolisp:before { content: 'Pico Lisp'; }
-  pre.src-scala:before { content: 'Scala'; }
-  pre.src-shell:before { content: 'Shell Script'; }
-  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
-  /* additional language identifiers per "defun org-babel-execute"
-       in ob-*.el */
-  pre.src-cpp:before  { content: 'C++'; }
-  pre.src-abc:before  { content: 'ABC'; }
-  pre.src-coq:before  { content: 'Coq'; }
-  pre.src-groovy:before  { content: 'Groovy'; }
-  /* additional language identifiers from org-babel-shell-names in
-     ob-shell.el: ob-shell is the only babel language using a lambda to put
-     the execution function name together. */
-  pre.src-bash:before  { content: 'bash'; }
-  pre.src-csh:before  { content: 'csh'; }
-  pre.src-ash:before  { content: 'ash'; }
-  pre.src-dash:before  { content: 'dash'; }
-  pre.src-ksh:before  { content: 'ksh'; }
-  pre.src-mksh:before  { content: 'mksh'; }
-  pre.src-posh:before  { content: 'posh'; }
-  /* Additional Emacs modes also supported by the LaTeX listings package */
-  pre.src-ada:before { content: 'Ada'; }
-  pre.src-asm:before { content: 'Assembler'; }
-  pre.src-caml:before { content: 'Caml'; }
-  pre.src-delphi:before { content: 'Delphi'; }
-  pre.src-html:before { content: 'HTML'; }
-  pre.src-idl:before { content: 'IDL'; }
-  pre.src-mercury:before { content: 'Mercury'; }
-  pre.src-metapost:before { content: 'MetaPost'; }
-  pre.src-modula-2:before { content: 'Modula-2'; }
-  pre.src-pascal:before { content: 'Pascal'; }
-  pre.src-ps:before { content: 'PostScript'; }
-  pre.src-prolog:before { content: 'Prolog'; }
-  pre.src-simula:before { content: 'Simula'; }
-  pre.src-tcl:before { content: 'tcl'; }
-  pre.src-tex:before { content: 'TeX'; }
-  pre.src-plain-tex:before { content: 'Plain TeX'; }
-  pre.src-verilog:before { content: 'Verilog'; }
-  pre.src-vhdl:before { content: 'VHDL'; }
-  pre.src-xml:before { content: 'XML'; }
-  pre.src-nxml:before { content: 'XML'; }
-  /* add a generic configuration mode; LaTeX export needs an additional
-     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
-  pre.src-conf:before { content: 'Configuration File'; }
-
-  table { border-collapse:collapse; }
-  caption.t-above { caption-side: top; }
-  caption.t-bottom { caption-side: bottom; }
-  td, th { vertical-align:top;  }
-  th.org-right  { text-align: center;  }
-  th.org-left   { text-align: center;   }
-  th.org-center { text-align: center; }
-  td.org-right  { text-align: right;  }
-  td.org-left   { text-align: left;   }
-  td.org-center { text-align: center; }
-  dt { font-weight: bold; }
-  .footpara { display: inline; }
-  .footdef  { margin-bottom: 1em; }
-  .figure { padding: 1em; }
-  .figure p { text-align: center; }
-  .equation-container {
-    display: table;
-    text-align: center;
-    width: 100%;
-  }
-  .equation {
-    vertical-align: middle;
-  }
-  .equation-label {
-    display: table-cell;
-    text-align: right;
-    vertical-align: middle;
-  }
-  .inlinetask {
-    padding: 10px;
-    border: 2px solid gray;
-    margin: 10px;
-    background: #ffffcc;
-  }
-  #org-div-home-and-up
-   { text-align: right; font-size: 70%; white-space: nowrap; }
-  textarea { overflow-x: auto; }
-  .linenr { font-size: smaller }
-  .code-highlighted { background-color: #ffff00; }
-  .org-info-js_info-navigation { border-style: none; }
-  #org-info-js_console-label
-    { font-size: 10px; font-weight: bold; white-space: nowrap; }
-  .org-info-js_search-highlight
-    { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { }
-</style>
-</head>
-<body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="./index.html"> UP </a>
- |
- <a accesskey="H" href="./index.html"> HOME </a>
-</div><div id="content" class="content">
-<h1 class="title">Software</h1>
-<div id="table-of-contents" role="doc-toc">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents" role="doc-toc">
-<ul>
-<li><a href="#orga082242">1. Software Selection</a></li>
-<li><a href="#org61389f0">2. My Coding Style</a></li>
-<li><a href="#org7bd9451">3. Toolbox</a>
-<ul>
-<li><a href="#orge698f1f">3.1. Bash</a></li>
-<li><a href="#org6b2ac8c">3.2. Emacs</a></li>
-</ul>
-</li>
-<li><a href="#org1f997d2">4. <span class="todo TODO">TODO</span> Test Pyramid</a></li>
-</ul>
-</div>
-</div>
-
-<div id="outline-container-orga082242" class="outline-2">
-<h2 id="orga082242"><span class="section-number-2">1.</span> Software Selection</h2>
-<div class="outline-text-2" id="text-1">
 <p>
-The software used will also be driven primarily by what can be
-discovered through navigation, with a useful initial directory being
-provided by the <a href="sources.html#gnumanuals">GNU Manuals</a> (and a more comprehensive selection in the
-linked Free Software Directory which will be explored to fill possible
-gaps).
+Professionally I work with a variety of technologies...personally I tend to be
+drawn to relatively low-level technologies with the goal of deeply understanding
+the pieces involved.
+</p><p>
+On a related note I'm also nursing a perspective around some of the residual
+harm caused by attention given to programming languages rather than abstractions
+which will be elaborated upon further, but one of the actionable takeaways is
+seeking a stripped down means to more portably enable such abstractions.
+</p><p>
+The above goals on current systems leads pretty naturally to C as it is the
+language in which the majority of operating system and systems code is written.
+In K&R C is described as somewhat of portable assembly which I think is useful
+insofar as it is relatively straightforward to conceive how code written in C
+could alternatively be written in assembly - not that this corresponds to the
+object code that is likely to be produced by the compiler but there is a fairly
+natural mapping of primitives while insulating a developer from needing to
+dig through instruction set documentation, expend keystrokes and brain space
+shuffling bits to and from registers, and deal translate between a routine
+operating on multiple values and the distinct instructions needing to line those
+values up.
+</p><p>
+C certainly has its drawbacks. A path I've followed in the past drew me initially
+to C to be closer to the metal - to thinking that C is perfectly reasonable if it
+is accompanied by a set of practices and conventions to fill some of its possible
+gaps in terms of safety and productivity - to realizing that such practices and
+conventions would be best delivered in the form of a new language. In my estimation
+therefore C is a nice systems programming language but one of the best first uses
+for it is to produce another language.
+</p><p>
+There are other appealing alternatives, particularly in the interest of safety.
+I've dabbled in C++ over the years, and it
+is particularly enticing within the mindset of pursuing abstractions over languages
+as it is a massive, unopinionated system and therefore speaks to a goal of reducing
+the focus on the "language" of how things are expressed and instead emphasizing a
+shared means to leverage abstractions. I believe Leslie Lamport has a similar sentiment
+floating around to the effect that mathematics would be ideal but pragmatically
+everyone should just use C++. Rust is also a language that I'm particularly drawn to,
+providing an arguably cleaner alternative than C++ and most of the adopted designs
+align very much with my sensibilities. For the time being however, both of these are
+being deferred in that the lifting of the compiler expands substantially with either
+of them. Hopefully I'll revisit them as I continue on this journey and potentially
+adopt subsets (and likely make use of them for work), but I'll be planning on picking
+through the compiler I'm using and that will take far longer for full support of
+either of those languages. Those two in particular are identified because they
+promise fairly natural alignment with the POSIX ABI and C code, other languages
+(such as Go) introduce additional runtime considerations which do not match as
+directly with some of my goals.
 </p>
-
-<p>
-This will follow a general pattern of slow expansion based on
-acquiring deep knowledge of the adopted software through both
-bottom-up parsing of the systems and back-filling of such information.
-</p>
-</div>
-</div>
-
-<div id="outline-container-org61389f0" class="outline-2">
-<h2 id="org61389f0"><span class="section-number-2">2.</span> <a href="coding_style.html">My Coding Style</a></h2>
-</div>
-<div id="outline-container-org7bd9451" class="outline-2">
-<h2 id="org7bd9451"><span class="section-number-2">3.</span> Toolbox</h2>
-<div class="outline-text-2" id="text-3">
-<p>
-Here I'll catalog some of the software that I've currently adopted for
-personal use. Many of these I'll also use where appropriate
-professionally but there I'm more likely to drift to anything more
-widely palatable or organizationally prudent.
-</p>
-
-<p>
-<a href="my_software_configuration.html">My Software Configuration</a>
-</p>
-</div>
-
-<div id="outline-container-orge698f1f" class="outline-3">
-<h3 id="orge698f1f"><span class="section-number-3">3.1.</span> Bash</h3>
-<div class="outline-text-3" id="text-3-1">
-<p>
-There are newer cleaner shells around now, but bash still seems to be
-the most widely available alternative to the Bourne shell. I tend to
-think bash is often derided due to lack of understanding of some of
-the choices that lurk within it. I've personally used it for some
-cases that may have warranted an alternative, but I've also seen
-people apply other languages inappropriately (in my opinion) where
-bash could be used (most clearly in cases where additional hurdles or
-limitations are introduced such as by needing to communicate
-information back to the shell or when an inconsistent or restricted
-interaction model is imposed. On the other hand I am keeping an eye on
-the prospect of abandoning bash in one of two fairly opposite
-directions.
-</p>
-
-<p>
-Bash contains a bit more implementation noise than I'd like - the code
-could be significantly streamlined if it made heavier use of reused
-code and concepts and dropped some redundant functionality. Perhaps
-more significantly it also has some quirks that it has acquired over
-the years that could be simplified and made more consistent (such as
-its initialization process). These factors leave me interested in a
-leaner implementation of a subset of the existing implementation.
-</p>
-
-<p>
-On the other hand I'm interested in a more ambitious shift in how to
-interact with a machine. Bash and POSIX shells generally reflect a
-very elegant model of uniform pipes and filters atop supporting ideas
-such as software tools and treating everything as a file. Such
-concepts tend to seemingly be not particularly well understood and
-correspondingly underutilized by most developers in the industry.
-I don't have a particularly clear picture of how to realize an
-improvement (so this is a nebulous interest), but it seems as though
-there may be some avenues to explore. Managing of multiple streams in
-a shell can be awkward, though the prospect of providing more
-sophisticated behavior seems dangerous in that it could complicate the
-more standard and simple use cases. Another possible wrinkle is the
-division between orchestrating commands and defining logic directly.
-This is likely often a source of consternation for those that may not
-recognize that serving both roles is a source for many of bash's
-quirks, but generally it would be ideal if the provided REPL was able
-to satisfy both needs with a more uniform interface. More
-significantly the split also potentially ties in with grander
-perspectives around boundaries imposed around which logic will be
-executed where. This overall concern ties in with thoughts
-expressed <a href="programming_languages_are_harmful.html">elsewhere</a> which may be explored over as long period.
-</p>
-</div>
-</div>
-
-<div id="outline-container-org6b2ac8c" class="outline-3">
-<h3 id="org6b2ac8c"><span class="section-number-3">3.2.</span> Emacs</h3>
-<div class="outline-text-3" id="text-3-2">
-<p>
-<a href="sources.html#emacs">Emacs</a> is a piece of software that I periodically swear off and then
-return to with my tail between my legs. I've adopted it for several
-reasons over the years but also moved away from it pursuit of
-something smaller and more in-line with the ideology of software
-tools. Currently it appeals to me as starting position for some larger
-ideas around how I may want my use of computers to evolve which will
-be elaborated upon as they are explored, this somewhat ties in with
-tongue-in-cheek perspective of Emacs being more of an operating system
-than an editor.
-</p>
-
-<p>
-<a href="./emacs_init.html">My Emacs Configuration</a>
-</p>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org1f997d2" class="outline-2">
-<h2 id="org1f997d2"><span class="section-number-2">4.</span> <span class="todo TODO">TODO</span> Test Pyramid</h2>
-</div>
-</div>
-<div id="postamble" class="status">
-<p class="date">Created: 2023-07-23 Sun 13:25</p>
-<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
-</div>
-</body>
-</html>

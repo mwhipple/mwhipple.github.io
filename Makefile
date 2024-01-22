@@ -20,7 +20,10 @@
 # <a href="https://en.wikipedia.org/wiki/Content_negotiation"
 #    title="Content negotiation - Wikipedia"
 #    data-date="2024-01-22">content negotiation</a>
-# which can facilitate logical URLs which are more easily kept cool.
+# which can facilitate logical URLs which are more easily kept
+# <a href="https://www.w3.org/Provider/Style/URI"
+#    title="Hypertext Style: Cool URIs don't change."
+#    data-date="2024-01-22">cool</a>.
 # </p>
 ##
 
