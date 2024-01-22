@@ -3,7 +3,10 @@
 # <a href="https://cloud.google.com/run"
 #    title="Cloud Run | Google Cloud"
 #    data-date="2024-01-20">Google Cloud Run</a>
-# using an nginx image
+# using an
+# <a href="https://hub.docker.com/_/nginx">
+#    title="nginx - Official Image | Docker Hub"
+#    data-date="2024-01-22">nginx docker image</a>
 # with overlaid content and configuration.</p>
 #
 # <p>Cloud Run was adopted since it is a technology I use for some
