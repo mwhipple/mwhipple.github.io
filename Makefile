@@ -1,5 +1,6 @@
 ##
-# <p>This site is deployed to
+# <p>
+# This site is deployed to
 # <a href="https://cloud.google.com/run"
 #    title="Cloud Run | Google Cloud"
 #    data-date="2024-01-20">Google Cloud Run</a>
@@ -7,29 +8,40 @@
 # <a href="https://hub.docker.com/_/nginx"
 #    title="nginx - Official Image | Docker Hub"
 #    data-date="2024-01-22">nginx docker image</a>
-# with overlaid content and configuration.</p>
-#
-# <p>Cloud Run was adopted since it is a technology I use for some
-# professional projects and was therefore able to reuse some experience.</p>
-#
-# <p>Additionally nginx is a technology which fits in to some of my other goals,
+# with overlaid content and configuration.
+# </p><p>
+# Cloud Run was adopted since it is a technology I use for some
+# professional projects and was therefore able to reuse some experience.
+# </p><p>
+# Additionally nginx is a technology which fits in to some of my other goals,
 # and while alternatives such as publishing static files only may seem simpler
 # they are also less transparent and more limiting in terms of some basic
-# functionality such as content negotiation.</p>
+# functionality such as
+# <a href="https://en.wikipedia.org/wiki/Content_negotiation"
+#    title="Content negotiation - Wikipedia"
+#    data-date="2024-01-22">content negotiation</a>
+# which can facilitate logical URLs which are more easily kept cool.
+# </p>
 ##
 
 ##
-# <p>The build requires docker (or compatible) to produce the images,
+# <p>
+# The build requires docker (or compatible) to produce the images,
 # and the gcloud CLI to autenticate with the artifact registry and
-# trigger updates.</p>
-#
-# <p>Those dependencies are defined here for possible overriding
-# or extensibility such as more sophisticated feedback.</p>
-# <pre>
-##
+# trigger updates.
+# </p><p>
+# Those dependencies are defined here for possible overriding
+# or extensibility such as more sophisticated feedback.
+# </p>
+## <pre>
 
 DOCKER      := docker
 GCLOUD      := gcloud
+
+## </pre>
+# <p>Generated files will be placed in a conventional
+# "build" directory to keep things tidier and cleanup more simple.</p>
+## <pre>
 
 BUILD_DIR := build
 $(BUILD_DIR): ; mkdir -p $(@)
