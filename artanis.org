@@ -1,4 +1,3 @@
-longer term goals. I'm more likely to ultimately land on a solution
 that is more closely aligned with a static Web site/[[file:sources.org::#jamstack][Jamstack]], but I
 think I also want the site to have some basic support for concepts
 such as content negotiation which many static solutions don't lend
