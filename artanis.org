@@ -1,4 +1,3 @@
-such as content negotiation which many static solutions don't lend
 themselves naturally to and therefore I'll probably ultimately move to
 something like nginx (which is also recommended in front of Artanis
 but I haven't navigated my way over there yet). I enjoy Scheme but am
