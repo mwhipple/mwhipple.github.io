@@ -13,3 +13,14 @@ and somehow who needs to devote time to a wider range of hobbies.</p>
 
 <p>Some more information about software will be tracked
 <a href="software.html">here</a></p>
+
+<p>On January 25, 2024 this siste seemed to be unresponsive starting at ~07:30 ET.
+Requests would result in a 500 error. The traffic itself seemed to not be
+reaching the application instances which to me suggests an issue with either
+the load balancer or some of the Knative/Cloud Run machinery (possibly related
+to cold starts). There was no obvious cause for this change based on the logs nor was the
+application reporting an issue. Restoring a previous revision and creating a new revision
+using the same image both resolved the issue so it is optimistically going to be ignored
+for the time being as a fluke. If it recurs further investigation will be done and information
+recorded (determing where the error itself is being thrown should indicate where there is
+undesirable state...presumably things getting stuck).</p>

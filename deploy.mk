@@ -30,8 +30,11 @@
 ##
 # <p>
 # The build requires docker (or compatible) to produce the images,
-# and the gcloud CLI to autenticate with the artifact registry and
-# trigger updates.
+# and the
+# <a href="https://cloud.google.com/cli
+#    title="Command Line Interface Gcloud Cli | Google Cloud"
+#    data-date="2024-01-25">gcloud CLI</a>
+# to autenticate with the artifact registry and trigger updates.
 # </p><p>
 # Those dependencies are defined here for possible overriding
 # or extensibility such as more sophisticated feedback.
