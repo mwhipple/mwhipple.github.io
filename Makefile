@@ -5,6 +5,15 @@
 # Ths build configuration will be broken up accordingly all of which
 # will be combined here.
 # </p><p>
+# The logic to process the content is defined in
+# <a href="./process.mk">process.mk</a>.
+# </p>
+## <pre>
+
+include process.mk
+
+## </pre>
+# <p>
 # The logic to package and deploy the site is defined in
 # <a href="./deploy.mk">deploy.mk</a>.
 # </p>
