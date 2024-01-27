@@ -1,4 +1,3 @@
-but I haven't navigated my way over there yet). I enjoy Scheme but am
 likely to gravitate more towards Python, I'll elaborate upon some of
 my larger thoughts around languages in the future.
 

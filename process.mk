@@ -2,8 +2,12 @@
 # <p>
 # At the moment processing of the content largely involves transforming
 # source files so that they are presented as primitive HTML...
-# about the most basic form of Literate Programming "tangling"
-# imaginable.
+# a particularly basic form of
+# <a href="https://en.wikipedia.org/wiki/Literate_programming"
+#    title="Literate programming - Wikipedia"
+#    data-date="2024-01-25">Literate Programming</a>
+# "tangling"
+# .
 # </p><p>
 # Source files themselves are currently written such that there is
 # embedded documentation islands with HTML tags such that if the
@@ -26,3 +30,14 @@ $(PROCESS): remove_comment_prefix.c
 
 Makefile.html: Makefile $(PROCESS)
 	< $(<) ./$(PROCESS) > $(@)
+
+## </pre>
+# The other Makefiles (like this one), can be handled by a pattern rule.
+#
+# The produced HTML files will append .html suffix while preserving the
+# original which simplifies both the rules and the Web server config.
+## <pre>
+
+%.mk.html: %.mk $(PROCESS)
+	< $(<) ./$(PROCESS) > $(@)
+
