@@ -13,7 +13,11 @@
 # Cloud Run was adopted since it is a technology I use for some
 # professional projects and was therefore able to reuse some experience.
 # </p><p>
-# Additionally nginx is a technology which fits in to some of my other goals,
+# Additionally
+# <a href="https://en.wikipedia.org/wiki/Nginx"
+#    title="Nginx - Wikipedia"
+#    data-date="2024-01-29">nginx</a>
+# is a technology which fits in to some of my other goals,
 # and while alternatives such as publishing static files only may seem simpler
 # they are also less transparent and more limiting in terms of some basic
 # functionality such as
@@ -52,8 +56,24 @@ GCLOUD      := gcloud
 BUILD_DIR := build
 $(BUILD_DIR): ; mkdir -p $(@)
 
-# This is missing immediate or something
-IMAGE_TAG := $(call shell,git rev-parse --short HEAD)
+## </pre>
+# <p>The tag for the image will be generated based on the current git
+# ref. As a side effect changes should be committed prior to
+# building.
+# </p><p>
+# A pattern I often use elsewhere is to add an additional qualifier
+# to the tag if the working directory contains any uncommitted changes
+# which guards against inadvertently pushing an image
+# which has local changes that deviate from what is reflected in the
+# repository (and therefore having a misleading tag). Given the
+# sole authorship of the content and the nature of the project itself
+# (i.e. that it is primarily content rather than logic), I am
+# dispensing with that additional logic for the time being.
+## <pre>
+
+IMAGE_TAG := $(call shell,git rev-parse --verify --short HEAD)
+
+
 IMAGE      = mweb:$(IMAGE_TAG)
 
 $(BUILD_DIR)/%.iid: Dockerfile $(wildcard *) | $(BUILD_DIR)
