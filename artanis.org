@@ -1,4 +1,3 @@
-likely to gravitate more towards Python, I'll elaborate upon some of
 my larger thoughts around languages in the future.
 
 Relatively up-to-date information on Artanis seems to be provided on
