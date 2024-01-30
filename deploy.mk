@@ -33,8 +33,11 @@
 
 ##
 # <p>
-# The build requires docker (or compatible) to produce the images,
-# and the
+# The build requires
+# <a href="https://docs.docker.com/engine/reference/commandline/cli/"
+#    title="Use the Docker command line | Docker Docs"
+#    data-date="2024-01-30">docker CLI</a>
+# (or compatible) to produce the images, and the
 # <a href="https://cloud.google.com/cli
 #    title="Command Line Interface Gcloud Cli | Google Cloud"
 #    data-date="2024-01-25">gcloud CLI</a>

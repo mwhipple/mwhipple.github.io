@@ -1,5 +1,3 @@
-my larger thoughts around languages in the future.
-
 Relatively up-to-date information on Artanis seems to be provided on
 its [[file:sources.org::#src-artanis_github][GitLab page]] (including containerized execution which I'll be
 looking to build on top of). Artanis itself is built on top of [[file:sources.org::#src-gnuguile][GNU
