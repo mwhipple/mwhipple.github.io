@@ -60,6 +60,12 @@ BUILD_DIR := build
 $(BUILD_DIR): ; mkdir -p $(@)
 
 ## </pre>
+# <p>Define the logical name of the service for use elsewhere.</p>
+## <pre>
+
+SERVICE_NAME := mweb
+
+## </pre>
 # <p>The tag for the image will be generated based on the current git
 # ref. As a side effect changes should be committed prior to
 # building.
@@ -76,23 +82,43 @@ $(BUILD_DIR): ; mkdir -p $(@)
 
 IMAGE_TAG := $(call shell,git rev-parse --verify --short HEAD)
 
+## </pre>
+# <p>Define the image name based on the SERVICE_NAME and derived tag.</p>
+## <pre>
 
-IMAGE      = mweb:$(IMAGE_TAG)
+IMAGE      = $(SERVICE_NAME):$(IMAGE_TAG)
+
+## <pre>
+# <p>Build the image as necessary. This makes use of the iid file to act
+# as a marker. The prerequisites at this point are fairly loose and likely
+# to be refined over time.</p>
+## </pre>
 
 $(BUILD_DIR)/%.iid: Dockerfile $(wildcard *) | $(BUILD_DIR)
 	$(DOCKER) build --tag $(*) --iidfile $(@) .
 
+## </pre>
+# <p>
+# Provide a phony alias for building the image.
+# </p><p>
+# This makes use of a pattern which will defined elsewhere which invokes a submake
+# for the sake of a dynamic precondition without requiring secondary expansion.
+# </p>
+## <pre>
 image: ; $(MAKE) $(BUILD_DIR)/$(IMAGE).iid
 .PHONY: image
 
-##
-# Registry creation..
-# Google Container Registry API - Deprecated .... Artifacte Registry is where its at
-# https://console.cloud.google.com
-#
-# Create repository in UI
-# Enable
-##
+## </pre>
+# <p>Deployment relies upon pushing the image to a repository.
+# This was done manually rather than making use of a tool such as
+# infrastructure-as-code, where a repository was created within
+# Artifact Registry (which must be enabled) using the
+# <a href="https://console.cloud.google.com"
+#    title="Google Cloud Console"
+#    data-date="2024-02-01">Google Cloud Console</a>.
+# The Google Container Registry is an older, deprecated alternative but the
+# one I tend to stumble across first and then notice the deprecation warning.</p>
+## <pre>
 
 REGION        := us-central1
 PUSH_REGISTRY := $(REGION)-docker.pkg.dev
