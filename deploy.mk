@@ -109,7 +109,8 @@ image: ; $(MAKE) $(BUILD_DIR)/$(IMAGE).iid
 .PHONY: image
 
 ## </pre>
-# <p>Deployment relies upon pushing the image to a repository.
+# <p>
+# Deployment relies upon pushing the image to a repository.
 # This was done manually rather than making use of a tool such as
 # infrastructure-as-code, where a repository was created within
 # Artifact Registry (which must be enabled) using the
@@ -117,7 +118,10 @@ image: ; $(MAKE) $(BUILD_DIR)/$(IMAGE).iid
 #    title="Google Cloud Console"
 #    data-date="2024-02-01">Google Cloud Console</a>.
 # The Google Container Registry is an older, deprecated alternative but the
-# one I tend to stumble across first and then notice the deprecation warning.</p>
+# one I tend to stumble across first and then notice the deprecation warning.
+# </p><p>
+# I have also enabled immutable tags to enforce clearer traceabililty of image contents.
+# </p>
 ## <pre>
 
 REGION        := us-central1
