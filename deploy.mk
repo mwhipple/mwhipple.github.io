@@ -121,11 +121,16 @@ image: ; $(MAKE) $(BUILD_DIR)/$(IMAGE).iid
 # one I tend to stumble across first and then notice the deprecation warning.
 # </p><p>
 # I have also enabled immutable tags to enforce clearer traceabililty of image contents.
+# </p><p>
+# The region is selected as one that is geographically close to where I am located
+# and also one of those indicated as low emission. This in turn is used to compose
+# the host for the registry.
 # </p>
 ## <pre>
 
 REGION        := us-central1
 PUSH_REGISTRY := $(REGION)-docker.pkg.dev
+
 GCP_PROJECT   := mweb-411216
 GCP_SERVICE   := mweb
 GCP_COMPONENT := www
