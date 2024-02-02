@@ -18,26 +18,38 @@
 # The straightforward logic to provide such removal is provided by
 # <a href="remove_comment_prefix.c">remove_comment_prefix</a>,
 # which is defined and compiled here (relying on standard make rules).
+# </p>
 ## <pre>
 
 PROCESS := remove_comment_prefix
 $(PROCESS): remove_comment_prefix.c
 
 ## </pre>
-# This magical transformation can then be applied to the source Makefiles
-# in this project. The top level Makefile will be handled explicitly.
+# <p>This magical transformation can then be applied to the source Makefiles
+# in this project. The top level Makefile will be handled explicitly.</p>
 ## <pre>
 
 Makefile.html: Makefile $(PROCESS)
 	< $(<) ./$(PROCESS) > $(@)
 
 ## </pre>
+# <p>
 # The other Makefiles (like this one), can be handled by a pattern rule.
-#
+# </p><p>
 # The produced HTML files will append .html suffix while preserving the
 # original which simplifies both the rules and the Web server config.
+# </p>
 ## <pre>
 
 %.mk.html: %.mk $(PROCESS)
 	< $(<) ./$(PROCESS) > $(@)
 
+## </pre>
+# <p>
+# All the processed files should be defined so that they can be produced prior to
+# deployment.
+# </p>
+## <pre>
+
+OUTS := Makefile.html
+OUTS += $(addsuffix,.html,$(wildcard *.mk))
