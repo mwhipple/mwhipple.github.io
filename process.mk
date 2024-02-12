@@ -52,4 +52,7 @@ Makefile.html: Makefile $(PROCESS)
 ## <pre>
 
 OUTS := Makefile.html
-OUTS += $(addsuffix,.html,$(wildcard *.mk))
+OUTS += $(call addsuffix,.html,$(wildcard *.mk))
+
+site: $(OUTS)
+.PHONY: site

@@ -105,7 +105,7 @@ $(BUILD_DIR)/%.iid: Dockerfile $(wildcard *) | $(BUILD_DIR)
 # for the sake of a dynamic precondition without requiring secondary expansion.
 # </p>
 ## <pre>
-image: ; $(MAKE) $(BUILD_DIR)/$(IMAGE).iid $(OUTS)
+image: ; $(MAKE) $(BUILD_DIR)/$(IMAGE).iid site
 .PHONY: image
 
 ## </pre>
