@@ -1,4 +1,3 @@
-looking to build on top of). Artanis itself is built on top of [[file:sources.org::#src-gnuguile][GNU
 Guile]] which was installed but not detected on my system (it is
 potentially outdated), so I may also dig into that project though I'll
 likely start with seeing about containerized Artanis.
