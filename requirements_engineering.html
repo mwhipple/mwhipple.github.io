@@ -1,0 +1,40 @@
+<p>
+Requirements engineering is practice which is widely neglected and my interest in it was particularly
+piqued after working for a few companies that suffered from related issues and then attending a talk
+by Bertrand Meyer on the "PEGS" of requirements engineering.
+</p><p>
+Unfortunately misuse of Agile has unfortunately enabled the perspective that requirements are unnecessary.
+This is largely inconsistent with the core presmise of Agile being to prioritize value delivery and
+the tenuous prospect of being able to validate value porposition without requirements let alone some
+of the additional pursuits such as negotiable satisfaction of stories all of which becomes increasingly
+rigid if there's a widening chasm between what is built and ultimate proposed value. This particular
+concern is also a result of concerns with modeling (along with pursuits such as Domain-Driven Design
+which will likely be discussed separately along with its relationship with Agile and prospective
+hijacking of the concept.
+</p><p>
+From a verification perspective lack of requirements is also very problematic. I've worked for several
+companies that adopted a stance that the current behavior of the system is the way that it should behave
+but such a perpsective is incredibly limiting in that a system that is specified in terms of itself cannot
+be safely changed...or perhaps more accurately _any_ change is putatively safe since any newly introduced
+issues would just be blindly incorporated into the imaginary specification. Such a perspective makes larger
+scale changes virtually impossible, as are managing concerns such as forward and backward compatibility and
+avoiding lockstep deployments. Not surprisingly those companies that had this perpsective were also mired
+in states in which changes were difficult and dangerous and complexity and bloat accreted unchecked.
+Typically in such organizations I end up starting the long-haul of retroactively building out executable
+specifications.
+</p><p>
+One of my most frequently referenced resources for requirements engineering is
+<a href="http://www.cse.msu.edu/~chengb/RE-491/Papers/dark-corners-re-zave-jackson.pdf"
+   title="Four Dark Corners of Requirements Engineering"
+   data-date="2024-02-15">Four Dark Corners of Requirements Engineering</a>.
+On the most basic level this is a useful reference to dissuade implementation bias which
+seems fairly endemic particularly when engineers specify their systems, and provides a helpful
+perspective in terms of machine and environment which speaks to the underlying desire to be able to
+validate rather than just verify. This also provides additional tools in terms of delineating formal
+definitions and informal designations and using the latter to trace things back to impacts on the
+environment (along with other approaches to track how things fit together). While formal definitions
+are unlikely to be palatable in most organizations, having a precise glossary/ubiquitous language is
+massive enabler for shared understanding and the assorted approaches to both delineate and connect
+the environment and machine through language are very useful to preserve the ability to validate
+systems.
+</p>

@@ -1,4 +1,3 @@
-potentially outdated), so I may also dig into that project though I'll
 likely start with seeing about containerized Artanis.
 
 *** Containerized Execution
