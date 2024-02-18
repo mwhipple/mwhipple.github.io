@@ -1,7 +1,3 @@
-likely start with seeing about containerized Artanis.
-
-*** Containerized Execution
-
 I'll be looking to run Artanis in a container, and accordingly the
 initially desired development environment is also using containers to
 most closely align with the deployment (installing anything on my host
