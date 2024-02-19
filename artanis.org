@@ -1,4 +1,3 @@
-I'll be looking to run Artanis in a container, and accordingly the
 initially desired development environment is also using containers to
 most closely align with the deployment (installing anything on my host
 is effectively more of a workflow optimization). There are [[file:sources.org::#src-nalaginrut-artanis-docker][some
