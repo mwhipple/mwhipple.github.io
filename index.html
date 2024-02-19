@@ -21,9 +21,10 @@ a husband, father, musician,
 and someone who needs to devote time to a wider range of hobbies.</p>
 
 <p>Some more information about software will be tracked
-<a href="software">here</a></p>
+<a href="software">here</a>
+</p>
 
-<p>On January 25, 2024 this siste seemed to be unresponsive starting at ~07:30 ET.
+<p>On January 25, 2024 this site seemed to be unresponsive starting at ~07:30 ET.
 Requests would result in a 500 error. The traffic itself seemed to not be
 reaching the application instances which to me suggests an issue with either
 the load balancer or some of the Knative/Cloud Run machinery (possibly related
@@ -35,8 +36,14 @@ recorded (determing where the error itself is being thrown should indicate where
 undesirable state...presumably things getting stuck).</p>
 
 <p>
-I also deploy my <a href="https://music.mattwhipple.com">site for music</a> to GCP, though
-that is currently using Hugo pushing to Cloud Storage. When I initially set it up I
+I also deploy my
+<a href="https://music.mattwhipple.com">site for music</a>
+to GCP, though
+that is currently using Hugo pushing to
+<a href="https://cloud.google.com/storage"
+   title=""Cloud Storage | Google Cloud"
+   data-date="2024-02-19">Cloud Storage</a>.
+When I initially set it up I
 configured it for global access, but have since realized that costs me a small amount monthly...
 at the moment I'm not expecting the site to be covering any expenses and I'm not delusional
 enough to expect to need global coverage so I've gone back to reconfigure it to reduce such costs.

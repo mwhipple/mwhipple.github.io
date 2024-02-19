@@ -88,11 +88,11 @@ IMAGE_TAG := $(call shell,git rev-parse --verify --short HEAD)
 
 IMAGE      = $(SERVICE_NAME):$(IMAGE_TAG)
 
-## <pre>
+## </pre>
 # <p>Build the image as necessary. This makes use of the iid file to act
 # as a marker. The prerequisites at this point are fairly loose and likely
 # to be refined over time.</p>
-## </pre>
+## <pre>
 
 $(BUILD_DIR)/%.iid: Dockerfile $(wildcard *) | $(BUILD_DIR)
 	$(DOCKER) build --tag $(*) --iidfile $(@) .
@@ -135,11 +135,17 @@ GCP_PROJECT   := mweb-411216
 GCP_SERVICE   := mweb
 GCP_COMPONENT := www
 
-##
-# Configure service account and grant access by principal
-# Provdie principal with impersonate permission
-# Provide SA principal with missing permissions
-##
+## </pre>
+# <p>
+# Through the console the service account was created,
+# and my primary user was granted the ability to impersonate
+# that service account. The principal of the service
+# account was then granted some needed permissions.
+# This can be non-obvious in that the principal of the
+# service account is managed like others rather than being
+# directly navigable from the service account page.
+# </p>
+## <pre>
 
 PUSH_REPO_PATH := $(PUSH_REGISTRY)/$(GCP_PROJECT)/$(GCP_COMPONENT)
 
