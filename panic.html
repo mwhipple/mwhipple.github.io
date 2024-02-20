@@ -1,0 +1,38 @@
+<p>
+Panic is the term (borrowed from Go's usage among others)
+I use to refer to errors which are never expected at runtime and
+therefore should not expect to be handled and should result in some form of termination
+on the error.
+</p><p>
+Making this distinction is useful regardless of the error handling approaches used.
+In languages that return error status or Either values a panic need not be accounted
+for in the signature. In languages that provide exception style constructs such
+exceptions should not be caught. In all such cases they can aid in keeping both
+the primary and error handling code focused.
+</p><p>
+This concept should be reserved for cases where such behavior should never
+happen and therefore be even more constrained than reserving exceptions for
+exceptional behavior. When related to business logic their presence may also
+suggest a design smell and opporunities to modify the design such that there
+is no path to what is considered impossible should be explored, leveraging
+additional mechanisms such as type systems where feasible (and that guidance
+also extends to other possible error causes such as data inconsistency which
+should absolutely not be considered a panic).
+</p><p>
+Anecdotally one of the times I hijacked this concept for wide use was in
+wrapping an internal client library where many of the API endpoints called
+produced results from which we had to make assumptions (such as asserting
+that a collection was a singleton). For me this is a clear example of a design
+smell in that the API operations and corresponding client should have been
+expressive enough to avoid the need for such assertions, but pragmatically
+it was useful as the organization was one in which change was difficult and
+slow and as APIs also tend to have _many_ possible errors it was useful
+to delineate those that cannot be handled as prerequisite logic is
+seemingly broken.
+</p><p>
+Panics remain useful however, such as when the runtime itself is considered
+compromised and therefore should be aborted, or when limitations in language
+used or general computability leave logic that should never be executed
+(for example if arms exist to fully cover a case match but such coverage
+is not detectable by the compiler).
+</p>

@@ -1,0 +1,17 @@
+<p>
+One of the most pressing concerns when writing C is around error handling.
+Not only does the language not provide much in the way of dealing with errors
+and many of the older standard mechanism not play well with mutli-threading
+and reentrance, but since the language itself is somewhat hosted with minimal
+assumptions about its runtime there are many more possible errors that written
+code needs to account for that may otherwise be absorbed by a runtime
+(for example when dealing with dynamic memory).
+</p><p>
+In order to rein in the range of such errors
+<a href="panic">panics</a> will be used in the form of assertions.
+In Fluent C this is named the "Samurai Principle" but per
+<a href="https://wiki.c2.com/?SamuraiPrinciple"
+   title="Samurai Principle"
+   data-date="2024-02-20">WikiWikiWeb</a>
+it may not be entirely appropriate depending on how it is applied.
+</p>
