@@ -1,4 +1,3 @@
-instructions]] provided for running Artanis in a container, but those
 instructions need to be tuned a bit. Most significantly the tag for
 the image is outdated and should instead be more of the form
 `registry.gitlab.com/hardenedlinux/artanis` to reflect the project
