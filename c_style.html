@@ -1,3 +1,5 @@
+<html>
+
 <p>
 One of the most pressing concerns when writing C is around error handling.
 Not only does the language not provide much in the way of dealing with errors
@@ -14,4 +16,20 @@ In Fluent C this is named the "Samurai Principle" but per
    title="Samurai Principle"
    data-date="2024-02-20">WikiWikiWeb</a>
 it may not be entirely appropriate depending on how it is applied.
+</p><p>
+In particular this will be used in two cases - where the runtime is
+considered to be a state which is both unexpected and from which
+there is also no expected graceful recovery (such as a failure
+when interacting with dynamic memory). This will also be used
+in some cases where the preconditions of a documented contract
+has been violated by client code (and should therefore not happen
+at runtime in a properly implemented system). The latter case is where
+the definition of the Samurai Principle seems to be stretched in that
+it is the calling code that has dishonored itself through the
+contract violation rather than the code that is panicking.
+In other languages there may be more elegant mechanisms to model
+such guarantees, but in C this seems likely to tip past the point
+of diminishing returns and deviate from language idioms.
 </p>
+
+</html>

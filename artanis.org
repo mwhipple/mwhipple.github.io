@@ -1,5 +1,3 @@
-instructions need to be tuned a bit. Most significantly the tag for
-the image is outdated and should instead be more of the form
 `registry.gitlab.com/hardenedlinux/artanis` to reflect the project
 being transferred. Updated guidance is provided with the [[file:sources.org::#src-nalaginrut-artanis_0.5_docker][instructions
 for Artanis 0.5]]. Beyond that there are a few adjustments for the
