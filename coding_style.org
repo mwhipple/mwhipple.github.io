@@ -1,11 +1,3 @@
-#+TITLE: My General Coding Style
-#+HTML_LINK_HOME: ./index.html
-#+HTML_LINK_UP: ./software.html
-
-I strive to mostly adopt practices which are idiomatic for particularly
-programming languages, but I also have preferences which cut across
-languages.
-
 *** Literate Programming and Commenting
 
 Likely my most obvious tendency is that I am a proponent of some form
