@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <title>Video - Matt Whipple</title>
+  </head>
+
+  <body>
+    <h1>Video</h1>
+
+    <p>
+      Somewhat ironically I worked for several years at a company
+      that's in the online video business (Brightcove), but didn't
+      feel like I've really starting digging into the details
+      of video until several years after leaving. My time there was
+      instead spent on the data that surrounds and enables accessing
+      the Video, and while I acquired a fair amount of familiarity
+      with some of those proximal concerns, dealing with the binary
+      content of the videos themselves were handled by other teams and
+      not of particular interest to me (and I had more than enough to
+      keep me busy).
+    </p>
+    <p>
+      It is likely because I was at a company surrounded by people
+      with relevant expertise that I was able to focus elsewhere, and
+      am now left to venture down more of those alleys myself while
+      tackling a video project. Hopefully the project itself will
+      be able to produce some shareable artifacts.
+    </p>
+    <p>
+      I'm currently experimenting a bite with (Low-Latency) LL-HLS. I
+      was drawn to HLS due to my recollection of it being a
+      wonderfully simple and widely supported approach (which is
+      somewhat of a given for an Apple Web standard). LL-HLS is a more
+      recent extension and so far it seems as though support outside
+      of the official Apple tools remains fairly unpolished and so
+      I'll be working through some of the plumbing as I go.
+    </p>
+    <p>
+      WebRTC is likely the cool new kid on the block (was Donny the
+      cool one?), and while there's a fair amount of considerations
+      that I've weighed suffice it to say in the short term that
+      peer-to-peer is not a clear match for the problem I'm exploring
+      nor is there any identified need for ultra low-latency such as in
+      support of interactivity.
+    </p>
+    <p>
+      The
+      <a href="https://dyte.io/blog/ll-hls-in-depth/"
+	 title="LL HLS in-depth"
+	 data-atime="2024-04-09">LL HLS in-depth</a>
+      blog post provides a decent summary of the overall solution
+      (in-depth is certainly a relative term). In particular this
+      page provides a good background on the relationship between
+      (I) key frames and independent/regular segments which leads in
+      to wider considerations of being able to send less bits through
+      batching which could not only yield throughput benefits but also
+      offset transfer time.
+    </p>
+  </body>
+</html>
