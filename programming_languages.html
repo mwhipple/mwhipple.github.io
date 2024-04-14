@@ -30,7 +30,7 @@
     </p>
     <p>
       My practical approach to try to avoid some of this waste is to
-      adopt Lisp as my preferred application programming language. I'd
+      adopt something like Lisp as my preferred application programming language. I'd
       been considering different options for a bit and was generally
       strongly drawn to a language that offered some level of
       <a href="https://en.wikipedia.org/wiki/Homoiconicity"
@@ -62,6 +62,25 @@
       approach application programming by seeking to adopt composable
       computational constructs which can be floated on top of
       abstracted systems.
+    </p>
+    <p>
+      I'm currently exploring the idea of largely using a combination
+      of lisp and YAML, resulting in the equivalent of the ability to
+      embed sexps inside of YAML documents.
+      <a href="https://github.com/yaml/yamlscript"
+	 title="GitHub - yaml/yamlscript: Programming in YAML"
+	 data-atime"2024-04-13">YAMLScript</a>
+      seems to be exploring a similar space but I'd be looking to make
+      use of a different format where rather than relying upon a
+      special marker (an extra colon) within the entry definition, I'd
+      be looking to have the trigger for evaluation be the typical use
+      of parentheses around the expression - thereby falling back to
+      the behavior where such values would be parsed as strings and
+      could therefore have latent expansion applied. This also
+      potentially feels comparable to the distinction between LISP-1s
+      and LISP-2s where keeping the evaluation in the expression
+      feels to be more in-line with a LISP-1 whereas the special
+      syntax feels more like a distinct LISP-2 namespace.
     </p>
   </body>
 
