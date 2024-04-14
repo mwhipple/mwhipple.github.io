@@ -82,6 +82,24 @@
       feels to be more in-line with a LISP-1 whereas the special
       syntax feels more like a distinct LISP-2 namespace.
     </p>
+    <p>
+      As a crucial distinction between the above idea and other lisps,
+      parentheses would be used to indicate evaluation only and
+      therefore this is likely to subsequently diverge from true
+      lispiness where everything also comes back to pairs/cons
+      cells. The use of that construct is certainly feasible but the
+      syntactic elements are intended to more clearly convey the
+      semantics of the data independently of the implementation
+      (i.e. dictionaries may best be represented as alists but the
+      syntax doesn't care).
+    </p>
+    <p>
+      This approach could help to address both challenges related to
+      the the structure of logic and the data upon which it is acting,
+      and also the struggle to represent a wide range of data types
+      and semantics over portable formats such as YAML.
+    </p>
+
   </body>
 
 </html>
