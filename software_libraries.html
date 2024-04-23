@@ -9,7 +9,7 @@
     <p>
       <a href="https://github.com/dtolnay/anyhow"
 	 title="GitHub - dtolnay/anyhow: Flexible concrete Error type built on std::error::Error"
-	 data-atime="2025-04-13">anyhow</a> seems fairly heavily used throughout Rust projects.
+	 data-atime="2024-04-13">anyhow</a> seems fairly heavily used throughout Rust projects.
       It was one of the first libraries I came across while starting to work with Rust in earnest
       (through working on gstreamer). The code is nice and clean with well-documented key files,
       and the project overall seems like a nice demonstration of how to implement a compatibility
@@ -18,6 +18,20 @@
       portable software which is likely a core aspect of the Rust
       model when compared to providing or expecting a broad standard library (which is something I'd
       want to find or write a description of at some point).
+    </p>
+    <p>
+      <a href="https://github.com/chyh1990/yaml-rust"
+	 title="GitHub - chyh1990/yaml-rust: A pure rust YAML implementation."
+	 data-atime="2024-04-23">yaml-rust</a> provides YAML parsing
+      and emitting in a form that at least seems worth
+      repurposing. The most up-to-date YAML logic for Rust seems
+      potentially elusive, or this project is just old as it has
+      remained good enough. The code is a fairly specialized state
+      machine type flow with a split between lexing/scanning and
+      parsing. I'll be looking to build on this as part of thoughts
+      around application programming, but may also look at
+      generalizing some of the behavior a bit (and also looking for
+      a more grammar-y alternative.
     </p>
   </body>
 </html>
