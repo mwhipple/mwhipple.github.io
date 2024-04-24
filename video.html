@@ -63,6 +63,31 @@
       digs deeper into the different types of frames and how they compose
       into Groups of Pictures (GOPs).
     </p>	       
+    <p>
+      Apple provides nicely consumable documentation for
+      <a href="https://developer.apple.com/documentation/http-live-streaming"
+	 title="HTTP Live Streaming | Apple Developer Documentation"
+	 data-atime="2024-04-24">HLS</a> and its range of variations.
+      Some of the HLS support tools that it provides are behind the
+      Apple Developer login for whatever (so I had to go through my
+      periodic search for valid credentials).
+    </p>
+    <p>
+      A key discovery while chasing down some of the LL-HLS details
+      which is touched on very briefly in the Apple docs but often
+      glossed over elsewhere is that it will typically rely on less
+      widely supported HTTP features such as Chunked Transfer
+      Encoding). LL-HLS in particular (compared to LL-DASH/CMAF-CTE or
+      HESP) offers a solution that does not require this support
+      through supporting distinct files for partial segments and their
+      aggregation into complete segments, but this either requires
+      additional server-side logic to handle that aggregation without
+      redundant transfer or what amounts to transferring all
+      of the content twice. None of these considerations are
+      particularly hairy problems but represent a significant shift
+      compared to how readily non-LL counterparts can be delivered
+      using commodity protocols with typical configurations.
+    </p>
 
   </body>
 </html>
