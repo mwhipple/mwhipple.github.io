@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ;;; init.el -- Configure emacs to my liking. -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2023 Matt Whipple <mattwhipple@acm.org>
@@ -68,6 +69,8 @@
 	"a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m"			   
 	"A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M"
 	"n" "o" "p" "q" "r" "s" "t" "u" "v" "w" "x" "y" "z"
+=======
+>>>>>>> 3d25263 (Merge)
 	"N" "O" "P" "Q" "R" "S" "T" "U" "V" "W" "X" "Y" "Z"
 	"0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "." "-" "$"
 	"SPC" "=" "_" "*" "\"" "'" "`" "+" "~" "?"
@@ -80,6 +83,7 @@
 (bind-keys :map global-map
 	   ("C-g" . keyboard-quit)
 	   ("M-x" . execute-extended-command)
+<<<<<<< HEAD
 	   ("M-:" . eval-expression)
 	   ("C-x C-c" . save-buffers-kill-terminal)
 	   ("C-z" . suspend-frame))
@@ -88,28 +92,43 @@
 (bind-keys :map global-map
 	   ("C-q" . quoted-insert)
 	   ("C-x 8 <RET>" . insert-char)
+=======
+	   ("M-:" . eval-expression))
+
+(bind-keys :map global-map
+>>>>>>> 3d25263 (Merge)
 	   ("RET" . newline)
 	   ("C-j" . electric-newline-and-maybe-indent)
 	   ("TAB" . indent-for-tab-command)
 	   ("C-o" . open-line))
 
+<<<<<<< HEAD
 (setq read-quoted-char-radix 16)
 
+=======
+>>>>>>> 3d25263 (Merge)
 (bind-keys :map global-map
 	   ("DEL"  . backward-delete-char-untabify)
 	   ("M-DEL" . backward-kill-word)
 	   ;; Chrome OS support
 	   ("<deletechar>" . backward-kill-word)
 	   ("C-d" .  delete-char)
+<<<<<<< HEAD
 	   ("C-w" . kill-region)
 	   ("M-d" . kill-word)
 	   ("C-k" . kill-line)
 	   ("M-\\" . delete-horizontal-space)
 	   ("C-x C-o" . delete-blank-lines)
+=======
+	   ("M-d" . kill-word)
+	   ("C-k" . kill-line)
+	   ("M-\\" . delete-horizontal-space)
+>>>>>>> 3d25263 (Merge)
 	   ("M-z" . zap-up-to-char))
 
 (bind-keys :map global-map
 	   ("C-f" . forward-char)
+<<<<<<< HEAD
 	   ("<RIGHT>" . right-char)
 	   ("C-b" . backward-char)
 	   ("<LEFT>" . left-char)
@@ -126,6 +145,15 @@
 	   ("M-b" . backward-word)
 	   ("M-<LEFT>" . left-word)
 	   ("M-r" . move-to-window-line-top-bottom)
+=======
+	   ("C-b" . backward-char)
+	   ("C-n" . next-line)
+	   ("C-p" . previous-line)
+	   ("C-e" . move-end-of-line)
+	   ("C-a" . move-beginning-of-line)
+	   ("M-f" . forward-word)
+	   ("M-b" . backward-word)
+>>>>>>> 3d25263 (Merge)
 	   ("M-n" . forward-list)
 	   ("M-p" . backward-list)
 	   ("M->" . end-of-buffer)
@@ -133,6 +161,7 @@
 	   ("M-}" . forward-paragraph)
 	   ("M-{" . backward-paragraph)
 	   ("C-v" . scroll-up-command)
+<<<<<<< HEAD
 	   ("<PageDown>" . scroll-up-command)
 	   ("M-v" . scroll-down-command)
 	   ("<PageUp>" . scroll-down-command)
@@ -145,12 +174,16 @@
 	   ("M-=" . count-words-region)
 	   ("C-x = " . what-cursor-position))
 (setq what-cursor-show-names t)
+=======
+	   ("M-v" . scroll-down-command))
+>>>>>>> 3d25263 (Merge)
 
 (bind-keys :map global-map
 	   ("C-l" . recenter-top-bottom))
 
 (bind-keys :map global-map
 	   ("C-SPC" . set-mark-command)
+<<<<<<< HEAD
 	   ("C-@" . set-mark-command)
 	   ("M-@" . mark-word)
 	   ("M-h" . mark-paragraph)
@@ -171,6 +204,15 @@
 
 (bind-keys :map global-map
 	   ("M-u" . upcase-word)
+=======
+	   ("C-x h" . mark-whole-buffer))
+
+(bind-keys :map global-map
+	   ("C-y" . yank)
+	   ("M-w" . kill-ring-save))
+
+(bind-keys :map global-map
+>>>>>>> 3d25263 (Merge)
 	   ("M-;" . comment-dwim))
 
 (bind-keys :map global-map
@@ -182,11 +224,14 @@
 	   ("C-r" . isearch-backward)
 	   ("M-%" . query-replace)
 	   ("M-." . xref-find-definitions))
+<<<<<<< HEAD
 (setq isearch-resume-in-command-history t)
 
 (bind-keys :map global-map
 	   ("C-x z" . repeat)
 	   ("C-x <ESC> <ESC>" . repeat-complex-command))
+=======
+>>>>>>> 3d25263 (Merge)
 
 (bind-keys :map global-map
 	   ("M-!" . shell-command))
@@ -197,7 +242,10 @@
 	   ("g" . gnus)
 	   ("m" . gnus-summary-mail-other-window)
 	   ("s" . shell)
+<<<<<<< HEAD
 	   ("v" . view-mode)
+=======
+>>>>>>> 3d25263 (Merge)
 	   ("w" . eww))
 
 (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
@@ -223,6 +271,7 @@
 (bind-keys :prefix "C-h"
 	   :prefix-map help-map
 	   :prefix-docstring "Help me!"
+<<<<<<< HEAD
 	   ("a" . apropos-command)
 	   ("b" . describe-bindings)
 	   ("c" . describe-key-briefly)
@@ -274,6 +323,15 @@
 	   ("s" . help-view-source)
 	   ("r" . help-goto-info)
 	   ("c" . help-customize))
+=======
+	   ("b" . describe-bindings)
+	   ("f" . describe-function)
+	   ("i" . info)
+	   ("k" . describe-key)
+	   ("l" . view-lossage)
+	   ("m" . describe-mode)
+	   ("w" . where-is))
+>>>>>>> 3d25263 (Merge)
 
 (bind-keys :prefix "C-x C-r"
 	   :prefix-map bookmark-map
@@ -282,6 +340,7 @@
 
 (bind-keys :map minibuffer-mode-map
 	   ("TAB" . minibuffer-complete)
+<<<<<<< HEAD
 	   ("<SPC>" . minibuffer-complete-word)
 	   ("<RET>" . minibuffer-complete-and-exit)
 	   ("?" . minibuffer-completion-help)
@@ -325,10 +384,27 @@
    ("DEL" . org-delete-backward-char)
    ("TAB" . org-cycle)
    ("C-M-_"    . org-cycle)
+=======
+	   ("RET" . exit-minibuffer)
+	   ("M-n" . next-history-element)
+	   ("M-p" . previous-history-element))
+
+(bind-keys :map global-map
+	   ("C-x C-f" . ffap)
+	   ("C-x `" . next-error))
+
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+
+ (use-package org
+   :bind (:map org-mode-map
+   ("DEL" . org-delete-backward-char)
+   ("TAB" . org-cycle)
+>>>>>>> 3d25263 (Merge)
    ("M-RET" . org-meta-return)
    ("M-<right>" . org-metaright)
    ("M-<left>" . org-metaleft)
    ("M-<down>" . org-metadown)
+<<<<<<< HEAD
    ; Chromebook
    ("<next>" . org-metadown)
    ("M-<up>" . org-metaup)
@@ -346,6 +422,18 @@
    ("C-x RET" . org-open-at-point))
    :custom
    (org-cycle-global-at-bob t))
+=======
+   ;; Chrombook
+   ("<next>" . org-metadown)
+   ("M-<up>" . org-metaup)
+   ("C-a" . org-beginning-of-line)
+   ("C-k" . org-kill-line)
+   ("C-c C-w" . org-refile)
+   ("C-c C-q" . org-set-tags-command)
+   ("C-c C-t" . org-todo)
+   ("C-x RET" . org-open-at-point)
+   ("C-M-_" . org-cycle)))
+>>>>>>> 3d25263 (Merge)
 
 (use-package dired
   :bind (:map dired-mode-map
@@ -641,12 +729,18 @@ LilyPond-command-alist\t\talist from name to command"
   :bind (:map gnus-group-mode-map
 	 ("M-g" . gnus-group-get-new-news-this-group)
 	 ("M-<down>" . gnus-group-read-50)
+<<<<<<< HEAD
 	 :map gnus-summary-mode-map
 	 ("M-<down>" . gnus-summary-next-page)
 	 ("C-c m" . gnus-summary-move-article))
   :custom (setq gnus-select-method
 		'(nnimap "imap.gmail.com")
 		(nnimap-server-port "imaps")))
+=======
+         :map gnus-summary-mode-map
+	 ("M-<down>" . gnus-summary-next-page)
+	 ("C-c m" . gnus-summary-move-article)))
+>>>>>>> 3d25263 (Merge)
 
 (use-package eww
   :bind (:map eww-mode-map
