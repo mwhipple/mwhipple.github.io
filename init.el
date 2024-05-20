@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ;;; init.el -- Configure emacs to my liking. -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2023 Matt Whipple <mattwhipple@acm.org>
