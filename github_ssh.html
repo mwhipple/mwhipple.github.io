@@ -1,0 +1,28 @@
+<html>
+
+  <head>
+    <title>GitHub SSH - Matt Whipple</title>
+  </head>
+  <body>
+
+    <p>
+      The script here effectively wraps up the documentation for
+      <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent"
+	 title="Adding a new SSH key to your GitHub account - GitHub Docs"
+	 data-time="2024-05-21">generating SSH keys for GithHub</a>.
+      At the moment this is entirely untested and therefore likely has
+      a lot of wrinkles which will be smoothed out (it was created on
+      a system that doesn't need it for the sake of other systems).
+    </p>
+
+    <pre>
+      declare -r email="${1?Provide email address as first argument}"
+      declare -r output_file="${2?Provide key file as second argument}"
+      declare -r title="${3?Provide title as third argument}"
+
+      ssh-keygen -t ed25519 -C "${email}" -f "${output_file}"
+      gh ssh-key add "${output_file}" --type authentication --title "${title}"
+    </pre>
+
+  </body>
+</html>
