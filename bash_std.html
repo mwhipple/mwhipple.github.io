@@ -1,0 +1,34 @@
+Stolen from GNU bootstrap script
+
+<pre>
+
+me="$0"
+
+# warnf_ FORMAT-STRING ARG1...
+warnf_ ()
+{
+  warnf_format_=$1
+  shift
+  nl='
+'
+  case $* in
+    *$nl*) me_=$(printf "$me"|tr "$nl|" '??')
+       printf "$warnf_format_" "$@" | sed "s|^|$me_: |" ;;
+    *) printf "$me: $warnf_format_" "$@" ;;
+  esac >&2
+}
+
+# warn_ WORD1...
+warn_ ()
+{
+  # If IFS does not start with ' ', set it and emit the warning in a subshell.
+  case $IFS in
+    ' '*) warnf_ '%s\n' "$*";;
+    *)    (IFS=' '; warn_ "$@");;
+  esac
+}
+
+# die WORD1...
+die() { warn_ "$@"; exit 1; }
+
+</pre>
