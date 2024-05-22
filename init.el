@@ -35,8 +35,11 @@
 (unless (fboundp #'json-parse-buffer)
   (warn "Emacs does not have JSON support!"))
 
+<<<<<<< HEAD
 (setq inhibit-startup-screen t)
 
+=======
+>>>>>>> dd70126 (Sync)
 (require 'package)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
 			 ("melpa" . "https://melpa.org/packages/")))
@@ -55,7 +58,11 @@
   :global t
   :group 'faces
   (when (eq dark-mode
+<<<<<<< HEAD
 	    (eq 'light (frame--current-background-mode (selected-frame))))
+=======
+	    (eq 'light (frame--current-backround-mode (selected-frame))))
+>>>>>>> dd70126 (Sync)
     ;; FIXME: Change the face's SPEC instead?
     (set-face-attribute 'default nil
 			:foreground (face-attribute 'default :background)
@@ -95,7 +102,12 @@
 	   ("M-:" . eval-expression))
 
 (bind-keys :map global-map
+<<<<<<< HEAD
 >>>>>>> 3d25263 (Merge)
+=======
+	   ("C-q" . quoted-insert)
+>>>>>>> dd70126 (Sync)
+>>>>>>> c5acb6b (Sync)
 	   ("RET" . newline)
 	   ("C-j" . electric-newline-and-maybe-indent)
 	   ("TAB" . indent-for-tab-command)
@@ -105,7 +117,11 @@
 (setq read-quoted-char-radix 16)
 
 =======
+<<<<<<< HEAD
 >>>>>>> 3d25263 (Merge)
+=======
+>>>>>>> dd70126 (Sync)
+>>>>>>> c5acb6b (Sync)
 (bind-keys :map global-map
 	   ("DEL"  . backward-delete-char-untabify)
 	   ("M-DEL" . backward-kill-word)
@@ -117,12 +133,17 @@
 	   ("M-d" . kill-word)
 	   ("C-k" . kill-line)
 	   ("M-\\" . delete-horizontal-space)
+<<<<<<< HEAD
 	   ("C-x C-o" . delete-blank-lines)
 =======
+<<<<<<< HEAD
 	   ("M-d" . kill-word)
 	   ("C-k" . kill-line)
 	   ("M-\\" . delete-horizontal-space)
 >>>>>>> 3d25263 (Merge)
+=======
+>>>>>>> dd70126 (Sync)
+>>>>>>> c5acb6b (Sync)
 	   ("M-z" . zap-up-to-char))
 
 (bind-keys :map global-map
@@ -152,7 +173,11 @@
 	   ("C-a" . move-beginning-of-line)
 	   ("M-f" . forward-word)
 	   ("M-b" . backward-word)
+<<<<<<< HEAD
 >>>>>>> 3d25263 (Merge)
+=======
+>>>>>>> dd70126 (Sync)
+>>>>>>> c5acb6b (Sync)
 	   ("M-n" . forward-list)
 	   ("M-p" . backward-list)
 	   ("M->" . end-of-buffer)
@@ -175,7 +200,11 @@
 (setq what-cursor-show-names t)
 =======
 	   ("M-v" . scroll-down-command))
+<<<<<<< HEAD
 >>>>>>> 3d25263 (Merge)
+=======
+>>>>>>> dd70126 (Sync)
+>>>>>>> c5acb6b (Sync)
 
 (bind-keys :map global-map
 	   ("C-l" . recenter-top-bottom))
@@ -197,6 +226,11 @@
 (bind-keys :map global-map
 	   ("C-/" . undo)
 	   ("C-_" . undo)
+=======
+	   ("C-x h" . mark-whole-buffer))
+
+(bind-keys :map global-map
+>>>>>>> dd70126 (Sync)
 	   ("C-y" . yank)
 	   ("M-y" . yank-pop)
 	   ("M-w" . kill-ring-save))
@@ -230,7 +264,11 @@
 	   ("C-x z" . repeat)
 	   ("C-x <ESC> <ESC>" . repeat-complex-command))
 =======
+<<<<<<< HEAD
 >>>>>>> 3d25263 (Merge)
+=======
+>>>>>>> dd70126 (Sync)
+>>>>>>> c5acb6b (Sync)
 
 (bind-keys :map global-map
 	   ("M-!" . shell-command))
@@ -329,8 +367,15 @@
 	   ("k" . describe-key)
 	   ("l" . view-lossage)
 	   ("m" . describe-mode)
+<<<<<<< HEAD
 	   ("w" . where-is))
 >>>>>>> 3d25263 (Merge)
+=======
+	   ("p" . describe-package)
+	   ("v" . describe-variable)
+	   ("w" . where-is))
+>>>>>>> dd70126 (Sync)
+>>>>>>> c5acb6b (Sync)
 
 (bind-keys :prefix "C-x C-r"
 	   :prefix-map bookmark-map
@@ -368,6 +413,16 @@
 
 (setq-default require-final-newline t)
 
+=======
+	   ("RET" . exit-minibuffer)
+	   ("M-n" . next-history-element)
+	   ("M-p" . previous-history-element))
+
+(bind-keys :map global-map
+	   ("C-x C-f" . ffap)
+	   ("C-x `" . next-error))
+
+>>>>>>> dd70126 (Sync)
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
  (use-package org
@@ -382,8 +437,10 @@
    (:map org-mode-map
    ("DEL" . org-delete-backward-char)
    ("TAB" . org-cycle)
+<<<<<<< HEAD
    ("C-M-_"    . org-cycle)
 =======
+<<<<<<< HEAD
 	   ("RET" . exit-minibuffer)
 	   ("M-n" . next-history-element)
 	   ("M-p" . previous-history-element))
@@ -399,6 +456,9 @@
    ("DEL" . org-delete-backward-char)
    ("TAB" . org-cycle)
 >>>>>>> 3d25263 (Merge)
+=======
+>>>>>>> dd70126 (Sync)
+>>>>>>> c5acb6b (Sync)
    ("M-RET" . org-meta-return)
    ("M-<right>" . org-metaright)
    ("M-<left>" . org-metaleft)
@@ -427,12 +487,23 @@
    ("M-<up>" . org-metaup)
    ("C-a" . org-beginning-of-line)
    ("C-k" . org-kill-line)
+<<<<<<< HEAD
    ("C-c C-w" . org-refile)
    ("C-c C-q" . org-set-tags-command)
    ("C-c C-t" . org-todo)
    ("C-x RET" . org-open-at-point)
    ("C-M-_" . org-cycle)))
 >>>>>>> 3d25263 (Merge)
+=======
+   ("C-c d" . org-deadline)
+   ("C-c q" . org-set-tags-command)
+   ("C-c s" . org-schedule)
+   ("C-c t" . org-todo)
+   ("C-c w" . org-refile)
+   ("C-x RET" . org-open-at-point)
+   ("C-M-_" . org-cycle)))
+>>>>>>> dd70126 (Sync)
+>>>>>>> c5acb6b (Sync)
 
 (use-package dired
   :bind (:map dired-mode-map
@@ -457,7 +528,11 @@
   (add-hook 'org-agenda-mode-hook 'hl-line-mode))
 
 (use-package hexl
+<<<<<<< HEAD
   :bind (:map hexl-mode-map
+=======
+  :bind (:map hexl-mode
+>>>>>>> dd70126 (Sync)
   ("C-v" . hexl-scroll-up)
   ("M-v" . hexl-scroll-down)))
 
@@ -739,7 +814,11 @@ LilyPond-command-alist\t\talist from name to command"
          :map gnus-summary-mode-map
 	 ("M-<down>" . gnus-summary-next-page)
 	 ("C-c m" . gnus-summary-move-article)))
+<<<<<<< HEAD
 >>>>>>> 3d25263 (Merge)
+=======
+>>>>>>> dd70126 (Sync)
+>>>>>>> c5acb6b (Sync)
 
 (use-package eww
   :bind (:map eww-mode-map
