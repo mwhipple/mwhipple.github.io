@@ -17,12 +17,23 @@
 
     <pre>
 #!/bin/bash
+
 declare -r email="${1?Provide email address as first argument}"
 declare -r output_file="${2?Provide key file as second argument}"
 declare -r title="${3?Provide title as third argument}"
 
+declare -r gh="${GH:-gh}"
+
+my::die() {
+	echo "${@}"
+	exit 1
+} >&2
+
+type -t ${gh} > /dev/null || my::die 'gh GitHub client is not installed, install using brew?'
+${gh} auth status || my::die 'Login with GitHub Client!'
+
 ssh-keygen -t ed25519 -C "${email}" -f "${output_file}"
-gh ssh-key add "${output_file}.pub" --type authentication --title "${title}"
+${gh} ssh-key add "${output_file}.pub" --type authentication --title "${title}"
     </pre>
 
     <p>
