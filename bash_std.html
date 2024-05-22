@@ -1,34 +1,46 @@
-Stolen from GNU bootstrap script
-
 <pre>
 
-me="$0"
+  ##
+  # Provide some stanard functionality that is generally useful in bash.
+  # These are stolen from the GNU bootstrap script
+  ##
 
-# warnf_ FORMAT-STRING ARG1...
-warnf_ ()
-{
-  warnf_format_=$1
-  shift
-  nl='
-'
-  case $* in
-    *$nl*) me_=$(printf "$me"|tr "$nl|" '??')
-       printf "$warnf_format_" "$@" | sed "s|^|$me_: |" ;;
-    *) printf "$me: $warnf_format_" "$@" ;;
-  esac >&2
-}
+  ##
+  # Record the name by which this process was invoked.
+  ##
+  declare -r std__me="${0}"
 
-# warn_ WORD1...
-warn_ ()
-{
-  # If IFS does not start with ' ', set it and emit the warning in a subshell.
-  case $IFS in
-    ' '*) warnf_ '%s\n' "$*";;
-    *)    (IFS=' '; warn_ "$@");;
-  esac
-}
+  ##
+  # Emit the format string and any following arguments to stderr.
+  # This prefixes each line of a multi-line message with the script name.
+  ##
+  std::warnf_ () {
+  	warnf_format_=${1}
+  	shift
+  	nl='
+  '
+  	case ${*} in
+  	*${nl}*) me_=$(printf "${std__me}"|tr "${nl}|" '??')
+  		printf "${warnf_format_}" "${@}" | sed "s|^|${me_}: |" ;;
+  	*) printf "${std__me}: ${warnf_format_}" "${@}" ;;
+  	esac >&2
+  }
 
-# die WORD1...
-die() { warn_ "$@"; exit 1; }
+  ##
+  # Emit the arguments to stderr, sanitizing IFS as necessary.
+  ##
+  std::warn_ () {
+  	case ${IFS} in
+  	' '*) std::warnf_ '%s\n' "${*}";;
+  	*)    (IFS=' '; std::warn_ "${@}");;
+  	esac
+  }
 
+  ##
+  # Emit the arguments to stderr and exit process with error.
+  ##
+  std::die() {
+  	std::warn_ "${@}"
+  	exit 1
+  }
 </pre>
