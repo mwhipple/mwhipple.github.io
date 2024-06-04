@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for HTML5 for Linux version 5.8.0" />
+  <title>Computer Security</title>
+</head>
+<body>
+  <footer>
+    <nav>
+      <ul>
+        <li>
+          <a href="./index">Home</a>
+        </li>
+      </ul>
+    </nav>
+  </footer>
+  <article>
+    <header>
+      <h1>Computer Security - Matt Whipple</h1>
+    </header>
+    <p>Computer security is not something that I've been particularly drawn to,
+    but is something that seems to keep falling into my lap. Creating secure
+    systems is a responsibility shared by all engineers but I also tended to be
+    involved in the foundational and organization-wide solutions as an
+    engineer, and in my current architectural role security is constant
+    consideration. While I've tended to intermittently look in to security
+    concerns I'm recently seeking to maintain a decent level of expertise given
+    that it has recurred so frequently throughout my career.</p>
+    <p>While most companies now recognize the importance of security and are
+    likely to establish commensurate practices, in my estimation many such
+    efforts are likely to be either ineffective due to attempting to blindly
+    overlay policies or technologies without appropriate means for
+    validation...or worse they can counter-productive through effectively
+    restricting the application of more stringent controls. The former concern
+    will be a a recurring theme and will therefore be left alone for now, but
+    the latter is worth a brief speaking to. Often access to manage controls
+    themselves are restricted to a small set of operators and tools but the
+    ability to modify such controls is a crucial enabler for granting <a href=
+    "https://en.wikipedia.org/wiki/Principle_of_least_privilege" title=
+    "Principle of least privilege - Wikipedia" data-atime="2024-06-04">least
+    privilege</a>. If the gates introduced inhibit such flexible configuration
+    (likely instead offering coarser canned options) then it both undermines
+    that principle and is also likely a symptom of larger issues that may
+    reflect a false sense of security. This particular type of issue is better
+    addressed through an automated (continuous delivery) workflow which
+    preserves the flexibility without slowing feedback cycles in lower
+    environments nor overloading infrastructure teams while still allowing for
+    oversight and restricted access to production environments</p>
+  </article>
+</body>
+</html>

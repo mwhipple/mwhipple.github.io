@@ -1,130 +1,143 @@
-<html>
-  <head>
-    <title>Home - Matt Whipple</title>
-  </head>
-
-  <body>
-    <article>
-
-      <header>
-        <h1>Home</h1>
-      </header>
-
-      <p>
-	Welcome to my Web site.
-      </p>
-
-      <p>
-	My general sentiment towards this site is similar to that expressed
-	by Tim Berners-Lee in the
-	<a href="https://www.w3.org/DesignIssues/Preface.html"
-	   title="Preface - World Wide Web Design Issues"
-	   data-atime="2024-04-17">W3C Design Issues Preface.</a>
-      </p>
-
-      <nav>
-	<ul>
-	  <li><a href="agile">Agile</a></li>
-	  <li><a href="bash_std">Bash Standard Library</a></li>
-	  <li><a href="food">Food</a></li>
-	  <li><a href="github_ssh">GitHub SSH</a></li>
-	  <li><a href="book-headlong">Headlong</a></li>
-      <li><a href="html">HTML</a></li>
-      <li><a href="http">HTTP</a></li>
-          <li><a href="iam">Identity and Access Management</a></li>
-
-      <li><a href="input_events">Input Events</a></li>
-      <li><a href="linux_sound">Linux Sound</a></li>
-      <li><a href="literals">Literals</a></li>
-      <li><a href="memex">memex</a></li>
-      <li><a href="programming_languages">Programming Languages</a></li>
-      <li><a href="requirements_engineering">Requirements Engineering</a></li>
-      <li><a href="software_libraries">Software Libraries</a></li>
-	  <li><a href="shebang.html">Shebang</a></li>
-	  <li><a href="subroutine.html">Subroutine</a></li>
-      <li><a href="video">Video</a></li>
-      <li><a href="woodworking">Woodworking</a></li>
-    </ul>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for HTML5 for Linux version 5.8.0" />
+  <title>Home - Matt Whipple</title>
+</head>
+<body>
+  <article>
+    <header>
+      <h1>Home</h1>
+    </header>
+    <p>Welcome to my Web site.</p>
+    <p>My general sentiment towards this site is similar to that expressed by
+    Tim Berners-Lee in the <a href=
+    "https://www.w3.org/DesignIssues/Preface.html" title=
+    "Preface - World Wide Web Design Issues" data-atime="2024-04-17">W3C Design
+    Issues Preface.</a></p>
+    <nav>
+      <ul>
+        <li>
+          <a href="agile">Agile</a>
+        </li>
+        <li>
+          <a href="bash_std">Bash Standard Library</a>
+        </li>
+        <li>
+          <a href="computer_security">Computer Security</a>
+        </li>
+        <li>
+          <a href="food">Food</a>
+        </li>
+        <li>
+          <a href="github_ssh">GitHub SSH</a>
+        </li>
+        <li>
+          <a href="book-headlong">Headlong</a>
+        </li>
+        <li>
+          <a href="html">HTML</a>
+        </li>
+        <li>
+          <a href="http">HTTP</a>
+        </li>
+        <li>
+          <a href="iam">Identity and Access Management</a>
+        </li>
+        <li>
+          <a href="input_events">Input Events</a>
+        </li>
+        <li>
+          <a href="linux_sound">Linux Sound</a>
+        </li>
+        <li>
+          <a href="literals">Literals</a>
+        </li>
+        <li>
+          <a href="memex">memex</a>
+        </li>
+        <li>
+          <a href="programming_languages">Programming Languages</a>
+        </li>
+        <li>
+          <a href="requirements_engineering">Requirements Engineering</a>
+        </li>
+        <li>
+          <a href="software_libraries">Software Libraries</a>
+        </li>
+        <li>
+          <a href="shebang.html">Shebang</a>
+        </li>
+        <li>
+          <a href="subroutine.html">Subroutine</a>
+        </li>
+        <li>
+          <a href="video">Video</a>
+        </li>
+        <li>
+          <a href="woodworking">Woodworking</a>
+        </li>
+      </ul>
     </nav>
-  
-    <p>
-      Around Sat Mar 30 05:30:23 AM EDT 2024 my laptop would not start in the morning
-      There was charge remaining and it went through GRUB and loading hibernation but
-      the screen threafter was blank.
-    </p>
-
-    <p>
-      This site will reflect building some things from the ground up.
-      This also serves as somewhat of an unformal and disorganized
-      <a href="https://queue.acm.org/detail.cfm?id=3631181"
-	 title="Dear Diary - ACM Queue"
-	 data-date="2024-02-28">lab notebook</a>.
-    </p>
-
-    <p>
-The first bit of content will concern the construction of the site itself,
-which can be viewed in the <a href="Makefile">Makefile</a>.</p>
-
-<p>About Me</p>
-
-<p>By profession I'm a software engineer/architect and typically spend my days
-shepherding large scale
-<a href="https://queue.acm.org/detail.cfm?id=2482856"
-   title="There’s Just No Getting around It: You’re Building a Distributed System - ACM Queue"
-   data-date="2024-02-14">distributed cloud systems</a>.
-Outside of that I'm somewhat of a
-minimalist who pursues
-<a href="sustainability">sustainability</a>,
-a husband, father, musician,
-<a href="https://en.wikipedia.org/wiki/Empiricism"
-   title="Empricism - Wikipedia"
-   data-date="2024-02-02">empiricist</a>,
-and someone who needs to devote time to a wider range of hobbies.</p>
-
-<p>Some more information about software will be tracked
-<a href="software">here</a>
-</p>
-
-<p>On January 25, 2024 this site seemed to be unresponsive starting at ~07:30 ET.
-Requests would result in a 500 error. The traffic itself seemed to not be
-reaching the application instances which to me suggests an issue with either
-the load balancer or some of the Knative/Cloud Run machinery (possibly related
-to cold starts). There was no obvious cause for this change based on the logs nor was the
-application reporting an issue. Restoring a previous revision and creating a new revision
-using the same image both resolved the issue so it is optimistically going to be ignored
-for the time being as a fluke. If it recurs further investigation will be done and information
-recorded (determing where the error itself is being thrown should indicate where there is
-undesirable state...presumably things getting stuck).</p>
-
-<p>
-I also deploy my
-<a href="https://music.mattwhipple.com">site for music</a>
-to GCP, though
-that is currently using Hugo pushing to
-<a href="https://cloud.google.com/storage"
-   title="Cloud Storage | Google Cloud"
-   data-date="2024-02-19">Cloud Storage</a>.
-When I initially set it up I
-configured it for global access, but have since realized that costs me a small amount monthly...
-at the moment I'm not expecting the site to be covering any expenses and I'm not delusional
-enough to expect to need global coverage so I've gone back to reconfigure it to reduce such costs.
-It's certainly still not costly, but I'd expect these sites to typically fit comfortably within
-free'ish tiers.
-</p><p>
-After the costs have continued it certainly appears as though the readily supported combination
-of load balancers and object storage preclude free tier use, so I'll likely adjust the site to
-use Cloud Run similar to this one.
-</p><p>
-Replacing the load balancer with a regional configuration would hopefully reduce the costs
-(I did knock the site offline for a brief period but continuing from the above this was unlikely to have
-any consequence for this site)
-but as of right now I'm still getting dinged for some lingering resources. I tracked down a static
-IP that needed to be removed, and there were also some lingering forwarding rules. I'll have to
-check the billing (or just wait a month to see if I'm still getting charged).
-</p>
-
-<p><a href="ear_unclogging">Ear Unclogging</a></p>
-<p><a href="pinewood_derby">Pinewood Derby</a></p>
-<p><a href="cooking">Cooking</a></p>
-  </article></body>
+    <p>Around Sat Mar 30 05:30:23 AM EDT 2024 my laptop would not start in the
+    morning There was charge remaining and it went through GRUB and loading
+    hibernation but the screen threafter was blank.</p>
+    <p>This site will reflect building some things from the ground up. This
+    also serves as somewhat of an unformal and disorganized <a href=
+    "https://queue.acm.org/detail.cfm?id=3631181" title=
+    "Dear Diary - ACM Queue" data-date="2024-02-28">lab notebook</a>.</p>
+    <p>The first bit of content will concern the construction of the site
+    itself, which can be viewed in the <a href="Makefile">Makefile</a>.</p>
+    <p>About Me</p>
+    <p>By profession I'm a software engineer/architect and typically spend my
+    days shepherding large scale <a href=
+    "https://queue.acm.org/detail.cfm?id=2482856" title=
+    "There’s Just No Getting around It: You’re Building a Distributed System - ACM Queue"
+    data-date="2024-02-14">distributed cloud systems</a>. Outside of that I'm
+    somewhat of a minimalist who pursues <a href=
+    "sustainability">sustainability</a>, a husband, father, musician, <a href=
+    "https://en.wikipedia.org/wiki/Empiricism" title="Empricism - Wikipedia"
+    data-date="2024-02-02">empiricist</a>, and someone who needs to devote time
+    to a wider range of hobbies.</p>
+    <p>Some more information about software will be tracked <a href=
+    "software">here</a></p>
+    <p>On January 25, 2024 this site seemed to be unresponsive starting at
+    ~07:30 ET. Requests would result in a 500 error. The traffic itself seemed
+    to not be reaching the application instances which to me suggests an issue
+    with either the load balancer or some of the Knative/Cloud Run machinery
+    (possibly related to cold starts). There was no obvious cause for this
+    change based on the logs nor was the application reporting an issue.
+    Restoring a previous revision and creating a new revision using the same
+    image both resolved the issue so it is optimistically going to be ignored
+    for the time being as a fluke. If it recurs further investigation will be
+    done and information recorded (determing where the error itself is being
+    thrown should indicate where there is undesirable state...presumably things
+    getting stuck).</p>
+    <p>I also deploy my <a href="https://music.mattwhipple.com">site for
+    music</a> to GCP, though that is currently using Hugo pushing to <a href=
+    "https://cloud.google.com/storage" title="Cloud Storage | Google Cloud"
+    data-date="2024-02-19">Cloud Storage</a>. When I initially set it up I
+    configured it for global access, but have since realized that costs me a
+    small amount monthly... at the moment I'm not expecting the site to be
+    covering any expenses and I'm not delusional enough to expect to need
+    global coverage so I've gone back to reconfigure it to reduce such costs.
+    It's certainly still not costly, but I'd expect these sites to typically
+    fit comfortably within free'ish tiers.</p>
+    <p>After the costs have continued it certainly appears as though the
+    readily supported combination of load balancers and object storage preclude
+    free tier use, so I'll likely adjust the site to use Cloud Run similar to
+    this one.</p>
+    <p>Replacing the load balancer with a regional configuration would
+    hopefully reduce the costs (I did knock the site offline for a brief period
+    but continuing from the above this was unlikely to have any consequence for
+    this site) but as of right now I'm still getting dinged for some lingering
+    resources. I tracked down a static IP that needed to be removed, and there
+    were also some lingering forwarding rules. I'll have to check the billing
+    (or just wait a month to see if I'm still getting charged).</p>
+    <p><a href="ear_unclogging">Ear Unclogging</a></p>
+    <p><a href="pinewood_derby">Pinewood Derby</a></p>
+    <p><a href="cooking">Cooking</a></p>
+  </article>
+</body>
 </html>
