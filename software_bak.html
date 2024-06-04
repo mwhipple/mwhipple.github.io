@@ -1,0 +1,175 @@
+<p>
+For the past few years I've acquired an interest in
+<a href="requirements_engineering">requirements engineering</a>.
+</p><p>
+Professionally I work with a variety of technologies...personally I tend to be
+drawn to relatively low-level technologies with the goal of deeply understanding
+the pieces involved.
+</p><p>
+On a related note I'm also nursing a perspective around some of the residual
+harm caused by attention given to programming languages rather than abstractions
+which will be elaborated upon further, but one of the actionable takeaways is
+seeking a stripped down means to more portably enable such abstractions.
+</p><p>
+The above goals on current systems leads pretty naturally to C as it is the
+language in which the majority of operating system and systems code is written.
+In K&R C is described as somewhat of portable assembly which I think is useful
+insofar as it is relatively straightforward to conceive how code written in C
+could alternatively be written in assembly - not that this corresponds to the
+object code that is likely to be produced by the compiler but there is a fairly
+natural mapping of primitives while insulating a developer from needing to
+dig through instruction set documentation, expend keystrokes and brain space
+shuffling bits to and from registers, and deal translate between a routine
+operating on multiple values and the distinct instructions needing to line those
+values up.
+</p><p>
+<a href="c_style">C Style</a>
+</p><p>
+C certainly has its drawbacks. A path I've followed in the past drew me initially
+to C to be closer to the metal - to thinking that C is perfectly reasonable if it
+is accompanied by a set of practices and conventions to fill some of its possible
+gaps in terms of safety and productivity - to realizing that such practices and
+conventions would be best delivered in the form of a new language. In my estimation
+therefore C is a nice systems programming language but one of the best first uses
+for it is to produce another language.
+</p><p>
+There are other appealing alternatives, particularly in the interest of safety.
+I've dabbled in C++ over the years, and it
+is particularly enticing within the mindset of pursuing abstractions over languages
+as it is a massive, unopinionated system and therefore speaks to a goal of reducing
+the focus on the "language" of how things are expressed and instead emphasizing a
+shared means to leverage abstractions. I believe Leslie Lamport has a similar sentiment
+floating around to the effect that mathematics would be ideal but pragmatically
+everyone should just use C++. Rust is also a language that I'm particularly drawn to,
+providing an arguably cleaner alternative than C++ and most of the adopted designs
+align very much with my sensibilities. For the time being however, both of these are
+being deferred in that the lifting of the compiler expands substantially with either
+of them. Hopefully I'll revisit them as I continue on this journey and potentially
+adopt subsets (and likely make use of them for work), but I'll be planning on picking
+through the compiler I'm using and that will take far longer for full support of
+either of those languages. Those two in particular are identified because they
+promise fairly natural alignment with the POSIX ABI and C code, other languages
+(such as Go) introduce additional runtime considerations which do not match as
+directly with some of my goals.
+</p><p>
+As a result at the moment I'm spending a bit of time doing a deep-dive into
+C programming and for now some of the materials will be catalogged here.
+</p><p>
+<a href="https://www.pearson.com/en-us/subject-catalog/p/programming-in-c/P200000000380/9780132781190"
+   title="Programming in C"
+   data-date="2024-01-23">Programming in C, Fourth Edition</a>
+is a good introductory text - it is likely to be most appropriate for relatively
+inexperienced programmers for whom C is one of the first languages they are learning.
+It builds on the concepts in a way that should provide a solid foundation, but more
+experienced developers (at least from my perspective) are likely to find it slow and
+lacking in deeper insight (which is a natural consequence of targeting a different
+audience). It could use an update to cover some of the newer standards, but is a good
+text from which to learn the language - likely the best of those I've read so far.
+</p><p>
+<a href="https://nostarch.com/Effective_C"
+   title="Effective C | No Starch Press"
+   data-date="2024-01-26">Effective C</a> has some interesting content but seems
+to potentially suffer from too mixed of purposes. It contains a lot of valuable
+advice presented in what feels like an overly dense introductory text leaving the
+impression that the advice would better be presented as something more like a
+cookbook and the other material made gentler (or just left to existing books).
+Perhaps most significantly this could enable deeper treatment of some of the
+practices whereas the book seems to at some points blend considerations for
+different runtimes and transparently dip into Annex K. The author has seemingly
+published a range of information and so this book may amount to a repackaging
+of information presented elsewhere with the intent of targeting a wider audience
+with the result that to me it feels a bit overextended.
+</p><p>
+<a href="https://en.wikipedia.org/wiki/The_C_Programming_Language"
+   title="The C Programming Language - Wikipedia"
+   data-date="2024-01-31">K&R</a> (the second edition) 
+is the source from which I first really learned C,
+and working through the exercises while going through the book seems as though it
+should be a required step for any professional engineer. I recently reread it while
+only mentally working through the exercises. The content and format remain exemplary
+and seem to be a template for many other solid books, but the C standards utilized
+are fairly dated at this point. I'd argue that it's still worth the time given the
+relatively short length, but should be complemented by more up-to-date material.
+Given the time since the last edition and the passing of Dennis Ritchie an update
+seems unlikely, though I tend to think of Go as the modern spiritual successor to C
+and The Go Programming Language for which Brian Kernighan is one of the authors as the
+successor to this book.
+</p><p>
+<a href="https://www.oreilly.com/library/view/fluent-c/9781492097273/"
+   title="Fluent C [Book]"
+   data-date="2024-02-04">Fluent C</a> is an interesting read that tries to distill
+some C practices into a pattern catalog. The survey of techniques and providing coarses
+building blocks nice, I was somewhat disappointed that it didn't seize much on the
+opportunity of leveraging established language. While prior art and uses are referenced
+(which is a requirement for patterns), some of the naming seems to diverge without
+explanation. I also would have preferred a more unified perspective where the means
+to realize some standard object oriented patterns was explained rather than treating
+them as unavailable and offering what amount to analogs. I'll almost certainly borrow
+and reference the patterns from this book (while looking to draw more on universal
+concepts and terminology). I also enjoy the fact that the title may be a pun.
+</p><p>
+A large breakable toys project I'm working on is my own text editor (for motivations
+that will likely be covered later). This started based on the
+<a href="https://viewsourcecode.org/snaptoken/kilo/"
+   title="Build Your Own Text Editor"
+   data-date="2024-01-24">Snaptoken tutorial</a>
+but is being modularized and extended.
+</p><p>
+I also spend a fair amount of time reading code...realistically I'd imagine most
+software engineers spend the majority of their time working with code doing this
+but it may often not be explicitly recognized as an activity. In addition to
+time spent doing this with a clear purpose I also do it as a means to more fully
+learn the software that I use or find interesting and as a chance to both
+acquire practices and tricks and refine my taste for code.
+</p><p>
+I'm currently working through the source code of
+<a href="https://savannah.gnu.org/projects/nano"
+   title="GNU nano - Summary [Savannah]"
+   data-date="2024-01-29">GNU nano</a>
+as it is a nice small project from which I'll steal a bunch of functionality
+for my own editor.
+</p><p>
+I'm also currently working through the source of
+<a href="https://savannah.gnu.org/projects/guile"
+   title="Guile - Summary [Savannah]"
+   data-date="2024-02-13">GNU Guile</a>
+as a higher level language. The preference for a lisp will be covered in more depth
+separately, but for now I'll mention that the simplicity of the syntax lends itself
+to simple parsing and its homoiconicity enables its use for representing both data and logic.
+I'd be interested in lighter weight parsers such as Mes, but Guile is supported by other
+GNU software which I use and therefore seems worth digging in to.
+</p><p>
+In the interest of understanding how things work from the lowest level I also started to dabble
+with building a system up from assembly, but have since switched to picking through
+<a href="https://savannah.nongnu.org/projects/stage0/"
+   title="Stage0 Bootstrap for the Free Software - Summary [Savannah]"
+   data-date="2024-02-18">Stage0</a> which is an interesting project (along with the related
+projects).
+</p><p>
+Largely unrelated to any of the above but in the interest of capturing some of my recent readings
+I've read Martin Kleppmann's excellent
+<a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/"
+   title="Designing Data-Intensive Applications [Book]"
+   data-atime="2024-02-12">Designing Data-Intensive Applications</a>
+cover-to-cover several times (largely due it remaining the most popular book on O'Reilly Learning
+and my often using that as a selection criterion). The book is strongly recommended as are the
+rerefernces alone. At this point the book could likely use a bit of refresher - while the core
+focus of concepts and considerations remain fairly immutable and putatively timeless the space
+has evolved a bit and so some updated guidance on practical selection of available technologies
+would be helpful. I very regularly find myself explaining how many of the principles in this book
+apply to systems that are being designed and reference this book, its sources,
+or material written by many of the authors cited.
+</p><p>
+I'm also working my way through the source code of
+<a href="https://github.com/python/cpython"
+   title="GitHub - python/cpython: The Python programming language"
+   data-date="2024-02-19">cpython</a>.
+I'm personally fond of Python and its popularity in a range of domains seems indisputable.
+The community demonstrates what I would consider a fairly healthy perpsective in the form
+of what is considered Pythonic, and generally the language's declarative leanings can lend
+themselves to safer optimizations (which reinforces its popularity for areas such as ML).
+Some of the newer projects to further extend the grasp of Python syntax such as Codon and Mojo
+speak to possible further ascendency. In terms of bootstrapping an organization for producing
+general purpose code, I'd likely gravitate towards Python (I personally have some nits but
+they're unlikely to be practical import).
+</p>
