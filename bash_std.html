@@ -1,63 +1,83 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Bash std - Matt Whipple</title>
-  </head>
-
-  <body>
-    <article>
-      <header>
-
-      </header>
-
-
-<pre>
-
-  ##
-  # Provide some stanard functionality that is generally useful in bash.
-  # These are stolen from the GNU bootstrap script
-  ##
-
-  ##
-  # Record the name by which this process was invoked.
-  ##
-  declare -r std__me="${0}"
-
-  ##
-  # Emit the format string and any following arguments to stderr.
-  # This prefixes each line of a multi-line message with the script name.
-  ##
-  std::warnf_ () {
-  	warnf_format_=${1}
-  	shift
-  	nl='
-  '
-  	case ${*} in
-  	*${nl}*) me_=$(printf "${std__me}"|tr "${nl}|" '??')
-  		printf "${warnf_format_}" "${@}" | sed "s|^|${me_}: |" ;;
-  	*) printf "${std__me}: ${warnf_format_}" "${@}" ;;
-  	esac >&2
-  }
-
-  ##
-  # Emit the arguments to stderr, sanitizing IFS as necessary.
-  ##
-  std::warn_ () {
-  	case ${IFS} in
-  	' '*) std::warnf_ '%s\n' "${*}";;
-  	*)    (IFS=' '; std::warn_ "${@}");;
-  	esac
-  }
-
-  ##
-  # Emit the arguments to stderr and exit process with error.
-  ##
-  std::die() {
-  	std::warn_ "${@}"
-  	exit 1
-  }
-</pre>
-
-    </article>
-  </body>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for HTML5 for Linux version 5.8.0" />
+  <title>Bash std - Matt Whipple</title>
+</head>
+<body>
+  <footer>
+    <nav>
+      <ul>
+        <li>
+          <a href="index">Up to Home</a>
+        </li>
+      </ul>
+    </nav>
+  </footer>
+  <article>
+    <header>
+      <h1>Bash std</h1>
+    </header>
+    <p>Provide the beginnings of a small bash standard library.
+    This is intended to provide functionality which is absent from
+    standard bash but is generally useful (i.e. it would be
+    reasonable to expect this functionality in any given program
+    rather than those that may be part of a common but still
+    narrower domain).</p>
+    <p>The current code is cribbed from the GNU Bootrstrap
+    script.</p>
+    <section>
+      <h2>std__me</h2>
+      <p>Record the name by which this process was invoked
+      (assuming typical invocation).</p>
+      <pre><code>
+        declare -r std__me="${0}"
+      </code></pre>
+    </section>
+    <section>
+      <h2>std::warnf_</h2>
+      <p>Emit the format string and any following arguments to
+      stderr. This prefixes each line of a multi-line message with
+      the script name.</p>
+      <pre><code>
+        std::warnf_ () {
+                warnf_format_=${1}
+                shift
+                nl='
+        '
+                case ${*} in
+                *${nl}*) me_=$(printf "${std__me}"|tr "${nl}|" '??')
+                         printf "${warnf_format_}" "${@}" | sed "s|^|${me_}: |" ;;
+                *) printf "${std__me}: ${warnf_format_}" "${@}" ;;
+                esac &gt;&amp;2
+        }
+      </code></pre>
+    </section>
+    <section>
+      <h2>std::warn_</h2>
+      <p>Emit the arguments to stderr, sanitizing IFS as
+      necessary.</p>
+      <pre><code>
+        std::warn_ () {
+                case ${IFS} in
+                ' '*) std::warnf_ '%s\n' "${*}";;
+                *)    (IFS=' '; std::warn_ "${@}");;
+                esac
+        }
+      </code></pre>
+    </section>
+    <section>
+      <h2>std::die</h2>
+      <p>Emit the arguments to stderr and exit process with
+      error.</p>
+      <pre><code>
+        std::die() {
+                std::warn_ "${@}"
+                exit 1
+        }
+      </code></pre>
+    </section>
+  </article>
+</body>
 </html>

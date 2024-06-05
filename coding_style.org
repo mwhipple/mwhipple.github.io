@@ -298,4 +298,3 @@ subroutines. If performance issues are noticed and profiling suggests
 that code should be optimized then such optimization should seek to
 preserve the above goal or if pragmatically it cannot then it should
 be accompanied by assessing how any used optimizers may be improved.
-
