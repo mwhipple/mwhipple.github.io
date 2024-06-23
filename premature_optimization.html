@@ -1,0 +1,26 @@
+"Premature optimization is the root of all evil" is a quote that almost certainly originates
+from Don Knuth's essay "Structured Programming with <code>go to</code> Statements"
+where it appears twice.
+The quote is often also attributed to Tony Hoare which is likely the result of Knuth
+subsequently using it in "The Errors of TeX" and referring to it as "Hoare's dictum".
+The initial essay was authored with input from many luminaries of computer science from
+that time including Hoare, so it's conceivable that its original source was a letter
+an uncited letter from Hoare to Knuth but there's nothing to substantiate that and
+there's loose evidence to suggest that Hoare has no recollection of ever saying it
+and has expressed that it sounds like something Knuth would say.
+
+The quote is sticky and valid but as with any quote out of context is also
+subject to simplistic misuse. The original essay was focused on defending the
+position that <code>go to</code>s remained valuable at that time though they
+were under attack in the pursuit of structured programming and most notably
+Dijsktra's "Go to statement considered harmful". The crux of the quote is that
+<code>go to</code>s remained a valuable tool for optimization in those inner
+loops where the savings were worth it (ideally through refactoring (before that was
+a term) a more expressive and easily proven structured definition), but
+not elsewhere and most saliently that people tend to be very poor at predicting
+which are the crucial hot spots. The latter certainly remains the case and
+likely even more so given that systems have become increasingly self-optimizing
+in ways that Knuth speculates upon but is far in the distance of the 1974 essay.
+The underlying message is fairly timeless and can be paraphrased as authoring
+for maintainability and evolvability and then optimization should be an empirical
+and data-driven process.
