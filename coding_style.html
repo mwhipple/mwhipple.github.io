@@ -15,6 +15,45 @@
       <header>
         <h1>Coding Style</h1>
       </header>
+      <section>
+        <header>
+          <h2>Literate Programming</h2>
+        </header>
+        <p>I adopt
+          <a href="https://www-cs-faculty.stanford.edu/~knuth/lp.html"
+             title="Knuth: Literate Programming"
+             data-atime="2024-06-30">literate programming</a>
+        practices which will likely be given more in-depth coverage along
+        with some of the supporting tools. The appeal for me likely stems
+        from having spent significant amount of intentionally reading code;
+        as a corollary to most of the lifespace of code being maintenance
+        this likely applies to most programmers whether it is embraced or not,
+        though many years ago I also started regularly reading code I was not
+        actively working on in the interest of understanding systems and learning
+        practices and literate programming is a clear path to make what
+        may be inevitable less onerous or misleading.</p>
+
+        <p>While some of the original utilities such as macro expansion and even
+        the use of LaTeX may be less relevant in modern systems, the ideology
+        remains a highly valuable complement to expressive code, providing context,
+        supporting information, and more readable descriptions than is feasible
+        to convey in the code alone (perhaps the most glaring example is that
+        implementations are not fit to express why decisions were made which may
+        justify one alternative over another or invalidate the adopted approach).</p>
+
+        <p>A possible argument against literate style programming is that the comments
+        and logic may diverge; while tests should also provide some guardrails in
+        my experience it is far preferable to have comments that may be stale
+        (and subsequently updated) rather than have logic that is free to drift freely
+        from intent and potentially understanding (where such self-specifying systems
+        are also another topic to dive more deeply into), particularly when the version
+        control system can facilitate debugging from a clear starting point rather than
+        also needing to reverse engineer original purpose. This is also likely related
+        to the notion that comments should complement and not replicate the code logic
+        and therefore some of the internal details should be free to change or have
+        more proximal commentary whereas requiring updates to documentation for more
+        substantial changes seems like a healthy change management practice.</p>
+      </section>
     </article>
   </body>
 </html>
