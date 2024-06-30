@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Linux - Matt Whipple</title>
+  </head>
+
+  <body>
+    <footer>
+      <nav>
+        <ul>
+          <li><a href="software">Software</a></li>
+        </ul>
+      </nav>
+    </footer>
+    <article>
+      <header>
+        <h1>Linux</h1>
+        <p>Linux has been my preferred personal operating system since
+        the turn of the millenium, with Gentoo being my standard distribution
+        for roughly as long. I don't know if I'd opt for Gentoo from
+        scratch (and may lean towards Guix or one of the container-oriented
+        options) but it's flexible enough that it's hard to justify moving
+        away from. Similarly I'm also drawn to some smaller or more cutting
+        edge kernels but given Linux's role in containerization I'd only be
+        likely to use alternatives for fairly small, contained uses.</p>
+
+        <p>I used to fairly religiously keep my kernel updated but now I do
+        so fairly infrequently given that the kernel changes seem to be more
+        incremental and therefore I tend to tinker with the kernel when I
+        need to change settings or notice that the running version is particularly
+        crusty.
+        I'm likely to work on streamlining the process a bit;
+        In particular I'll also likely start working out more of a programmatic
+        means to perform kernel configuration (ideally finding one) given that
+        the standard make targets aren't particularly conducive to defining
+        configuration in source control (I think there is a similar sentiment
+        in the Linux Kernel in a Nutshell book).</p>
+
+        <p>In Gentoo in particular I tend to emerge several new kernel sources
+        before building and installing any of them where I may think about
+        wiring up
+        <a href="https://wiki.gentoo.org/wiki/Kernel/Upgrade"
+           title="Kernel/Upgrade - Gentoo wiki"
+           data-atime="2024-06-30">a hook to more automatically update</a>,
+        but at the moment that's fairly low priority for me.</p>
+      </header>
+    </article>
+
+  </body>
+
+</html>
