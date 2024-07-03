@@ -2,12 +2,10 @@
 title: Content
 ---
 
-[Up to Home](./)
+- [Up to Home](./)
 
-[Link](link)
-
-[Page Metadata](page_metadata)
-
-[Page Title](page_title)
-
-[Paragraph](paragraph)
+- [Link](link)
+- [List](list)
+- [Page Metadata](page_metadata)
+- [Page Title](page_title)
+- [Paragraph](paragraph)

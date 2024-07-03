@@ -1,62 +1,207 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Technology is a Tool, Not a Solution - Matt Whipple</title>
-  </head>
-
-  <body>
-    <footer>
-      <nav>
-        <ul>
-          <li><a href="./">Back to Home</a><li>
-        </ul>
-      </nav>
-    </footer>
-    <article>
-      <header>
-        <h1>Technology is a Tool, Not a Solution</h1>
-      </header>
-
-      <p>The general sentiment that progress is a intrinsic to technology is
-      evinced on a broader scale in the form of
-      <a href="https://www.pcmag.com/encyclopedia/term/technology-imperative"
-         title="technology imperative"
-         data-atime="2024-07-01">technology imperative</a> lines of thought,
-      but also play out routinely on a smaller scale within the confines of
-      software engineering.</p>
-
-      <p>In what is perhaps the most benign form this manifests
-      as adopting outsized technologies to scratch particular itches at the cost
-      of sometimes massive increases in complexity or footprint. This often
-      takes the form of the inability to articulate (and likely understand)
-      precise problems while suggesting that a particular technology will resolve
-      issues. Some anecdotal stories for this case that spring to mind involve
-      multiple companies around 2020 where developers eagerly promoted GraphQL
-      as a solution to perceived API deficiencies which in one case led to
-      wallpapering over the underlying issues leading to slower response times
-      and higher operational expenditures and in another just led to talking
-      someone down to the fact that what they were really after was caching
-      (GraphQL can be great but it needs to rest atop a well defined model
-      rather than attempting to compensate for a poorly defined one).</p>
- 
-      <p>In more insidious cases this can amount to attempting to apply
-      what are largely mechanical solutions to underlying cultural issues.
-      There exist relatively sticky issues that require dedicated attention
-      but often technological silver bullets are pursued instead. This is likely
-      to lead to the technical equivalent of a cycle of reorganizations where
-      changes are thrown at the wall in the hopes that something will stick.</p>
-
-      <p>This is not the ravings of a Luddite: technology can be a very valuable tool
-      but the desired first-class values must be defined and tracked rather than
-      being seduced into
-      <a href="https://cacm.acm.org/blogcacm/the-techno-pro-attitude/"
-         title="The Techno-Pro Attitude – Communications of the ACM"
-         data-atime="2024-07-02">thinking there is inherent benefit in technology itself</a>
-      or that what value is realized will offset the costs of adoption (not tracking
-      the latter is quick path to a lot of churn). Without such tracking technology
-      is reduced to an incarnation of a solution looking for a problem.</p>
-    </article>
-
-  </body>
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Technology is a Tool, Not a Solution</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Technology is a Tool, Not a Solution</h1>
+</header>
+<ul class="incremental">
+<li><a href="./">Up to Home</a></li>
+</ul>
+<p>The general sentiment that progress is a intrinsic to technology is
+evinced on a broader scale in the form of <a
+href="https://www.pcmag.com/encyclopedia/term/technology-imperative%20%22technology%20imperative%22"
+data-atime="2024-07-01">technology imperative</a> lines of thought and
+more general issues that arise due to <a
+href="https://hbr.org/2019/11/the-ethical-dilemma-at-the-heart-of-big-tech-companies%20%22The%20Ethical%20Dilemma%20at%20the%20Heart%20of%20Big%20Tech%20Companies%22"
+data-atime="&quot;2024-07-03">misaligned incentives</a>, but also play
+out routinely on a smaller scale within the confines of software
+engineering.</p>
+<p>In what is perhaps the most benign form this manifests as adopting
+outsized technologies to scratch particular itches at the cost of
+sometimes massive increases in complexity or footprint. This often takes
+the form of the inability to articulate (and likely understand) precise
+problems while suggesting that a particular technology will resolve
+issues. Some anecdotal stories for this case that spring to mind involve
+multiple companies around 2020 where developers eagerly promoted GraphQL
+as a solution to perceived API deficiencies which in one case led to
+wallpapering over the underlying issues leading to slower response times
+and higher operational expenditures and in another just led to talking
+someone down to the fact that what they were really after was caching
+(GraphQL can be great but it needs to rest atop a well defined model
+rather than attempting to compensate for a poorly defined one).</p>
+<p>In more insidious cases this can amount to attempting to apply what
+are largely mechanical solutions to underlying cultural issues. There
+exist relatively sticky issues that require dedicated attention but
+often technological silver bullets are pursued instead. This is likely
+to lead to the technical equivalent of a cycle of reorganizations where
+changes are thrown at the wall in the hopes that something will
+stick.</p>
+<p>This is not the ravings of a Luddite: technology can be a very
+valuable tool but the desired first-class values must be defined and
+tracked rather than being seduced into <a
+href="https://cacm.acm.org/blogcacm/the-techno-pro-attitude/%20%22The%20Techno-Pro%20Attitude%20–%20Communications%20of%20the%20ACM%22"
+data-atime="2024-07-02">thinking there is inherent benefit in technology
+itself</a> or that what value is realized will offset the costs of
+adoption (not tracking the latter is quick path to a lot of churn).
+Without such tracking technology is reduced to an incarnation of a
+solution looking for a problem.</p>
+</body>
 </html>
