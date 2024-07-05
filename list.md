@@ -11,7 +11,7 @@ elements inherit relevant properties from the list itself.
 
 List Elements
 
-\[HTML}(html)
+[HTML](html)
 
 In HTML list elements are defined by the list item [li
 element](https://html.spec.whatwg.org/#the-li-element%20The%20li%20element)
