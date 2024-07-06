@@ -1,16 +1,3 @@
-while I'm not particularly fond of their business model (particularly
-the somewhat crippled open source offering) the software itself has
-proven to be very robust and efficient with wide adoption...and I have
-assorted [[file:sources.org::#nginx][nginx]] stickers and T-shirts (one of which is black-on-black
-and probably my favorite tech shirt) so I should probably validate the
-swag by using the software. My past experience also gives me
-confidence that I can bend it to my wishes in some way or another and
-maybe learn some new tricks along the way (I already have a module
-sitting around to address the DNS resolution issue which may otherwise
-dissuade me).
-
-*** Dockerfile
-
 Certainly one of the most standard dependencies for a containerized
 deployment is defining or producing what image is used. In this case
 I'll be using a Dockerfile for that since it was what is documented in

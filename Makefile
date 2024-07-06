@@ -25,7 +25,7 @@ include deploy.mk
 
 PANDOC := pandoc
 %.html: %.md
-	$(PANDOC) --title-prefix="Matt Whipple|" --section-divs=true --standalone --from=markdown+link_attributes $(<) -o $(@)
+	$(PANDOC) --title-prefix="Matt Whipple" --section-divs --standalone --from=markdown+link_attributes $(<) -o $(@)
 
 MD_SRC := $(wildcard *.md)
 deploy: $(MD_SRC:.md=.html)
