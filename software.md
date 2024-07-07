@@ -4,7 +4,7 @@ title: Software
 
 - [Up to Home](./)
 
-Software Selection
+## Software Selection
 
 Perhaps the most fundamental task in dealing with computer software is deciding
 which software to use. Often momentum narrows the field but in other
@@ -17,11 +17,11 @@ larger initiatives. For example graduated projects from the
 [Cloud Native Computing Foundation](https://www.cncf.io/ "Cloud Native Computing Foundation"){data-atime="2024-06-04"}
 are likely to be strong contenders when working in (unsurpisingly) cloud native environments.
 
-Selected and Grokked Software
+## Selected and Grokked Software
 
 - [nano](https://git.savannah.gnu.org/cgit/nano.git/log/ "nano.git - GNU nano"){data-atime="2024-06-11"}
 
-DevEx
+## DevEx
 
 Developer Experience is an incredibly important factor in cultural scability (and security) within an organization,
 but tends to be pursued with what I consider to be questionable approaches. Perhaps most glaringly
@@ -37,7 +37,14 @@ industry standards. As is a common affliction across engineering efforts: buildi
 costly albatrosses and periodic large scale redesign efforts rather than being able to smoothly keep pace
 with changes.
 
-FinOps
+As is typical [agile](agile) guidance but particularly in light of some of the above such efforts
+should also be incremental, calibrated to the size of the target environment, and driven by
+defined performance indicators rather than assumptions. This can drive ongoing delivery of
+functionality where it is most beneficial while blazing a reinforced trail
+to a more comprehensive
+[runtime](https://www.infoq.com/articles/platform-runtime-engineering/ "Platform as a Runtime - the Next Step in Platform Engineering - InfoQ"){atime="2025-06-28"}.
+
+## FinOps
 
 [Million Dollar Lines of Code](https://www.infoq.com/articles/cost-optimization-engineering-perspective/
 "Million Dollar Lines of Code - an Engineering Perspective on Cloud Cost Optimization - InfoQ")
@@ -50,7 +57,7 @@ related concept I need to extract that draws on things like Murphy's Law, Safety
 The latter also seems notable in that the [premature optimization](premature_optimization)
 quote is mentioned (attributed to Hoare) but without an actionable less "evil" alternative.</p>
 
-Sub-Pages
+## Sub-Pages
 
 - [Bash Standard Library](bash_std)
 - [Coding Style](coding_style)

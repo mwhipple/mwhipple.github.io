@@ -1,23 +1,12 @@
-<html>
-  <head>
-    <title>Subroutine - Matt Whipple</title>
-  </head>
+---
+title: Subroutine
+---
 
-  <body>
-    <nav>
-      <ul>
-	<li><a href="index">Home</a></li>
-      </ul>
-    </nav>
-    <article>
-      <h1>Subroutine</h1>
+- [Up to Software](software)
 
-      <section>
-
-	<p>
-	  Subroutine is the provisional term I'll use for a chunk of
-	  reused logic in programming. In most languages this will
-	  consist of some kind of name and signature involving
+Subroutine is the provisional term I'll use for a chunk of
+reused logic in programming. In most languages this will
+consist of some kind of name and signature involving
 	  parameters and return value or values, along with a body which
 	  contains the implementation, though this term is also seems
 	  general enough to cover reuse without that type of interface
