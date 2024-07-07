@@ -1,27 +1,12 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <meta name="generator" content=
-  "HTML Tidy for HTML5 for Linux version 5.8.0" />
-  <title>Input Events - Matt Whipple</title>
-</head>
-<body>
-  <footer>
-    <nav>
-      <ul>
-        <li>
-          <a href="/">Home</a>
-        </li>
-      </ul>
-    </nav>
-  </footer>
-  <article>
-    <header>
-      <h1>Input Events</h1>
-    </header>
-    <ul>
-      <li>a OOOOR 04</li>
-      <li>b OOLOM 05</li>
+---
+title: Input Events
+---
+
+- [Up to Software](software)
+
+- a OOOOR 04 self-insert
+- b OOLOM 05
+
       <li>c OMROO 06</li>
       <li>d OMOOR 07</li>
       <li>e OOMOO 08</li>
@@ -41,7 +26,3 @@
       OOLO RET OMOMM &lt; OLLOR > OLLOM 1 OROMM 2 OROOM 3 ORROO 4 ORORO 5 OROOR
       6 ORLOO 7 OROLO 8 ORORR 9 ORLLO 0 ORMMO = OMOLM " ORMOM _ OMOOL ( OLORR
       ) OLOMM { OLORO } OLOLO $ OOLMR , OMLLO
-    </ul>
-  </article>
-</body>
-</html>
