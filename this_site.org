@@ -1,13 +1,3 @@
-Certainly one of the most standard dependencies for a containerized
-deployment is defining or producing what image is used. In this case
-I'll be using a Dockerfile for that since it was what is documented in
-the quick start, and it's currently my preferred approach. The preference
-is largely out of familiarity - I'm also intrigued by buildpacks, especially
-given their pursued reproducibility, but the current lack of official support
-for ~arm64~  dissuades me from making the switch (my work computers
-are typically Apple silicon though my personal systems tend to remain ~amd64~).
-
-In a scenario such as this one where I'd be looking to make use of an already
 available image, I start with the Dockerfile and identify any necessary
 supporting work from there. This may be more of a top-down approach given that
 it may operate on resources such as configuration files that may not exist, but

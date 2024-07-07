@@ -42,7 +42,7 @@ should also be incremental, calibrated to the size of the target environment, an
 defined performance indicators rather than assumptions. This can drive ongoing delivery of
 functionality where it is most beneficial while blazing a reinforced trail
 to a more comprehensive
-[runtime](https://www.infoq.com/articles/platform-runtime-engineering/ "Platform as a Runtime - the Next Step in Platform Engineering - InfoQ"){atime="2025-06-28"}.
+[runtime](https://www.infoq.com/articles/platform-runtime-engineering/ "Platform as a Runtime - the Next Step in Platform Engineering - InfoQ"){atime="2024-06-28"}.
 
 ## FinOps
 
@@ -57,14 +57,28 @@ related concept I need to extract that draws on things like Murphy's Law, Safety
 The latter also seems notable in that the [premature optimization](premature_optimization)
 quote is mentioned (attributed to Hoare) but without an actionable less "evil" alternative.</p>
 
+## Governance
+
+I've been in organizations with different motivations to pursue governance, and operating within
+an [architecture](software_architecture) role governance is often something which significantly
+informs proposed designs and for which I often find myself acting as a mediator.
+Governance like other hygiene-style concerns such as security must be
+integrated into core work rather than perceived as bolted on friction, and the overarching
+governance perspective should be
+[complementarily agile](https://www.infoq.com/podcasts/governance-for-reducing-complexity/ "Governance for Reducing Complexity - InfoQ"){atime="2024-07-07"}
+to core processes rather than introducing an impedence mismatch.
+
 ## Sub-Pages
 
 - [Bash Standard Library](bash_std)
 - [Coding Style](coding_style)
 - [Computer Security](computer_security)
+- [Content](content)
 - [Digital Video](digital_video)
 - [Docker](docker)
 - [GitHub SSH](github_ssh)
+- [HTTP](http)
+- [Input Events](input_events)
 - [iptables](iptables)
 - [linux](linux)
 - [Observability](observability)

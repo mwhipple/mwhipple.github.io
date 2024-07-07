@@ -23,9 +23,13 @@ include deploy.mk
 
 ## </pre>
 
+# Generate enclosing sections https://pandoc.org/MANUAL.html#option--section-divs[
+PANDOC_OPTS += --section-divs
+
+
 PANDOC := pandoc
 %.html: %.md
-	$(PANDOC) --title-prefix="Matt Whipple" --section-divs --standalone --from=markdown+link_attributes $(<) -o $(@)
+	$(PANDOC) --title-prefix="Matt Whipple" --standalone --from=markdown+link_attributes $(<) -o $(@)
 
 MD_SRC := $(wildcard *.md)
 deploy: $(MD_SRC:.md=.html)
