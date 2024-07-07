@@ -49,3 +49,7 @@ autonomy within the system could safely integrate with propsective human
 invervention when necessary. This translates to not not only
 prospective deficiencies within the systems but risks around
 [dangerous fallback behaviors](https://www.reuters.com/business/autos-transportation/automakers-ask-us-agency-reconsider-emergency-braking-rule-2024-06-24/ "Automakers ask US agency to reconsider emergency braking rule | Reuters"){atime="2024-06-24}.
+
+Developments within Vehicles themselves will also be bolstered
+by and need to integrate with infrastructural improvements such as
+[smart highways](https://www.axios.com/2024/07/02/smart-highway-i-94-michigan "Smart highway pilot construction completed in Michigan"){atime="2024-07-02"}.

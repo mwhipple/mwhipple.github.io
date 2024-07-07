@@ -5,7 +5,7 @@ title: Input Events
 - [Up to Software](software)
 
 - a OOOOR 04 self-insert
-- b OOLOM 05
+- b OOLOM 05 self-insert
 
       <li>c OMROO 06</li>
       <li>d OMOOR 07</li>
