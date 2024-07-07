@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -euo pipefail
+
+grep -R "lang=" "${HOME}/Documents/pod/grimoire/"* | shuf -n 1
