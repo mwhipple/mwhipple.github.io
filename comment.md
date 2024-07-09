@@ -1,0 +1,20 @@
+---
+title: Comment
+---
+
+A Comment is text which is intended for readers of source but which is
+ignored by the compiler. The underlying mechanism of being able to ignore
+and typically remove comments was important when resources where at a
+premium, but in modern systems it may be more valuable for commentary
+to be understood and optionally preserved as code metadata.
+
+Comments tend to exist in either a line-oriented form
+(where a comment marker indicates the rest of the current line
+is a comment and therefore the end-of-line provides an
+implicit terminator) or block form which makes use of
+an explicit terminator (and can therefore span multiple
+lines or also be succeeded by code on the same line.
+
+## [Perl](perl)
+
+`#` defines a line comment.

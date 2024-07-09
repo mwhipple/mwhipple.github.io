@@ -2,4 +2,5 @@
 
 set -euo pipefail
 
-grep -R "lang=" "${HOME}/Documents/pod/grimoire/"* | shuf -n 1
+find ~/Documents -type f | shuf -n1
+#grep -R "lang=" "${HOME}/Documents/pod/grimoire/"* | shuf -n 1
