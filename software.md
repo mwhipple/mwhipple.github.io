@@ -17,10 +17,6 @@ larger initiatives. For example graduated projects from the
 [Cloud Native Computing Foundation](https://www.cncf.io/ "Cloud Native Computing Foundation"){data-atime="2024-06-04"}
 are likely to be strong contenders when working in (unsurpisingly) cloud native environments.
 
-## Selected and Grokked Software
-
-- [nano](https://git.savannah.gnu.org/cgit/nano.git/log/ "nano.git - GNU nano"){data-atime="2024-06-11"}
-
 ## DevEx
 
 Developer Experience is an incredibly important factor in cultural scability (and security) within an organization,
@@ -87,3 +83,4 @@ to core processes rather than introducing an impedence mismatch.
 - [Programming Languages](programming_languages)
 - [Software Architecture](software_architecture)
 - [Solid](solid)
+- [Toolbox](toolbox)

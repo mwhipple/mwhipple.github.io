@@ -12,22 +12,27 @@ Sections may also serve as somewhat of an unformal and disorganized
 
 ## Sub Pages
 
--   [Agile](agile)
--   [Automotive Technology](automotive_technology)
--   [Cognition](cognition)
--   [Food](food)
--   [Headlong](book-headlong)
--   [Health](health)
--   [Linux Sound](linux_sound)
--   [Literals](literals)
--   [memex](memex)
--   [Requirements Engineering](requirements_engineering)
--   [Software](software)
--   [Software Libraries](software_libraries)
--   [Shebang](shebang.html)
--   [Subroutine](subroutine.html)
--   [Technology is a Tool, Not a Solution](technology_is_a_tool_not_a_solution)
--   [Woodworking](woodworking)
+- [About Me](about_me)
+- [Agile](agile)
+- [Automotive Technology](automotive_technology)
+- [Cognition](cognition)
+- [Ear Unclogging](ear_unclogging)
+- [Food](food)
+- [Headlong](book-headlong)
+- [Health](health)
+- [Linux Sound](linux_sound)
+- [Literals](literals)
+- [memex](memex)
+- [Pinewood Derby](pinewood_derby)
+- [Requirements Engineering](requirements_engineering)
+- [Software](software)
+- [Software Libraries](software_libraries)
+- [Shebang](shebang.html)
+- [Subroutine](subroutine.html)
+- [Technology is a Tool, Not a Solution](technology_is_a_tool_not_a_solution)
+- [Woodworking](woodworking)
+
+## Miscellany
 
 Around Sat Mar 30 05:30:23 AM EDT 2024 my laptop would not start in the
 morning There was charge remaining and it went through GRUB and loading
@@ -35,18 +40,6 @@ hibernation but the screen threafter was blank.
 
 The first bit of content will concern the construction of the site
 itself, which can be viewed in the [Makefile](Makefile).
-
-## About Me
-
-By profession I\'m a software engineer/architect and typically spend my
-days shepherding large scale [distributed cloud
-systems](https://queue.acm.org/detail.cfm?id=2482856 "There’s Just No Getting around It: You’re Building a Distributed System - ACM Queue"){date="2024-02-14"}.
-Outside of that I\'m somewhat of a minimalist who pursues
-[sustainability](sustainability), a husband, father, musician,
-[empiricist](https://en.wikipedia.org/wiki/Empiricism "Empricism - Wikipedia"){date="2024-02-02"},
-and someone who needs to devote time to a wider range of hobbies.
-
-Some more information about software will be tracked [here](software)
 
 On January 25, 2024 this site seemed to be unresponsive starting at
 \~07:30 ET. Requests would result in a 500 error. The traffic itself
@@ -86,8 +79,3 @@ be removed, and there were also some lingering forwarding rules. I\'ll
 have to check the billing (or just wait a month to see if I\'m still
 getting charged).
 
-[Ear Unclogging](ear_unclogging)
-
-[Pinewood Derby](pinewood_derby)
-
-[Cooking](cooking)
