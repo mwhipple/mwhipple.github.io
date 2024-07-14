@@ -6,7 +6,13 @@ title: Zero Trust Architecture
 
 Zero Trust Architecture is what the cool kids are doing now as it
 becomes increasingly crucial as systems and the ways in which we interact
-with them become less centralized.
+with them become less centralized. Currently many of the techniques
+seem overly ambitious for supporting discrete security needs
+(such as managing identity and access management for software-as-a-service
+customers) and is more appropriate for intra-enterprise security, but
+there are a large number of overlapping concerns and it is worthwhile
+maintaining a unified (if not necessarily uniform) perspective on security
+needs.
 
 Though I'll use it herein since it seems to be the predominant phrasing,
 I'm personally not a fan of the "Zero Trust" terminology as it is overly
@@ -34,6 +40,11 @@ picture should be understood rather than seeking their annihilation.
 Ultimately the approach can be distilled to the notion that each severable
 component should be secured independently rather than expecting transitive
 security.
+
+[Zero Trust Networks](https://learning.oreilly.com/library/view/zero-trust-networks/9781492096580/ "Zero Trust Networks, 2nd Edition"){atime="2024-07-14"}
+provides a good introduction to the space as a whole with a combination
+of examples, practical guidance supported by case studies, and references
+to some of the emerging standards and best practices.
 
 Phil Vachon provides a nice metaphorical overview of the breaking down
 of security perimeters in pragmatic terms in

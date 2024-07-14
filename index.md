@@ -20,6 +20,7 @@ Sections may also serve as somewhat of an unformal and disorganized
 - [Food](food)
 - [Headlong](book-headlong)
 - [Health](health)
+- [Incident Log](incident_log)
 - [Linux Sound](linux_sound)
 - [Literals](literals)
 - [memex](memex)
@@ -32,27 +33,10 @@ Sections may also serve as somewhat of an unformal and disorganized
 - [Technology is a Tool, Not a Solution](technology_is_a_tool_not_a_solution)
 - [Woodworking](woodworking)
 
-## Miscellany
-
-Around Sat Mar 30 05:30:23 AM EDT 2024 my laptop would not start in the
-morning There was charge remaining and it went through GRUB and loading
-hibernation but the screen threafter was blank.
+## Unsorted Miscellany
 
 The first bit of content will concern the construction of the site
 itself, which can be viewed in the [Makefile](Makefile).
-
-On January 25, 2024 this site seemed to be unresponsive starting at
-\~07:30 ET. Requests would result in a 500 error. The traffic itself
-seemed to not be reaching the application instances which to me suggests
-an issue with either the load balancer or some of the Knative/Cloud Run
-machinery (possibly related to cold starts). There was no obvious cause
-for this change based on the logs nor was the application reporting an
-issue. Restoring a previous revision and creating a new revision using
-the same image both resolved the issue so it is optimistically going to
-be ignored for the time being as a fluke. If it recurs further
-investigation will be done and information recorded (determing where the
-error itself is being thrown should indicate where there is undesirable
-state\...presumably things getting stuck).
 
 I also deploy my [site for music](https://music.mattwhipple.com) to GCP,
 though that is currently using Hugo pushing to [Cloud

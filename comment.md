@@ -15,6 +15,10 @@ implicit terminator) or block form which makes use of
 an explicit terminator (and can therefore span multiple
 lines or also be succeeded by code on the same line.
 
+## [C](c)
+
+`/*` and `*/` define block comments.
+
 ## [Perl](perl)
 
 `#` defines a line comment.
