@@ -22,3 +22,7 @@ lines or also be succeeded by code on the same line.
 ## [Perl](perl)
 
 `#` defines a line comment.
+
+## Rust
+
+`//` defines a line comment.

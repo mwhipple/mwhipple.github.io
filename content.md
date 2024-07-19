@@ -17,4 +17,5 @@ title: Content
 ## Languages
 
 - [HTML](html)
+- [Markdown](markdown)
 - [XML](xml)
