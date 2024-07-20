@@ -1,0 +1,99 @@
+(eval-when-compile (require 'eshell))
+(require 'cl-lib)
+
+(defun ^-escaper (char)
+  "Produce a function which when passed a string
+will escape <char> instances with backslashes."
+  (let ((escaped (concat "\\\\" char)))
+    (lambda (s) (replace-regexp-in-string char escaped s))))
+
+(defun ^-quoter (char)
+  "Produce a function which will quote a given string with <char>,
+escaping any internal instances of <char> within that string."
+  (let ((escaped (^-escaper char)))
+    (lambda (s) (concat char (funcall escaped s) char))))
+
+
+(defun ^-env-warn (threshold-supplier)
+  "Produce a warning for executions exceeding the return of <threshold-supplier>
+to be used as a handler for ^-timed.
+This primarily decouples this logic from the enclosing environment.
+A supplier is used so that it can be defined once but latently resolved.
+"
+  (lambda (duration)
+    (if (> duration (funcall threshold-supplier))
+	(message "Warning: execution took %dms!" duration))))
+
+(defun ^-buffer-command (command args)
+  "Invoke <command> with <args> where the output will be sent to the current buffer.
+This is a partial application of call-process with conventional arguments."
+  (apply #'call-process command nil t nil args))
+
+(defun with-invocation-output-buffer (invocation body)
+  "Invoke <invocation> and evaluate <body> with invocation's output in a temp buffer.
+On a non-zero exit status code, fail with an error."
+  (with-temp-buffer
+    (let ((status (funcall invocation)))
+      (if (zerop status)
+	  (funcall body)
+	(error "Non-zero exit status %s. Output was \n%s" status (buffer-string))))))
+
+    
+;; The details of the escapes here should be documented.
+
+(defconst ^-shell-null "\\000")
+(defconst ^-elisp-null "\0")
+
+;; This should be defined as some type of specialized pair
+;; but an appropriate term doesn't spring to mind.
+;; This could potentially also be wrapped up as an object.
+(defun ^-pair-inject (pair injection)
+  "For a given <pair>, append <injection> to the first and prepend to the second."
+  (cons (concat (car pair) injection) (concat injection (cdr pair))))
+
+(defun ^-wrapped-buffer-contents (pre post)
+  "Return the contents of the current buffer that are surrounded by <pre> and <post>.
+The provided pre and post should be unique and not expected to be within the content
+(using escapes is helpful)."
+  (goto-char (point-min))
+  (if (re-search-forward (concat pre "\\(.*\\)" post))
+      (match-string 1)
+    (error "Unexpected contents: %S" (buffer-string))))
+	     
+(defun ^-shell-printf (str &rest args)
+  (let* ((shell (funcall ^-env-shell-supplier))
+	 (printf (funcall ^-env-printf-supplier))
+	 (envelope '("__RESULT" . "__RESULT"))
+	 (elisp-delims (^-pair-inject envelope ^-elisp-null))
+	 (wrap (^-enveloper (^-pair-inject envelope ^-shell-null)))
+	 (quoter (^-quoter "\""))
+	 (cmd-args (append (funcall ^-env-shell-login-arg-supplier) (list "-c" (concat
+			   printf " '" (funcall wrap str) "' "
+			   (mapconcat (lambda (s) (funcall quoter s)) args " ")))))
+	 (timed (^-timed (^-env-warn (lambda () ^-env-warn-duration-millis)))))
+    (with-invocation-output-buffer
+     (lambda () (funcall timed (lambda () (^-buffer-command shell cmd-args))))
+     (lambda () (^-wrapped-buffer-contents (car elisp-delims) (cdr elisp-delims))))))
+
+(defun ^-shell-transplant-env (name)
+  (setenv name (^-shell-expand name)))
+
+(defun ^-shell-transplant-path ()
+  (let ((value (^-shell-expand "PATH")))
+    (setenv "PATH" value)
+    (setq exec-path (append (parse-colon-path value) (list exec-directory)))
+    (setq-default eshell-path-env value)))
+
+(^-shell-transplant-path)
+(mapc #'^-shell-transplant-env ^-env-variable-transplants)
+
+(shell-command-with-editor-mode)
+  
+(setq gnus-select-method
+'(nnimap "imap.gmail.com"))
+
+(add-hook 'comint-output-filter-functions #'comint-truncate-buffer)
+
+;; Local Variables:
+;; coding: utf-8
+;; End:

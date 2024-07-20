@@ -7,7 +7,7 @@ title: Subroutine
 Subroutine is the provisional term I'll use for a chunk of
 reused logic in programming. In most languages this will
 consist of some kind of name and signature involving
-	  parameters and return value or values, along with a body which
+parameters and return value or values, along with a body which
 	  contains the implementation, though this term is also seems
 	  general enough to cover reuse without that type of interface
 	  (such as in assembly or Forth).
