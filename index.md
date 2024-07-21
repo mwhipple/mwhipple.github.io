@@ -19,7 +19,6 @@ Sections may also serve as somewhat of an unformal and disorganized
 - [Food](food)
 - [Headlong](book-headlong)
 - [Health](health)
-- [Incident Log](incident_log)
 - [Literals](literals)
 - [memex](memex)
 - [Pinewood Derby](pinewood_derby)

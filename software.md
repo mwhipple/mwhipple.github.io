@@ -77,6 +77,7 @@ to core processes rather than introducing an impedence mismatch.
 - [GitHub SSH](github_ssh)
 - [HTTP](http)
 - [Input Events](input_events)
+- [Incident Log](incident_log)
 - [iptables](iptables)
 - [linux](linux)
 - [Observability](observability)
