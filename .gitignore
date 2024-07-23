@@ -1,2 +1,3 @@
 build/
 *.html
+remove_comment_prefix

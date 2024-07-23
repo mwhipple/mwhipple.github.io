@@ -1,17 +1,19 @@
 ---
-title: Toolbox
+title: Software Toolbox
 ---
 
 - [Up to Software](software)
 
-## Editors
+## Active
+
+### Editors
 
 I spend the vast majority of my time working in editors. These are predominantly
 text editors...though often "text" often is relevant due to some combination of
 accient and POSIX baggage which is something I'll aspirationally start to relax
 but that's unlikely to be more than ideological in the mid-term.
 
-### nano 
+#### nano 
 
 [Nano](https://en.wikipedia.org/wiki/GNU_nano "GNU nano - Wikipedia"){data-atime="2024-07-11"} is
 currently my default text editor. I'm drawn to it in that it is focused and readily
@@ -21,6 +23,8 @@ could be defined in the form of calls to external command flows. The
 very clean and readable, and I'm also likely to ultimately create my own toy version
 of it to make it a bit more extensible, support personal conventions, and just to
 play around with technologies.
+
+## Dormant
 
 ### emacs
 
