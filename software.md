@@ -79,6 +79,7 @@ to core processes rather than introducing an impedence mismatch.
 - [Input Events](input_events)
 - [Incident Log](incident_log)
 - [iptables](iptables)
+- [Literals](literals)
 - [linux](linux)
 - [Observability](observability)
 - [Programming Languages](programming_languages)

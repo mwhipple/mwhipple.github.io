@@ -19,6 +19,10 @@ lines or also be succeeded by code on the same line.
 
 `/*` and `*/` define block comments.
 
+## C++
+
+`//` defines a line a comment.
+
 ## [Perl](perl)
 
 `#` defines a line comment.
