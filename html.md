@@ -22,6 +22,7 @@ will be captured elsewhere.
 
 Elements
 
+- [doctype](https://html.spec.whatwg.org/#the-doctype "The DOCTYPE"){atime="2024-07-24"}
 -   [html](https://html.spec.whatwg.org/#the-html-element "The html element"){atime="2024-05-14"}
     -   [lang](https://html.spec.whatwg.org/#the-lang-and-xml:lang-attributes "The lang and xml:lang attributes"){atime="2024-06-05"}
 -   data-atime
