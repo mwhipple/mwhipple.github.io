@@ -15,18 +15,22 @@ implicit terminator) or block form which makes use of
 an explicit terminator (and can therefore span multiple
 lines or also be succeeded by code on the same line.
 
+## [Bash](bash)
+
+`#` declares line comments.
+
 ## [C](c)
 
-`/*` and `*/` define block comments.
+`/*` and `*/` declare block comments.
 
 ## C++
 
-`//` defines a line a comment.
+`//` declares line comments.
 
 ## [Perl](perl)
 
-`#` defines a line comment.
+`#` declares line comments.
 
 ## Rust
 
-`//` defines a line comment.
+`//` declares line comments.

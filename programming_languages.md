@@ -107,5 +107,6 @@ I\'ll also be more clearly defining my perceived boundary and
 relationship between systems and application programming since I\'m
 leaning towards more distinct roles than what are typically designated.
 
+- [Bash](bash)
 - [C](c)
 - [Perl](perl)

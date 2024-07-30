@@ -6,14 +6,9 @@ title: Software Toolbox
 
 ## Active
 
-### Editors
+### [bash](bash)
 
-I spend the vast majority of my time working in editors. These are predominantly
-text editors...though often "text" often is relevant due to some combination of
-accient and POSIX baggage which is something I'll aspirationally start to relax
-but that's unlikely to be more than ideological in the mid-term.
-
-#### nano 
+### nano 
 
 [Nano](https://en.wikipedia.org/wiki/GNU_nano "GNU nano - Wikipedia"){data-atime="2024-07-11"} is
 currently my default text editor. I'm drawn to it in that it is focused and readily
