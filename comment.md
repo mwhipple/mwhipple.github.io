@@ -26,6 +26,7 @@ lines or also be succeeded by code on the same line.
 ## C++
 
 `//` declares line comments.
+`/*` and `*/` declare block comments.
 
 ## [Perl](perl)
 

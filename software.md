@@ -74,6 +74,7 @@ to core processes rather than introducing an impedence mismatch.
 - [Data Engineering](data_engineering)
 - [Digital Video](digital_video)
 - [Docker](docker)
+- [Generative AI](generative_ai)
 - [GitHub SSH](github_ssh)
 - [HTTP](http)
 - [Input Events](input_events)
