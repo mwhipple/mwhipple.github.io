@@ -10,7 +10,7 @@ title: Input Events
 - d OMOOR 07 self-insert
 - e OOMOO 08 self-insert
 - f OMORO 09 self-insert
-      <li>g OOROR 0A</li>
+- g OOROR 0A self-insert
       <li>h OOOOM 0B</li>
       <li>i OOROO 0C</li>
       <li>j OMMRO 0D</li>
