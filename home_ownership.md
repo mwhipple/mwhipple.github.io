@@ -34,3 +34,12 @@ it almost certainly is in one way or another I'll defer
 going that route. To start there are two eyes on the arm
 into which the hook could be placed and I've switched the hook
 from the one that is further from the lever to the inner one.
+
+Fri Aug  2 07:51:39 AM EDT 2024
+It still occasionally runs - one quirk with this toilet is that
+the valve for the pipe is _right_ up against the toilet itself
+so it has to be pushed to be turned. I don't think the water
+itself was turned on all the way which could presumably inhibit
+sealing so I opened that. The flapper also has multiple places
+at which the chain could be attached so that will be my next
+variable to explore.

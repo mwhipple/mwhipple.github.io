@@ -86,3 +86,4 @@ to core processes rather than introducing an impedence mismatch.
 - [Software Architecture](software_architecture)
 - [Software Toolbox](software_toolbox)
 - [Solid](solid)
+- [Strict Mode](strict_mode)
