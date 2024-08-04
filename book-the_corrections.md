@@ -7,8 +7,9 @@ title: The Corrections
 I just finished Jonathan Franzen's
 [The Corrections](https://www.amazon.com/Corrections-Novel-Jonathan-Franzen/dp/0312421273 "The Corrections: A Novel: Franzen, Jonathan: 9780312421274: Amazon.com: Books"){atime=2024-08-04}
 as I've resolved to read more frequently and more broadly
-and that book appeared on a recent NYT list of the best books of
-the century thus far and it was already in my house.
+and that book appeared on the recent
+[100 Best Books of the 21st Century](https://www.nytimes.com/interactive/2024/books/best-books-21st-century.html "100 Best Books of the 21st Century - The New York Times"){atime=2024-08-04}
+from The New York Times and it was already in my house.
 
 The book was a very nice dose of perspective, and that it was written at a time
 that still seems so modern but since which so much has changed (at least
