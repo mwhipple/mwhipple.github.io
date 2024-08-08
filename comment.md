@@ -28,6 +28,10 @@ lines or also be succeeded by code on the same line.
 `//` declares line comments.
 `/*` and `*/` declare block comments.
 
+## Kotlin
+
+`/*` and `*/` declare block comments.
+
 ## [Perl](perl)
 
 `#` declares line comments.

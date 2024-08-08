@@ -85,6 +85,7 @@ to core processes rather than introducing an impedence mismatch.
 - [Observability](observability)
 - [Programming Languages](programming_languages)
 - [Software Architecture](software_architecture)
+- [Software Libraries](software_libraries)
 - [Software Toolbox](software_toolbox)
 - [Solid](solid)
 - [Strict Mode](strict_mode)

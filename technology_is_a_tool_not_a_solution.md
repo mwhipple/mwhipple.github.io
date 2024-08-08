@@ -6,13 +6,9 @@ title: Technology is a Tool, Not a Solution
 
 The general sentiment that progress is a intrinsic to technology is
 evinced on a broader scale in the form of
-[technology imperative](
-https://www.pcmag.com/encyclopedia/term/technology-imperative
-"technology imperative"){atime=2024-07-01}
+[technology imperative](https://www.pcmag.com/encyclopedia/term/technology-imperative "technology imperative"){atime=2024-07-01}
 lines of thought and more general issues that arise due to
-[misaligned incentives](
-https://hbr.org/2019/11/the-ethical-dilemma-at-the-heart-of-big-tech-companies
-"The Ethical Dilemma at the Heart of Big Tech Companies"){atime="2024-07-03},
+[misaligned incentives](https://hbr.org/2019/11/the-ethical-dilemma-at-the-heart-of-big-tech-companies "The Ethical Dilemma at the Heart of Big Tech Companies"){atime="2024-07-03},
 but also play out routinely on a smaller scale within the confines of
 software engineering.
 
@@ -40,9 +36,7 @@ changes are thrown at the wall in the hopes that something will stick.
 This is not the ravings of a Luddite: technology can be a very valuable tool
 but the desired first-class values must be defined and tracked rather than
 being seduced into
-[thinking there is inherent benefit in technology itself](
-https://cacm.acm.org/blogcacm/the-techno-pro-attitude/
-"The Techno-Pro Attitude – Communications of the ACM"){atime=2024-07-02}
+[thinking there is inherent benefit in technology itself](https://cacm.acm.org/blogcacm/the-techno-pro-attitude/ "The Techno-Pro Attitude – Communications of the ACM"){atime=2024-07-02}
 or that what value is realized will offset the costs of adoption (not tracking
 the latter is quick path to a lot of churn). Without such tracking technology
 is reduced to an incarnation of a solution looking for a problem.

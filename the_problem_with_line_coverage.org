@@ -1,5 +1,3 @@
-** Introduction
-
 Over the past years automated sofware testing has become commonplace,
 with many organizations also making use of and enforcing test
 coverage. While testing can be enormously valuable the use of such
