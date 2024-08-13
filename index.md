@@ -16,6 +16,7 @@ Sections may also serve as somewhat of an unformal and disorganized
 - [Agile](agile)
 - [Automotive Technology](automotive_technology)
 - [Books](books)
+- [Clothes](clothes)
 - [Cognition](cognition)
 - [Empiricism](empiricism)
 - [Food](food)

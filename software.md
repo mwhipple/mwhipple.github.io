@@ -68,7 +68,6 @@ to core processes rather than introducing an impedence mismatch.
 
 - [Bash Standard Library](bash_std)
 - [Coding Style](coding_style)
-- [Comment](comment)
 - [Computer Security](computer_security)
 - [Content](content)
 - [Data Engineering](data_engineering)
@@ -80,7 +79,6 @@ to core processes rather than introducing an impedence mismatch.
 - [Input Events](input_events)
 - [Incident Log](incident_log)
 - [iptables](iptables)
-- [Literals](literals)
 - [linux](linux)
 - [Observability](observability)
 - [Programming Languages](programming_languages)
@@ -88,4 +86,3 @@ to core processes rather than introducing an impedence mismatch.
 - [Software Libraries](software_libraries)
 - [Software Toolbox](software_toolbox)
 - [Solid](solid)
-- [Strict Mode](strict_mode)
