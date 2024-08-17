@@ -9,6 +9,7 @@ title: Concepts
 - [Assignment](assignment)
 - [Comment](comment)
 - [Literals](literals)
+- [Record](record)
 - [Statements](statements)
 - [Strict Mode](strict_mode)
 
