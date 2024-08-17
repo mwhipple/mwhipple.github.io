@@ -69,6 +69,7 @@ to core processes rather than introducing an impedence mismatch.
 - [Bash Standard Library](bash_std)
 - [Coding Style](coding_style)
 - [Computer Security](computer_security)
+- [Concepts](concepts)
 - [Content](content)
 - [Data Engineering](data_engineering)
 - [Digital Video](digital_video)
