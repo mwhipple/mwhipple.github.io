@@ -11,7 +11,7 @@ title: Input Events
 - e OOMOO 08 self-insert
 - f OMORO 09 self-insert
 - g OOROR 0A self-insert
-      <li>h OOOOM 0B</li>
+- h OOOOM 0B self-insert
       <li>i OOROO 0C</li>
       <li>j OMMRO 0D</li>
       <li>k OORMM 0E</li>

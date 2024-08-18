@@ -14,8 +14,9 @@ information and lists that will be cleaned up as I go.
 
 - Broccoli
 - Butter
-  - [Kate's](https://www.katesbutter.com/ "Kate's | Maine Homemade Butter | Grass-Fed Dairy"){atime="2024-08-04}
+  - [Kate's](https://www.katesbutter.com/ "Kate's | Maine Homemade Butter | Grass-Fed Dairy"){atime="2024-08-04"}
 - Coffee
+  - [Jim's Organic Coffee](https://www.jimsorganiccoffee.com/){atime="2024-08-18"}
 - Eggs
   - [High Hill, No. Dartmouth](https://www.facebook.com/milushaygrain/ "MILUS/High Hill Farm | Dartmouth MA | Facebook"){atime="2024-08-04"}
 - Milk
