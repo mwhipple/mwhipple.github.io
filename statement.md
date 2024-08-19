@@ -1,5 +1,5 @@
 ---
-title: Statements
+title: Statement
 ---
 
 - [Up to Concepts](concepts)

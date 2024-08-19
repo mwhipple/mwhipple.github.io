@@ -43,3 +43,9 @@ itself was turned on all the way which could presumably inhibit
 sealing so I opened that. The flapper also has multiple places
 at which the chain could be attached so that will be my next
 variable to explore.
+
+Mon Aug 19 01:12:37 PM EDT 2024
+Not surprisingly, turning up the water didn't help (that would be
+a very fragile solution). I removed the flapper and reattached
+the chain to the outermost option (where it was on the innermost),
+and reattached the other end to the outer eye of the handle lever.
