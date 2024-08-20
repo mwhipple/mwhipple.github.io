@@ -8,7 +8,7 @@ title: Concepts
 
 - [Assignment](assignment)
 - [Comment](comment)
-
+- [Conditional Declaration](conditional_declaration)
 - [Import](import)
 - [Literals](literals)
 - [Record](record)

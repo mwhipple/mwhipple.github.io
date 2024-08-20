@@ -12,6 +12,16 @@ foods though for most cases this seems far more straightforward than
 plastic avoidance. This page is currently just a dumping ground of
 information and lists that will be cleaned up as I go.
 
+I've preferred organic food for many years. While 
+some of the cost vs. benefits may be
+[tenuous](https://www.nytimes.com/2024/07/01/climate/organic-food.html?smid=nytcore-android-share "Is Organic Produce Worth the Higher Price? - The New York Times"){atime="2024-07-01"}
+the larger consideration of effectively needing to support one
+alternative or the other tips my scales. I'm also aware of some
+of the prospective costs certification costs involved and prefer
+small local producers which may not be officially organic
+(as opposed to larger ones that may check all of the boxes but
+otherwise veer towards factory farming practices).
+
 - Broccoli
 - Butter
   - [Kate's](https://www.katesbutter.com/ "Kate's | Maine Homemade Butter | Grass-Fed Dairy"){atime="2024-08-04"}
