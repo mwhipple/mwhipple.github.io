@@ -53,3 +53,12 @@ prospective deficiencies within the systems but risks around
 Developments within Vehicles themselves will also be bolstered
 by and need to integrate with infrastructural improvements such as
 [smart highways](https://www.axios.com/2024/07/02/smart-highway-i-94-michigan "Smart highway pilot construction completed in Michigan"){atime="2024-07-02"}.
+
+## Landscape
+
+Electric vehicles are a place where China is poised to claim a fairly
+dominant position. In addition to attempting to produce competitive
+products, economic strategies such as
+[tariffs](https://www.nytimes.com/2024/06/12/business/eu-china-ev-tariffs.html "E.U. Hits Electric Vehicles From China With Higher Tariffs - The New York Times"){atime="2024-06-12"}
+may also be applied to at least relieve some pressue for
+domestic copmanies.
