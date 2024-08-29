@@ -14,5 +14,6 @@ title: Concepts
 - [Record](record)
 - [Shebang](shebang)
 - [Statement](statement)
+- [Statement Separator](statement_separator)
 - [Strict Mode](strict_mode)
 

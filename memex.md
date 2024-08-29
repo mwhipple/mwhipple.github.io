@@ -18,10 +18,13 @@ The underlying pursuit is that of collecting and composing concepts,
 which is certainly not a novel nor innovative pursuit. This has been an
 effort that has passed through several incarnations over the years but
 is potentially somewhat sharpened by the recent emergence of viable
-generative AI. This amounts to the pursuit of a [linked
-data](https://en.wikipedia.org/wiki/Linked_data "Linked data - Wikipedia"){atime="2024-03-29"}
+generative AI. This amounts to the pursuit of a
+[linked data](https://en.wikipedia.org/wiki/Linked_data "Linked data - Wikipedia"){atime="2024-03-29"}
 style network of trustworthy (i.e. falsifiable/empirical/authoritative)
-information alongside constructions of such information.
+information alongside constructions of such information. Over time the
+different means to
+[represent the underlying knowledge graph](https://viterbischool.usc.edu/news/2023/11/finding-answers-about-the-best-way-to-find-answers/ "Finding Answers (About the Best Way to Find Answers) - USC Viterbi | School of Engineering"){atime="2024-08-29"}
+will also be explored.
 
 Again, this is not anything new but the overall effort seems to
 consistently run up against biases that push things away from those
@@ -39,8 +42,8 @@ anywhere for me and there\'s not much of a reason to think that it will.
 In terms of \"concepts\" this is focused on seeking solutions which are
 portable and mostly declarative, without getting tangled up with
 underlying engines. That specific term was adopted after having attended
-a talk by [Daniel
-Jackson](https://press.princeton.edu/ideas/daniel-jackson-on-the-essence-of-software "Daniel Jackson on The Essence of Software | Princeton University Press"){atime="2024-03-30"}.
+a talk by
+[Daniel Jackson](https://press.princeton.edu/ideas/daniel-jackson-on-the-essence-of-software "Daniel Jackson on The Essence of Software | Princeton University Press"){atime="2024-03-30"}.
 I\'ve not yet read his book but based on the talk his use of concept
 seemed to distill several overlapping ideas into a framework that cuts
 across software, cognition, and reality.
@@ -53,8 +56,8 @@ software is written without knowledge of the circuits that underlie most
 modern computers which has allowed the field to progress from earlier
 types of machines (such as from vacuum to solid state) and to expand to
 other variations such as quantum and biological. This is not to dismiss
-those cases where higher levels of [mechanical
-sympathy](https://wa.aws.amazon.com/wellarchitected/2020-07-02T19-33-23/wat.concept.mechanical-sympathy.en.html "Mechanical Sympathy - AWS Well-Architected Framework"){atime="2024-03-29"}
+those cases where higher levels of
+[mechanical sympathy](https://wa.aws.amazon.com/wellarchitected/2020-07-02T19-33-23/wat.concept.mechanical-sympathy.en.html "Mechanical Sympathy - AWS Well-Architected Framework"){atime="2024-03-29"}
 are valuable, but to posit that there is more value in abstraction.
 Unfortunately software in practice tends to also lean in the opposite
 direction where too much focus on details of representation of logic and

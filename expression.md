@@ -27,3 +27,13 @@ I personally have a penchant for functional programming
 practices which draws me toward more expression-oriented
 practices, though I also work to stay within the idioms of
 the language used.
+
+## [Bash](bash)
+
+Bash does not provide a means for typical generalized
+expressions, but the use of subshell expansion can
+deliver many of the same
+benefits using the form `$(<body>)` (backticks are also
+an older option but the indicated format is preferred).
+
+
