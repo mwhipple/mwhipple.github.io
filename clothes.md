@@ -21,3 +21,7 @@ finally learn how to properly fold shirts. I started with
 which seems to have worked well - I think there may be some faster
 options but I'm unlikely to be doing this often enough to care and
 I also have yet to test how well it avoids wrinkling.
+
+## Sub-Pages
+
+- [Sewing](sewing)

@@ -28,6 +28,10 @@ lines or also be succeeded by code on the same line.
 `//` declares line comments.
 `/*` and `*/` declare block comments.
 
+## Java
+
+`/*` and `*/` declare block comments.
+
 ## JavaScript
 
 `/*` and `*/` declare block comments.
