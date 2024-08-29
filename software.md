@@ -87,3 +87,4 @@ to core processes rather than introducing an impedence mismatch.
 - [Software Libraries](software_libraries)
 - [Software Toolbox](software_toolbox)
 - [Solid](solid)
+- [Standard Streams](standard_streams)
