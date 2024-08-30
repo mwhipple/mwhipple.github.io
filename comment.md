@@ -47,3 +47,7 @@ lines or also be succeeded by code on the same line.
 ## Rust
 
 `//` declares line comments.
+
+## XML
+
+`<!--` and `-->` declare block comments.
