@@ -79,7 +79,9 @@ includes side-channel and
 [fingerprinting](https://www.independent.co.uk/tech/security-hack-device-internet-safety-b2567896.html "Security loophole lets hackers spy on people and affects every device and internet connection | The Independent"){atime="2024-07-05"}
 attacks that may only be countered through what amounts to convolution of
 typical behaviors. It is therefore essential to drive security assessments
-with threat models and pragmatism rather than being seduced
+with threat models,
+[prioritization](https://www.infoq.com/news/2023/08/better-security-key-risks/ "A Ruthless Approach for Better Security by Identifying Key Risks and Ignoring Others - InfoQ"){atime="2024-08-30"}
+, and pragmatism rather than being seduced
 into attempting to address all prospective vulnerabilities. It is not only
 unlikely to be worthwhile pursuing such an effort, some of the prospective
 risks may involve aggressors that are far more sophisticated than most
