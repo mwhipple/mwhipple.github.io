@@ -97,4 +97,5 @@ possible.
 ## Subpages
 
 - [Identity and Access Management](iam)
+- [Policy as Code](policy_as_code)
 - [Zero Trust Architecture](zta)

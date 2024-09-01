@@ -19,16 +19,15 @@ are likely to be strong contenders when working in (unsurpisingly) cloud native 
 
 ## FinOps
 
-[Million Dollar Lines of Code](https://www.infoq.com/articles/cost-optimization-engineering-perspective/
-"Million Dollar Lines of Code - an Engineering Perspective on Cloud Cost Optimization - InfoQ")
-{data-time="2024-06-17"} provides some decent war stories around
+[Million Dollar Lines of Code](https://www.infoq.com/articles/cost-optimization-engineering-perspective/ "Million Dollar Lines of Code - an Engineering Perspective on Cloud Cost Optimization - InfoQ"){atime="2024-06-17"}
+provides some decent war stories around
 lack of cost management and lands on the useful formula of tracking what cost efficiency rather than
 blindly seeking cost reduction. It seems somewhat appropriate as an introduction to the concerns but
 seems to leave some gaps as it focuses on fairly discrete examples and then jumps to a metric
 without providing strong guidance around more consistent principles and monitoring (there's a
 related concept I need to extract that draws on things like Murphy's Law, Safety II, and Release It!).
 The latter also seems notable in that the [premature optimization](premature_optimization)
-quote is mentioned (attributed to Hoare) but without an actionable less "evil" alternative.</p>
+quote is mentioned (attributed to Hoare) but without an actionable less "evil" alternative.
 
 ## Governance
 
