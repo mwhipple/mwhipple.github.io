@@ -42,7 +42,6 @@ to core processes rather than introducing an impedence mismatch.
 
 ## Sub-Pages
 
-- [Bash Standard Library](bash_std)
 - [Coding Style](coding_style)
 - [Computer Security](computer_security)
 - [Concepts](concepts)
@@ -64,4 +63,4 @@ to core processes rather than introducing an impedence mismatch.
 - [Software Libraries](software_libraries)
 - [Software Toolbox](software_toolbox)
 - [Solid](solid)
-- [Standard Streams](standard_streams)
+- [Technical Debt](technical_debt)

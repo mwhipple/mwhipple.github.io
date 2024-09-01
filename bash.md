@@ -17,3 +17,7 @@ or perhaps more likely seek an alternative interaction model altogether, but
 bash knowledge tends to remain valuable and something I make use of heavily
 and therefore it is unlikely to go away (if anything I'll likely explore
 a leaner alternative that provides a subset of compatible behavior).
+
+## Sub-Pages
+
+- [Bash Standard Library](bash_std)
