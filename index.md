@@ -22,6 +22,7 @@ Sections may also serve as somewhat of an unformal and disorganized
 - [Health](health)
 - [Home Ownership](home_ownership)
 - [Image](image)
+- [Knowledge Portability](knowledge_portability)
 - [memex](memex)
 - [PineTime](pinetime)
 - [Requirements Engineering](requirements_engineering)
