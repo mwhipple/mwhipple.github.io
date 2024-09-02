@@ -20,3 +20,16 @@ C provides a basic preprocessor facility which can be utilized with one of:
 Include results in inserting of the contents of the referenced file, where
 the common practice is include a "header" file of declarations against which
 the code can be compiled and subsequently linked with implementations.
+
+
+## Python
+
+Python provides a flexible import mechanism (largely enabled by it exposing
+code constructs as dictionaries).
+
+```python
+import <package>
+```
+
+can be used to import the indicated `<package>` such that members of that
+package can be used with a qualified reference.
