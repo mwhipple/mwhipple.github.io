@@ -10,6 +10,7 @@ title: Concepts
 - [Comment](comment)
 - [Conditional Declaration](conditional_declaration)
 - [Import](import)
+- [Interpolation](interpolation)
 - [Literals](literals)
 - [Piping](piping)
 - [Record](record)

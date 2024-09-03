@@ -6,19 +6,23 @@ title: Software Arhcitecture
 
 Software Architecture is a notoriously nebulous concept, and in my
 opinion what it is is in practice is largely dependent on the
-organizations and people involved. A description I\'m fond of which I
-first heard from Martin Fowler at the inaugural O\'Reilly Software
+organizations and people involved. A description I'm fond of which I
+first heard from Martin Fowler at the inaugural O'Reilly Software
 Architecture Conferences is that architecture are the pieces that are
 hard to change and the role of a good architect was to destroy
 architecture (i.e. enable easier change).
 
+An architecture team I joined described the purpose of the team as
+making sure that conversations happen, and the role of
+communication for architects (and within software in general) is
+[crucial](https://www.infoq.com/presentations/progress-communication-collaboration/ "Leveling up Your Architecture Game - InfoQ"){atime="2024-09-03"}.
 I have spent time in an organization with ivory tower architecture, but
-I\'m certainly in the camp that considers this a terrible model and will
+I'm certainly in the camp that considers this a terrible model and will
 therefore not discuss that approach in any depth. Architecture should be
 a collaborative process open to all of the owners of the system (and
 certainly decisions should be made or approved by those who are expected
 to live with the consequences). I have come to appreciate that there may
-be a clear line between \"engineering\" and \"architecture\" where the
+be a clear line between "engineering" and "architecture" where the
 former may entail applying an \"engineering mind\" to crafting solutions
 to provided goals whereas the latter is more concerned with working
 through what some of those goals are and explaining (ideally
@@ -35,8 +39,8 @@ that do should be empowered to do so (and per the earlier ownership
 comment any archiecture without coordinated engineering buy-in is an
 invitation for many types of issues).
 
-Additionally, architecture involves preserving the \"conceptual
-integrity\" (Brooks) of larger systems. In addition to needing to
+Additionally, architecture involves preserving the "conceptual
+integrity" (Brooks) of larger systems. In addition to needing to
 mediate potential disagreements between different actors, having a clear
 and coherent vision can chart a clearer course for the whole solution
 and help combat complexity that could be introduced by wanton
