@@ -41,3 +41,7 @@ even the attribution of something as being made from recycled materials may be
 This reflects the larger sentiment that recycling is good practice, but only as the
 last resort after reduction and reuse (where in this case that could be focused
 on plastics and less renewable resources specifically).
+
+Sustainability also helps inform my career path, and I seek to incorporate some
+practices into
+[the software I use and design](https://www.infoq.com/articles/green-choices-software-products-you/ "Actionable Green Choices for Your Software, Your Products, and You - InfoQ"){atime="2024-09-04"}.

@@ -21,6 +21,10 @@ Include results in inserting of the contents of the referenced file, where
 the common practice is include a "header" file of declarations against which
 the code can be compiled and subsequently linked with implementations.
 
+## C++
+
+Similar to C with the extension that modules from the C standard library are
+imported without a `.h` extension.
 
 ## Python
 
