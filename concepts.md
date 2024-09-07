@@ -9,6 +9,7 @@ title: Concepts
 - [Assignment](assignment)
 - [Comment](comment)
 - [Conditional Declaration](conditional_declaration)
+- [Export](export)
 - [Import](import)
 - [Interpolation](interpolation)
 - [Literals](literals)
@@ -19,4 +20,4 @@ title: Concepts
 - [Statement](statement)
 - [Statement Separator](statement_separator)
 - [Strict Mode](strict_mode)
-
+- [Subroutine](subroutine)
