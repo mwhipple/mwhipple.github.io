@@ -17,7 +17,7 @@ title: Input Events
 - k OORMM 0E self-insert
 - l OMOMO 0F self-insert
 - m OMOOM 10 self-insert
-      <li>n OOORO 11</li>
+- n OOORO 11 self-insert
       <li>o OOLOO 12</li>
       <li>p OOMOM 13</li>q OMMLO r OOOLO s OOOOL t OOOMO u OMOLO v OOMOR w
       OLOOM x OOOLM y OOROM z OOLMM SPC OMOOO DEL OROOO TAB OLOOO | OORMR -

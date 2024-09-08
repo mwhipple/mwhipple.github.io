@@ -22,6 +22,7 @@ lines or also be succeeded by code on the same line.
 ## [C](c)
 
 `/*` and `*/` declare block comments.
+`//` declares line comments (newer and less common).
 
 ## C++
 

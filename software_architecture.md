@@ -6,7 +6,11 @@ title: Software Arhcitecture
 
 Software Architecture is a notoriously nebulous concept, and in my
 opinion what it is is in practice is largely dependent on the
-organizations and people involved. A description I'm fond of which I
+organizations and people involved; it may gain additional clarity
+as one of the paths for
+[staff+ engineers](https://www.infoq.com/articles/engineering-art-embracing-creativity/){atime="2024-09-08"}
+which has recently gotten
+renewed attention. A description I'm fond of which I
 first heard from Martin Fowler at the inaugural O'Reilly Software
 Architecture Conferences is that architecture are the pieces that are
 hard to change and the role of a good architect was to destroy

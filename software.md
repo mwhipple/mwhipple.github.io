@@ -40,6 +40,19 @@ governance perspective should be
 [complementarily agile](https://www.infoq.com/podcasts/governance-for-reducing-complexity/ "Governance for Reducing Complexity - InfoQ"){atime="2024-07-07"}
 to core processes rather than introducing an impedence mismatch.
 
+## Containers
+
+(Among many other things) containers promise resource utilization optimization, but unfortunately
+many organizations think such benefits can be realized without proper attention and
+potentially making deeper discussions around tradeoffs. Among other issues
+I've witnessed organizations that didn't understand the underlying concepts pursue
+aggressive
+[bin packing](https://www.infoq.com/articles/kubernetes-bin-packing/ "Optimizing Resource Utilization: the Benefits and Challenges of Bin Packing in Kubernetes - InfoQ"){atime="2024-09-08"}
+which resulting in behaviors which not only negatively impacted performance but
+was almost certainly counter-productive due to effectively starving nodes and
+introducing spurious restart churn; in the most egregious case this was also
+compounded by steady double digit CPU steal.
+
 ## Sub-Pages
 
 - [Coding Style](coding_style)
