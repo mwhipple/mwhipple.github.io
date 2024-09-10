@@ -26,15 +26,17 @@ lines or also be succeeded by code on the same line.
 
 ## C++
 
-`//` declares line comments.
 `/*` and `*/` declare block comments.
+`//` declares line comments.
 
 ## Java
 
 `/*` and `*/` declare block comments.
+`//` declares line comments.
 
 ## JavaScript
 
+`/*` and `*/` declare block comments.
 `/*` and `*/` declare block comments.
 
 ## Kotlin

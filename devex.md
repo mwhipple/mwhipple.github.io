@@ -15,7 +15,9 @@ than engaging with concrete problems and stakeholders equipped to help drive sol
 strongly argue that rolling out DevEx is best served by identifying light-touch glue tooling which
 minimizes obscuring community solutions, seeking to shed undifferentiated lift, avoid potential obfuscation
 of relevant knowledge, and facilitate future evolution which is crucial given the moving target of
-industry standards.
+industry standards. Charity Majors gives an
+[excellent talk](https://www.infoq.com/presentations/platform-engineering-teams/?utm_source=email&utm_medium=devops&utm_campaign=newsletter&utm_content=02062024 "Perils, Pitfalls and Pratfalls of Platform Engineering - InfoQ"){atime="2024-09-10"}
+which touches on many of the key considerations.
 
 As is a common affliction across engineering efforts: building unnecessary bloat tends to produce
 costly albatrosses and periodic large scale redesign efforts rather than being able to smoothly keep pace
