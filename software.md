@@ -53,6 +53,19 @@ was almost certainly counter-productive due to effectively starving nodes and
 introducing spurious restart churn; in the most egregious case this was also
 compounded by steady double digit CPU steal.
 
+## Operational Excellence
+
+"Operational Excellence" feels like a relatively new word for what should be
+standard practice, but is too often neglected. Contrary to how many companies
+seem to approach things, creating software is almost invariably solely a cost
+and the value is delivered at the time the software is used or run. Operating
+the resulting software is therefore the primary objective and development is
+in service of that, and notions such as excellence should fall out of correcting
+any related priority inversion in a healthy company.
+
+A good laundy list of operational excellence concerns is provided
+[here](https://dl.acm.org/doi/pdf/10.1145/3631176 "Software Managers’ Guide to Operational Excellence"){atime="2024-09-10"}.
+
 ## Sub-Pages
 
 - [Coding Style](coding_style)
