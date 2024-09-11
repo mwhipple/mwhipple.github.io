@@ -49,3 +49,18 @@ Not surprisingly, turning up the water didn't help (that would be
 a very fragile solution). I removed the flapper and reattached
 the chain to the outermost option (where it was on the innermost),
 and reattached the other end to the outer eye of the handle lever.
+
+Wed Sep 11 09:07:43 AM EDT 2024
+The toilet continues to run sporadically. My current hypothesis is
+that this can be resolved by adjusting the sheath around the chain -
+the running is typically caused by the chain getting snagged
+(such as one of the flapper hooks) and the sheath should prevent that.
+There are two segments where the upper segment seems to be a
+tighter fit and therefore does not move as easily whereas the bottom
+seems to slide fairly freely. My next adjustment is therefore to
+slide the top section down on top of the bottom (it had been at
+the top of the chain) which can hopefully hold it in place and
+therefore keep the part of the chain that gets snagged under
+that sheath. If it continues to slide I'll likely add something
+like a safety pin through the chain right above the sheath to
+prevent it from moving.

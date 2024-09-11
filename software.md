@@ -61,7 +61,8 @@ seem to approach things, creating software is almost invariably solely a cost
 and the value is delivered at the time the software is used or run. Operating
 the resulting software is therefore the primary objective and development is
 in service of that, and notions such as excellence should fall out of correcting
-any related priority inversion in a healthy company.
+any related priority inversion in a healthy company that seeks a 
+[culture of quality](https://www.infoq.com/news/2024/02/culture-quality-software-orgs/ "How to Develop a Culture of Quality in Software Organizations - InfoQ"){atime="2024-09-11"}.
 
 A good laundy list of operational excellence concerns is provided
 [here](https://dl.acm.org/doi/pdf/10.1145/3631176 "Software Managers’ Guide to Operational Excellence"){atime="2024-09-10"}.
