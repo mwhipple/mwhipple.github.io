@@ -26,6 +26,7 @@ Sections may also serve as somewhat of an unformal and disorganized
 - [Knowledge Portability](knowledge_portability)
 - [memex](memex)
 - [PineTime](pinetime)
+- [Repairs](repairs)
 - [Requirements Engineering](requirements_engineering)
 - [Scouts](scouts)
 - [Technology is a Tool, Not a Solution](technology_is_a_tool_not_a_solution)
