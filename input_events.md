@@ -23,8 +23,9 @@ title: Input Events
 - q OMMLO self-insert
 - r OOOLO self-insert
 - s OOOOL self-insert
+- t OOOMO self-insert
 
-t OOOMO u OMOLO v OOMOR w
+u OMOLO v OOMOR w
       OLOOM x OOOLM y OOROM z OOLMM SPC OMOOO DEL OROOO TAB OLOOO | OORMR -
       OMMOM ? OLLMO / OOLOR * OOMRR . OLLOO DOWN AN OOOM UP AN OMOO RIGHT AN
       OOLO RET OMOMM &lt; OLLOR > OLLOM 1 OROMM 2 OROOM 3 ORROO 4 ORORO 5 OROOR
