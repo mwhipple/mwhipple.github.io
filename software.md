@@ -69,6 +69,7 @@ A good laundy list of operational excellence concerns is provided
 
 ## Sub-Pages
 
+- [API Management](api_management)
 - [Coding Style](coding_style)
 - [Computer Security](computer_security)
 - [Concepts](concepts)
