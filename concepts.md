@@ -9,6 +9,7 @@ title: Concepts
 - [Assignment](assignment)
 - [Comment](comment)
 - [Conditional Declaration](conditional_declaration)
+- [Constant](constant)
 - [Export](export)
 - [Import](import)
 - [Interpolation](interpolation)
