@@ -14,7 +14,10 @@ renewed attention. A description I'm fond of which I
 first heard from Martin Fowler at the inaugural O'Reilly Software
 Architecture Conferences is that architecture are the pieces that are
 hard to change and the role of a good architect was to destroy
-architecture (i.e. enable easier change).
+architecture (i.e. enable easier change). Gregor Hohpe also has a
+[nice talk](https://www.infoq.com/presentations/architect-lessons/ "Thinking Like an Architect - InfoQ"){atime="2024-09-12"}
+on what can probably be distilled to the values which should be
+provided by architects.
 
 An architecture team I joined described the purpose of the team as
 making sure that conversations happen, and the role of
