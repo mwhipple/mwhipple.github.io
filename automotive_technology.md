@@ -50,9 +50,6 @@ invervention when necessary. This translates to not not only
 prospective deficiencies within the systems but risks around
 [dangerous fallback behaviors](https://www.reuters.com/business/autos-transportation/automakers-ask-us-agency-reconsider-emergency-braking-rule-2024-06-24/ "Automakers ask US agency to reconsider emergency braking rule | Reuters"){atime="2024-06-24}.
 
-Developments within Vehicles themselves will also be bolstered
-by and need to integrate with infrastructural improvements such as
-[smart highways](https://www.axios.com/2024/07/02/smart-highway-i-94-michigan "Smart highway pilot construction completed in Michigan"){atime="2024-07-02"}.
 
 ## Landscape
 
@@ -62,3 +59,13 @@ products, economic strategies such as
 [tariffs](https://www.nytimes.com/2024/06/12/business/eu-china-ev-tariffs.html "E.U. Hits Electric Vehicles From China With Higher Tariffs - The New York Times"){atime="2024-06-12"}
 may also be applied to at least relieve some pressue for
 domestic copmanies.
+
+## V2X (Vehicle to Everything)
+
+Vehicles connecting to a range of infrastructure and other devices is
+gaining traction (maybe pun?). There have been some initial projects 
+involving 
+[smart highways](https://www.axios.com/2024/07/02/smart-highway-i-94-michigan "Smart highway pilot construction completed in Michigan"){atime="2024-07-02"}
+and
+[mass transit adjusting stop lights](apnews.com/article/v2x-infrastructure-cars-streets-utah-michigan-texas-4609b3f43768f6726bbb4e5442f40f21 "Cars collect troves of data about traffic and road hazards. Should they share it? | AP News"){atime="2024-09-12"}
+along with recommendations from the department of transportation.
