@@ -47,6 +47,10 @@ lines or also be succeeded by code on the same line.
 
 `/*` and `*/` declare block comments.
 
+## Lilypond
+
+`%` declares block comments.
+
 ## [Perl](perl)
 
 `#` declares line comments.
