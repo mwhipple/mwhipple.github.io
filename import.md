@@ -23,8 +23,16 @@ the code can be compiled and subsequently linked with implementations.
 
 ## C++
 
-Similar to C with the extension that modules from the C standard library are
+Similar to C with the extension that modules from the C++ standard library are
 imported without a `.h` extension.
+
+```c++
+#include "..." /* local path */
+/* or */
+#include <...(.h)> /* library path */
+/* or */
+#include <...(no extenstion)> /* library path */
+```
 
 ## Python
 

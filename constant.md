@@ -30,3 +30,12 @@ which will result in replacement in the source prior to compilation.
 ```c
 #define CONSTANT_NAME <value>
 ```
+
+## C++
+
+The `#define` preprocessor directive can be used for constant definition
+which will result in replacement in the source prior to compilation.
+
+```c++
+#define CONSTANT_NAME <value>
+```
