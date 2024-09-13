@@ -46,11 +46,13 @@ paint an appropriately
 [nuanced picture](https://spectrum.ieee.org/autonomous-vehicles-great-at-straights "Autonomous Vehicles Are Great at Driving Straight - IEEE Spectrum"){atime="2024-06-29}
 which may also feed more directly into questions around how the levels of
 autonomy within the system could safely integrate with propsective human
-invervention when necessary. This translates to not not only
+intervevention when necessary (where this may also be more
+[common than perceived](https://www.nytimes.com/interactive/2024/09/03/technology/zoox-self-driving-cars-remote-control.html "See How Humans Help Self-Driving Cars Navigate City Streets - The New York Times"){atime="2024-09-13"}
+). This translates to not not only
 prospective deficiencies within the systems but risks around
 [dangerous fallback behaviors](https://www.reuters.com/business/autos-transportation/automakers-ask-us-agency-reconsider-emergency-braking-rule-2024-06-24/ "Automakers ask US agency to reconsider emergency braking rule | Reuters"){atime="2024-06-24}.
 
-Beyond the AI concerns, there will also be ongoing work in copmensating
+Beyond the AI concerns, there will also be ongoing work in compensating
 for prospective failures or deficiencies with
 [sensors](https://spectrum.ieee.org/autonomous-vehicles "Self-Driving Cars Get Better at Driving in the Dark - IEEE Spectrum"){atime="2024-09-12"},
 so this is a particularly hairy problem from multiple angles.
