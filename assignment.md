@@ -18,8 +18,18 @@ rather than standalone statements.
 
 Assignments in bash take the form
 
-`<IDENTIFIER>=<VALUE>`
+```bash
+<IDENTIFIER>=<VALUE>
+```
 
 with the specific notes that there must not be any spaces to either
 side of the `=`, and the value may be quoted or contain escapes
 if it has spaces or other characters that may be otherwise parsed.
+
+## Lilypond
+
+Assignments in Lilypond conform to standard `=` syntax:
+
+```lilypond
+<identifier> = <expression>
+```

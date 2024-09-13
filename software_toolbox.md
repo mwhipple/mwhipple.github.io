@@ -19,6 +19,18 @@ very clean and readable, and I'm also likely to ultimately create my own toy ver
 of it to make it a bit more extensible, support personal conventions, and just to
 play around with technologies.
 
+### twidlk
+
+I have a Twiddler 3 keyer that I picked up several years ago.
+I'm currently starting with
+[twidlk](https://github.com/edanaher/twidlk "edanaher/twidlk: A CLI for working with Twiddler configurations"){atime="2024-09-13"}
+to manage the configuration. Somewhat coincidentally I started
+a similar project shortly after getting the keyer which was also in
+Haskell but was using Aeson to produce the output
+(it would be more suprising if it didn't seem like the type of people
+using keyers would also be likely to find Haskell appealing).
+I'll like push an updated fork soonish.
+
 ## Dormant
 
 ### emacs
