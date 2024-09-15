@@ -25,7 +25,6 @@ Sections may also serve as somewhat of an unformal and disorganized
 - [Image](image)
 - [Knowledge Portability](knowledge_portability)
 - [memex](memex)
-- [PineTime](pinetime)
 - [Repairs](repairs)
 - [Requirements Engineering](requirements_engineering)
 - [Scouts](scouts)

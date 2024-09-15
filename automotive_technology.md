@@ -22,7 +22,9 @@ in terms of both reducing travel time (i.e. reducing traffic) and
 introducing queuing with corresponding incentives to reduce needed capacity
 by absorbing bursts (similar to existing peak/congestion pricing models
 where a given traveler pays extra or waits some amount of time).
-Unfortunately I'm also somewhat skeptical in the realization of such
+Unfortunately In addition to many of the immediate
+[practical challenges](https://dl.acm.org/doi/pdf/10.1145/3654812 "ACM TechBrief: Automated Vehicles, ACM Technology Policy Council (Issue 10, Winter 2024)"){atime="2024-09-15"},
+I'm also somewhat skeptical in the realization of such
 reductions in that it may challenge the business models of many involved
 players (i.e. manufacturers) and the persistent risk that such gains
 in efficiency are offset by rebound effects.

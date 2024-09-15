@@ -2,7 +2,7 @@
 title: PineTime
 ---
 
-[Up to Home](./)
+[Up to Computers](computers)
 
 Several years ago my smart watch got broken while going through
 the Polar Caves in New Hampshire, and I ended up replacing it
