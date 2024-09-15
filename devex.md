@@ -46,7 +46,8 @@ Information and utilities should account for
 [different personas and skill sets](https://www.infoq.com/presentations/kubernetes-backstage/ "Demystifying Kubernetes Platforms with Backstage - InfoQ"){atime="2024-08-30"}
 such that variable levels of assistance are provided within a framework that absorbs prospective
 organizational complexity over time (helping some engineers with the basics and providing
-relevant details to those with deeper knowledge).
+relevant details to those with deeper knowledge). Approaches which allow for
+[nested extensibility](https://www.infoq.com/presentations/backstage-plugin/ "https://www.infoq.com/presentations/backstage-plugin/?utm_source=email&utm_medium=architecture-design&utm_campaign=newsletter&utm_content=09102024"){atime="2024-09-15"}.
 
 At the moment, while Platform Engineering seems to be a distinct buzzword I consider a means to
 deliver organization-wide DevEx and therefore I'm treating it as subordinate rather than as a

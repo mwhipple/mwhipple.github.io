@@ -8,12 +8,11 @@ Subroutine is the provisional term I'll use for a chunk of
 reused logic in programming. In most languages this will
 consist of some kind of name and signature involving
 parameters and return value or values, along with a body which
-	  contains the implementation, though this term is also seems
-	  general enough to cover reuse without that type of interface
-	  (such as in assembly or Forth).
-	</p>
-	<p>
-	  Potentially the most common name for such a construct is
+contains the implementation, though this term is also seems
+general enough to cover reuse without that type of interface
+(such as in assembly or Forth).
+
+Potentially the most common name for such a construct is
 	  "function", though I'm reluctant to use that too generally
 	  due to the utility of the mathematical definition which
 	  doesn't apply to "impure functions".
@@ -41,4 +40,16 @@ parameters and return value or values, along with a body which
     </article>
   </body>
 
-</html>
+## C
+
+C supports definition of functions using the production:
+
+```
+<return type> <function name>(<parameters>) { <body> }
+```
+
+The definition itself can get fairly verbose given both
+the types and compiler advice. At the moment I'm not
+sure whether the braces are required for the body or
+incidental to the expectation of a block, but I'd use
+them consistently regardless.
