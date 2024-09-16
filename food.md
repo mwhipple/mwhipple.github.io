@@ -29,6 +29,7 @@ otherwise veer towards factory farming practices).
   - [Jim's Organic Coffee](https://www.jimsorganiccoffee.com/){atime="2024-08-18"}
 - Eggs
   - [High Hill, No. Dartmouth](https://www.facebook.com/milushaygrain/ "MILUS/High Hill Farm | Dartmouth MA | Facebook"){atime="2024-08-04"}
+  - [Peacock Farm, Mattapoisett](https://www.facebook.com/p/Peacock-Farm-100064352545155/ ""Peacock Farm | Mattapoisett MA | Facebook" "){atime="2024-09-16"}
 - Milk
   - Crescent Ridge, Sharon
 - Pepper

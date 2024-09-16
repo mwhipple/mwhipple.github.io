@@ -25,13 +25,12 @@ title: Input Events
 - s OOOOL self-insert
 - t OOOMO self-insert
 - u OMOLO self-insert
-
 - v OOMOR 
 - w OLOOM
 - x OOOLM
 - y OOROM
 - z OOLMM
-- SPC OMOOO
+- <space> OMOOO
 - DEL OROOO
 - TAB OLOOO
 - | OORMR
@@ -45,6 +44,11 @@ title: Input Events
 - RIGHT AN OOLO
 - <left> NA OORO 
 
-- RET OMOMM &lt; OLLOR > OLLOM 1 OROMM 2 OROOM 3 ORROO 4 ORORO 5 OROOR
+- H-l N+OMOMO 
+
+- RET OMOMM
+- &lt; OLLOR
+
+- > OLLOM 1 OROMM 2 OROOM 3 ORROO 4 ORORO 5 OROOR
       6 ORLOO 7 OROLO 8 ORORR 9 ORLLO 0 ORMMO = OMOLM " ORMOM _ OMOOL ( OLORR
       ) OLOMM { OLORO } OLOLO $ OOLMR , OMLLO
