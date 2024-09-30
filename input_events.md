@@ -31,7 +31,7 @@ title: Input Events
 - y OOROM
 - z OOLMM
 - <space> OMOOO
-- DEL OROOO
+- <backspace> OROOO
 - TAB OLOOO
 - | OORMR
 - - OMMOM
@@ -39,16 +39,21 @@ title: Input Events
 - / OOLOR
 - * OOMRR 
 - . OLLOO
-- DOWN NA OOOM
+- <down> NA OOOM
 - UP NA OMOO
-- RIGHT AN OOLO
+- <right> AN OOLO
 - <left> NA OORO 
+
+- <pagedown> NA OOOL
+
 
 - H-l N+OMOMO 
 
 - RET OMOMM
-- &lt; OLLOR
+- < OLLOR
+- > OLLOM
 
-- > OLLOM 1 OROMM 2 OROOM 3 ORROO 4 ORORO 5 OROOR
+- 1 OROMM
+- 2 OROOM 3 ORROO 4 ORORO 5 OROOR
       6 ORLOO 7 OROLO 8 ORORR 9 ORLLO 0 ORMMO = OMOLM " ORMOM _ OMOOL ( OLORR
       ) OLOMM { OLORO } OLOLO $ OOLMR , OMLLO
