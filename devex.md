@@ -11,7 +11,11 @@ but tends to be pursued with what I consider to be questionable approaches. Perh
 successful initiatives involve working
 [closely with developers](https://www.infoq.com/articles/virtual-panel-developer-experience-platform-engineering "Delivering Great Developer Experiences with Platform Engineering - InfoQ"){atime="2024-07-04"}
 but many efforts seem to craft solutions which seem to be driven more by external blog posts rather
-than engaging with concrete problems and stakeholders equipped to help drive solutions. I'd also
+than engaging with concrete problems and stakeholders equipped to help drive
+toward first-class values such as
+[fast flow](https://www.infoq.com/news/2024/09/fast-flow-software-organizations/ "Enabling Fast Flow in Software Organizations - InfoQ"){atime="2024-09-30"}.
+
+I'd also
 strongly argue that rolling out DevEx is best served by identifying light-touch glue tooling which
 minimizes obscuring community solutions, seeking to shed undifferentiated lift, avoid potential obfuscation
 of relevant knowledge, and facilitate future evolution which is crucial given the moving target of
