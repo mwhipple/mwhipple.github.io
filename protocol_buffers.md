@@ -55,7 +55,7 @@ and worth effectively treating as an infrastructural concern).
 Protobufs _can_ enable decently good definition of data,
 which can also be extended with additional checks such
 as provided by Buf's protovalidate as used by
-[Lyft](https://www.infoq.com/news/2024/09/lyft-protocol-buffers-design/?utm_source=email&utm_medium=architecture-design&utm_campaign=newsletter&utm_content=09172024 ""Lyft Promotes Best Practices for Collaborative Protocol Buffers Design - InfoQ"){atime="2024-09-30"}.
+[Lyft](https://www.infoq.com/news/2024/09/lyft-protocol-buffers-design/ "Lyft Promotes Best Practices for Collaborative Protocol Buffers Design - InfoQ"){atime="2024-09-30"}.
 All of this is contingent on the way that protos are used, however.
 
 One fairly ubuitious concern around anything that allows for

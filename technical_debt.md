@@ -12,6 +12,20 @@ Technical Debt is often treated as "anything technical that we wish
 didn't exist" rather than things which should be able to be treated
 as _debt_.
 
+I also disagree with some of the use of the term in regards to
+shipping things such as minimum viable products or architectures
+as it is used
+[here](https://www.infoq.com/articles/technical-debt-your-friend/ "How to Make Technical Debt Your Friend - InfoQ"){atime-"2024-09-30"}.
+While much of the advice in the article is sound, it seems like
+further dilution of the metaphor: not building what you think you may
+need in the future but don't right now is not debt, that's being
+empirical and agile. While the idea that it is something that needs to
+be managed and may not need repayment (particularly given the prospect
+of what amounts to feature bankruptcy) is all valid, it is important
+not to conflate the state of solutions that expected to be "good enough"
+for the time being from those that are not but for which those
+time to market takes precenence over some clear non-blocking issues.
+
 Years ago I had a more lax perspective and bought into the quadrant
 model mentioned by Fowler, but I then witnessed a culture where that
 led to mismanagement of such debt; without differentiating accrual of

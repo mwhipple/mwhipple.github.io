@@ -21,6 +21,7 @@ will be captured elsewhere.
 - [head](https://html.spec.whatwg.org/#the-head-element "The head element"){atime="2024-05-14"}
   - [meta](https://html.spec.whatwg.org/#the-meta-element "The meta element"){atime="2024-06-05"}
     - [generator](https://html.spec.whatwg.org/#meta-generator "generator"){atime="2024-06-05"}
+  - link
 - [body](https://html.spec.whatwg.org/#the-body-element "The body element"){atime="2024-05-16"}
 - [article](https://html.spec.whatwg.org/#the-article-element "The article element"){atime="2024-05-16"}
 - [section](https://html.spec.whatwg.org/#the-section-element "The section element"){atime="2024-05-16"}
