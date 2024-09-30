@@ -55,8 +55,9 @@ that Inrupt is not listed on his Wikipedia page but since I've
 not yet gotten around to contributing to Wikipedia I'll just
 note that here.
 
-Internet of Things (IOT) systems have a particularly shaky
-footing in terms of security which is of particular interest
+Internet of Things (IOT) systems introduce
+[additional concerns](https://www.infosecurity-magazine.com/news/ot-open-cyberattack/ "Operational Technology Leaves Itself Open to Cyber-Attack - Infosecurity Magazine"){atime="2024-09-30"}
+in terms of security which is of particular interest
 to me given that it is a space in which I currently work. Often
 this is somewhat complicated by the constraints imposed on
 embedded systems but should always be given appropriate attention

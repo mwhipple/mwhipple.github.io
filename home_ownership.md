@@ -64,3 +64,13 @@ therefore keep the part of the chain that gets snagged under
 that sheath. If it continues to slide I'll likely add something
 like a safety pin through the chain right above the sheath to
 prevent it from moving.
+
+Fri Sep 27 07:58:48 AM EDT 2024
+Sliding the top sheath addressed the previous behavior...but in
+the ongoing arms race the gap between the two segments of the
+sheath is positioned so that it consistently catches on another
+part of the mechanism. This at least results in a more easily
+resolved and obvious running, but it still needs periodic jiggling.
+I therefore picked up some waterproof duck tape to wrap around the
+two segments and cover the gap...let's see what other tricks
+this toilet has up its pipe.
