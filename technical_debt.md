@@ -19,7 +19,10 @@ as it is used
 While much of the advice in the article is sound, it seems like
 further dilution of the metaphor: not building what you think you may
 need in the future but don't right now is not debt, that's being
-empirical and agile. While the idea that it is something that needs to
+empirical and agile. Metaphorically this is analogous to making a smaller
+purchase than may be desired (but may not be needed) but there's no
+indication that it isn't paid for and therefore would incur a liablity.
+While the idea that it is something that needs to
 be managed and may not need repayment (particularly given the prospect
 of what amounts to feature bankruptcy) is all valid, it is important
 not to conflate the state of solutions that expected to be "good enough"
