@@ -48,6 +48,7 @@ title: Input Events
 - <pageup> NA LOOO
 
 - H-l N+OMOMO 
+- H-h N+OOOOM
 
 - RET OMOMM
 - < OLLOR
@@ -55,6 +56,9 @@ title: Input Events
 
 - 1 OROMM
 - 2 OROOM
-- 3 ORROO 4 ORORO 5 OROOR
+- 3 ORROO
+- 4 ORORO
+
+5 OROOR
       6 ORLOO 7 OROLO 8 ORORR 9 ORLLO 0 ORMMO = OMOLM " ORMOM _ OMOOL ( OLORR
       ) OLOMM { OLORO } OLOLO $ OOLMR , OMLLO

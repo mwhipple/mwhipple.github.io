@@ -74,3 +74,20 @@ resolved and obvious running, but it still needs periodic jiggling.
 I therefore picked up some waterproof duck tape to wrap around the
 two segments and cover the gap...let's see what other tricks
 this toilet has up its pipe.
+
+Thu Oct  3 08:33:21 AM EDT 2024
+Unfortunately after a little while the toilet was once again
+running and looking inside the tank, the tape was gone so
+it must have come loose and been subsequently been flushed
+out of the tank (and unfortunately to the sewer or stuck
+somewhere in a pipe). This may have been due to poor application
+of the tape as I tried to do it without removing the chain
+and therefore there was not much tape used and not much for
+it to adhere to (the tape should likely be mostly wrapped
+around to stick to itself). My most recent approach is a
+simpler one, where the issue is that the gap between the
+sleeves is getting caught on the overflow pipe so I've
+tried shifting the
+[refill clip](https://www.fluidmaster.com/toilet-problems/identifying-parts-of-a-toilet/ "Toilet Parts in Tank | Toilet Replacement Parts | Fluidmaster"){atime="2024-10-03"}
+towards where the chain was catching which could be enough
+to block it from getting caught.
