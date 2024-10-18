@@ -14,6 +14,7 @@ title: Concepts
 - [Import](import)
 - [Interpolation](interpolation)
 - [Literals](literals)
+- [Namespace](namespace)
 - [Piping](piping)
 - [Pragmas](pragmas)
 - [Record](record)

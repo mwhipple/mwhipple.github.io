@@ -19,6 +19,11 @@ Pragmas are activated using the LANGUAGE directive in the form.
 Multiple pragmas may be enabled within a single directive
 (but that should be a cohesive grouping of pragmas).
 
+### DerviveGeneric
+
+Derive handlers for types usable for
+[generic programming](https://wiki.haskell.org/GHC.Generics "GHC.Generics - HaskellWiki"){atime="2024-10-18"}..
+
 ## Sub-Pages
 
 - [Strict Mode](strict_mode)

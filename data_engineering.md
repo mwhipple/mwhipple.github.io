@@ -18,7 +18,7 @@ role, helping to verify the work of teams more actively involved in crafting
 solutions and assist in working through integrations with operational data
 stores and challenges that may arise.
 
-[Fundamentals of Data Engineering](https://learning.oreilly.com/library/view/fundamentals-of-data/9781098108298/ "Fundamentals of Data Engineering"){data-atime="2024-07-09"}
+[Fundamentals of Data Engineering](https://learning.oreilly.com/library/view/fundamentals-of-data/9781098108298/ "Fundamentals of Data Engineering"){atime="2024-07-09"}
 provides a high-level survey of the data engineering space. In my opinion
 it remained too high level and general (and some of the details or
 implications seemed suspsect) without really carving out a distinct
@@ -33,3 +33,20 @@ aforementioned high-level survey and therefore seems most poised to guide
 readers to know where to look for further information rather than being
 a primary source in and of itself (which is by no means a bad thing though
 it likely could have been done more succinctly).
+
+## Data Products
+
+The current trend is around the definition of data products within a data mesh.
+While many of the related threads may drift towards technical aspects, the single
+most crucial aspect in my opinion is the notion that the teams which generate
+the data have ownership over the semantics and additional contracts around the
+data. Over the years I've certainly spent far too long on conversations and work
+that were spawned by data teams both duplicating logic and breaking encapsulation,
+and simply trying to reconstruct what _exactly_ a particular piece of data means
+after a couple years of people interacting with it and seemingly driven more
+by accident than intent.
+
+Danilo Sato provides a nice introduction to current trends and their motivations
+[here](https://www.infoq.com/presentations/data-products "Architecting for Data Products - InfoQ"){atime="2024-10--13"},
+which provides a good backdrop for some of the conversations in which I currrently
+am involved.

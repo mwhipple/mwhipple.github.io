@@ -13,8 +13,8 @@ general enough to cover reuse without that type of interface
 (such as in assembly or Forth).
 
 Potentially the most common name for such a construct is
-	  "function", though I'm reluctant to use that too generally
-	  due to the utility of the mathematical definition which
+"function", though I'm reluctant to use that too generally
+due to the utility of the mathematical definition which
 	  doesn't apply to "impure functions".
 	</p>
 	<p>
@@ -40,7 +40,9 @@ Potentially the most common name for such a construct is
     </article>
   </body>
 
-## C
+## Definition
+
+### C
 
 C supports definition of functions using the production:
 
@@ -53,3 +55,13 @@ the types and compiler advice. At the moment I'm not
 sure whether the braces are required for the body or
 incidental to the expectation of a block, but I'd use
 them consistently regardless.
+
+## Invocation
+
+### JavaScript
+
+Functions in JavaScript can be invoked using the production:
+
+```
+<name>(<args>*);
+```
