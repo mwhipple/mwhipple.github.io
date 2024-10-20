@@ -24,6 +24,10 @@ Multiple pragmas may be enabled within a single directive
 Derive handlers for types usable for
 [generic programming](https://wiki.haskell.org/GHC.Generics "GHC.Generics - HaskellWiki"){atime="2024-10-18"}..
 
+### [StandaloneDeriving](https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/standalone_deriving.html ""6.6.3. Stand-alone deriving declarations — Glasgow Haskell Compiler 9.13.20241020 User's Guide"){atime="2024-10-20"}
+
+Enable definition of derivation as extension to existing type.
+
 ## Sub-Pages
 
 - [Strict Mode](strict_mode)

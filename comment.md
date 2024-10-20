@@ -41,7 +41,7 @@ lines or also be succeeded by code on the same line.
 ## JavaScript
 
 `/*` and `*/` declare block comments.
-`/*` and `*/` declare block comments.
+`//` declares line comments.
 
 ## Kotlin
 

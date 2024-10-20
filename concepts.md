@@ -23,3 +23,4 @@ title: Concepts
 - [Statement](statement)
 - [Statement Separator](statement_separator)
 - [Subroutine](subroutine)
+- [Variable Declaration](variable_declaration)

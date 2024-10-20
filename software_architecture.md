@@ -60,6 +60,27 @@ decisions based on stakeholder needs. It is something I\'ll likely look
 to draw on a bit (I can likely benefit from more frameworks) in addition
 to some more recent, lighter weight approaches.
 
+## Local vs. Replicated Traffic
+
+One consideration for any large-scale deployment is the mixing of accessing
+local data vs. distributing such data. Distributed data has the advantages
+that it can bolster redundancy and can also aid in serving the data closer
+to the point of access, whereas it can incur notable costs both financially
+and in terms of latency and complexity. Strategies and technologies to address
+this tradeoff should be
+[explored](https://www.infoq.com/articles/minimize-latency-cost-distributed-systems/ "How to Minimize Latency and Cost in Distributed Systems - InfoQ"){atime="2024-10-02"},
+but like so many similar considerations I'd advocate that the resulting
+approaches are stratified (i.e. different data may benefit from different
+guarantees) and subsequently driven by data. There are multiple axes that all
+inform the conversation such the complexity associated with the containers
+being discussed (availability zones vs. intra-cloud regions vs. inter-cloud),
+the volume of data involved, and the target latencies. On top of these foundational
+considerations there should also be insight into the interplay of some of
+the considerations to assess when the configuration is delivering significant
+value (pursuit of approaches in any direction should be driven by some quantifiable
+net benefit that is then tracked for return on investment particularly compared
+to alternatives which may include SLO adjustments).
+
 ## Sub-Pages
 
 - [API Management](api_management)
