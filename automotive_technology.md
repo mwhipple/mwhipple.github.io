@@ -65,6 +65,8 @@ Electric vehicles are a place where China is poised to claim a fairly
 dominant position. In addition to attempting to produce competitive
 products, economic strategies such as
 [tariffs](https://www.nytimes.com/2024/06/12/business/eu-china-ev-tariffs.html "E.U. Hits Electric Vehicles From China With Higher Tariffs - The New York Times"){atime="2024-06-12"}
+along with more cut-and-dried
+[bans](https://www.reuters.com/business/autos-transportation/biden-proposes-banning-chinese-vehicles-us-roads-with-software-crackdown-2024-09-23/ "Biden proposes banning Chinese vehicles, 'connected car' technology from US roads | Reuters"){atime="2024-10-21"}
 may also be applied to at least relieve some pressue for
 domestic copmanies.
 
