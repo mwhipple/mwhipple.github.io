@@ -26,7 +26,7 @@ value of the produced machine.
 
 My practical approach to try to avoid some of this waste is to adopt
 something like Lisp as my preferred application programming language.
-I\'d been considering different options for a bit and was generally
+I'd been considering different options for a bit and was generally
 strongly drawn to a language that offered some level of
 [homoiconicity](https://en.wikipedia.org/wiki/Homoiconicity "Homoiconicity - Wikipedia"){atime="2024-04-06"}
 (for basic desires such as more natural encoding of data structures and
@@ -82,31 +82,13 @@ struggle to represent a wide range of data types and semantics over
 portable formats such as
 [YAML](https://yaml.org "The Official YAML Web Site"){atime="2024-04-17"}.
 
-For systems programming I\'m currently gravitating towards
-[Rust](https://en.wikipedia.org/wiki/Rust_(programming_language) "Rust (programming language) - Wikipedia"){atime="2024-04-17"}.
-I first dabbled with Rust a few years ago and found the language
-generally very appealing, but the Rust compiler is also relatively large
-and so I instead wanted to bolster my low-level knowledge with tools I
-could understand more completely and feasibly bootstrap. The confluence
-of reading an article about [provable correctness with
-SPARK](https://cacm.acm.org/research/co-developing-programs-and-their-proof-of-correctness/ "Co-Developing Programs and Their Proof of Correctness – Communications of the ACM"){atime="2024-04-14"},
-(which mentions Rust), a general fondness for the declarative nature of
-Rust\'s ownership model, the recognition that smaller compilers tend to
-also result in less helpful feedback, and Rust popping up for a project
-at work has pushed me into taking a deeper plunge regardless of the
-size. I may still have an interest in alternatives such as Zig, but Rust
-has popularity in its favor.
-
-I do have some concerns around some of the recent supposed missteps over
-[their intellectual
-property](https://www.theregister.com/2023/04/17/rust_foundation_apologizes_trademark_policy "Rust Foundation apologizes for trademark policy confusion • The Register"){atime="2024-04-18"}
-but for the time being I\'ll optimistically trust those to work out (and
-be ready to pivot if they don\'t).
-
-I\'ll also be more clearly defining my perceived boundary and
+I'll also be more clearly defining my perceived boundary and
 relationship between systems and application programming since I\'m
 leaning towards more distinct roles than what are typically designated.
+
+## Sub-Pages
 
 - [Bash](bash)
 - [C](c)
 - [Perl](perl)
+- [Rust](rust)

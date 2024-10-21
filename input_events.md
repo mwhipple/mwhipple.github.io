@@ -4,8 +4,8 @@ title: Input Events
 
 - [Up to Software](software)
 
-- a OOOOR 04 self-insert
-- b OOLOM 05 self-insert
+- `a` OOOOR 04 self-insert
+- `b` OOLOM 05 self-insert
 - c OMROO 06 self-insert
 - d OMOOR 07 self-insert
 - e OOMOO 08 self-insert
@@ -33,12 +33,13 @@ title: Input Events
 - <space> OMOOO
 - <backspace> OROOO
 - TAB OLOOO
-- | OORMR
+- `|` OORMR
 - - OMMOM
 - ? OLLMO
 - / OOLOR
 - * OOMRR 
-- . OLLOO
+- `.` OLLOO
+- `@` OLMOL
 
 - <down> NA OOOM
 - <up> NA OMOO
