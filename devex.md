@@ -61,8 +61,9 @@ culture).
 
 As is typical [agile](agile) guidance but particularly in light of some of the above such efforts
 should also be incremental, calibrated to the size of the target environment, and driven by
-defined performance indicators rather than assumptions. This can drive ongoing delivery of
-functionality where it is most beneficial while blazing a reinforced trail
+defined performance indicators rather than assumptions, all of which should be
+[continuously gauged](https://www.infoq.com/articles/platform-engineering-developer-experience/ "Curating Developer Experience: Practical Insights from Building a Platform Team - InfoQ"){atime="2024-10-21"}
+This can drive ongoing delivery of functionality where it is most beneficial while blazing a reinforced trail
 to a more comprehensive
 [runtime](https://www.infoq.com/articles/platform-runtime-engineering/ "Platform as a Runtime - the Next Step in Platform Engineering - InfoQ"){atime="2024-06-28"}.
 

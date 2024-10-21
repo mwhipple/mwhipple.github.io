@@ -17,3 +17,14 @@ and modularity, but namespace is used to refer to the simple foundation.
 The `namespace` keyword followed by the `::` delimited path of the namespace
 is used to add definitions to the indicated namespace (which can subsequently
 be accessed using their paths absolutely or byby using a relative namespace).
+
+## Haskell
+
+Namespaces are defined using modules for which declarations are added by enclosing
+contents within a construct of the form:
+
+```
+module <name> where
+```
+
+where `where` provides latent declaration behavior analogous to its use elsewhere.
